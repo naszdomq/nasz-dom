@@ -312,6 +312,26 @@
   .cl-empty .ico{width:72px;height:72px;border-radius:22px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin:0 auto 14px}
   .cl-empty b{display:block;color:var(--text);font-size:18px;margin-bottom:6px}
   .cl-hint{display:flex;align-items:center;gap:10px;background:var(--accent-soft);color:#0F766E;border-radius:14px;padding:10px 14px;font-size:14px;font-weight:600;margin:0 0 14px}
+  .cl-tools{display:flex;align-items:center;gap:8px;margin:0 0 14px;position:relative}
+  .sort-btn{display:flex;align-items:center;gap:8px;height:42px;padding:0 14px;border-radius:14px;background:var(--card);box-shadow:var(--shadow);
+            font-weight:700;font-size:14px;color:var(--text)}
+  .sort-btn.active{background:var(--fc);color:#fff}
+  .sort-btn .x{margin-left:2px;opacity:.85}
+  .sort-menu{position:absolute;top:48px;left:0;z-index:15;background:var(--card);border-radius:16px;box-shadow:0 12px 32px rgba(20,22,31,.18);
+             padding:6px;min-width:220px;animation:pop .18s}
+  .sort-menu button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border-radius:12px;font-weight:600;font-size:15px;text-align:left}
+  .sort-menu button:active,.sort-menu button.on{background:#F0F1F5}
+  .sort-menu .ck{margin-left:auto;color:var(--accent);font-weight:800}
+  .sort-menu .lbl2{font-size:11.5px;font-weight:800;letter-spacing:.07em;color:var(--muted);padding:8px 12px 4px;text-transform:uppercase}
+  .cl-tools .month-open{margin-left:auto;display:flex;align-items:center;gap:6px;height:42px;padding:0 14px;border-radius:14px;background:var(--accent-soft);
+            color:var(--accent);font-weight:700;font-size:14px}
+  .filter-note{font-size:13px;color:var(--muted);margin:-6px 4px 12px}
+  .until-box{margin-top:12px;padding:14px;border-radius:16px;background:#F7F8FB;animation:pop .2s}
+  .until-box .lbl{margin-top:0!important}
+  .until-quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .until-quick button{padding:8px 12px;border-radius:999px;background:#fff;border:1.5px solid var(--line);font-weight:600;font-size:13.5px}
+  .until-quick button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+  .until-sum{font-size:13.5px;color:var(--accent);font-weight:700;margin-top:10px}
   .past-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px 6px;color:var(--muted);font-weight:700;font-size:14px;margin-top:10px}
   .past .ev{opacity:.6}
   /* Arkusz z miesiącem */
@@ -587,7 +607,7 @@
         <button class="btn danger" id="logoutBtn">Wyloguj z tego telefonu</button>
       </div>
     </div>
-    <div class="version">Nasz Dom · wersja 2.5</div>
+    <div class="version">Nasz Dom · wersja 2.6</div>
   </main>
 
   <button class="fab" id="fab" aria-label="Dodaj">
@@ -653,7 +673,7 @@
 <!-- ========== ARKUSZ: KALENDARZ MIESIĘCZNY ========== -->
 <div class="sheet" id="monthSheet" role="dialog" aria-modal="true">
   <div class="grab"></div>
-  <div class="ms-head"><h3>Kalendarz</h3><button class="ms-x" id="msClose" aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="ms-head"><h3 id="msTitle">Kalendarz</h3><button class="ms-x" id="msClose" aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div id="monthBody"></div>
 </div>
 
@@ -673,6 +693,18 @@
     <div class="seg colors" id="eCat"></div>
     <label class="lbl">Powtarzaj</label>
     <div class="seg" id="eRep"></div>
+    <div class="until-box hidden" id="eUntilBox">
+      <label class="lbl">Powtarzaj do kiedy</label>
+      <input class="field" id="eUntil" type="date">
+      <div class="until-quick" id="eUntilQuick">
+        <button type="button" data-u="">Bez końca</button>
+        <button type="button" data-u="3">+3 mies.</button>
+        <button type="button" data-u="6">+6 mies.</button>
+        <button type="button" data-u="12">+1 rok</button>
+        <button type="button" data-u="eoy">Do końca roku</button>
+      </div>
+      <div class="until-sum" id="eUntilSum"></div>
+    </div>
     <label class="lbl">Notatka</label>
     <textarea class="field" id="eNote" placeholder="Adres, co zabrać… (opcjonalnie)" maxlength="1000"></textarea>
     <div class="sheet-actions">
@@ -881,6 +913,7 @@ function setTab(t){
   $("#calView").classList.toggle("hidden", !isCal);
   $("#fab").classList.toggle("hidden", isSet);
   $("#calBtn").classList.toggle("hidden", !isCal);
+  if (isCal) { calFilter = ""; sortOpen = false; }
   if (isCal) { const d = new Date(); $("#cbM").textContent = ["STY","LUT","MAR","KWI","MAJ","CZE","LIP","SIE","WRZ","PAŹ","LIS","GRU"][d.getMonth()]; $("#cbD").textContent = d.getDate(); }
   showDone = false;
   if (isSet) renderSettings();
@@ -1647,6 +1680,7 @@ function holidays(y){
 function occurs(ev, day){
   if (ev.date === day) return true;
   if (!ev.repeat || day < ev.date) return false;
+  if (ev.until && day > ev.until) return false;
   const a = parseDs(ev.date), b = parseDs(day);
   if (ev.repeat === "week")  return Math.round((b - a) / 864e5) % 7 === 0;
   if (ev.repeat === "month") return a.getDate() === b.getDate();
@@ -1656,7 +1690,7 @@ function occurs(ev, day){
 function dayEntries(day){
   const out = [];
   const hol = holidays(+day.slice(0,4))[day]; if (hol) out.push({ kind:"hol", title:hol });
-  events.filter(e => occurs(e, day)).forEach(e => out.push({ kind:"ev", ev:e, time:e.time || "", c:(EVC[e.cat]||EVC.inne).c }));
+  events.filter(e => passF(e) && occurs(e, day)).forEach(e => out.push({ kind:"ev", ev:e, time:e.time || "", c:(EVC[e.cat]||EVC.inne).c }));
   return out.sort((x,y) => (x.kind==="hol" ? -1 : 0) - (y.kind==="hol" ? -1 : 0) || (x.time||"").localeCompare(y.time||"") || (x.kind==="task") - (y.kind==="task"));
 }
 function relDay(day){
@@ -1674,7 +1708,7 @@ function evCard(x){
   return `<button class="ev" style="--c:${cat.c}" data-ev="${e.id}">
     <span class="tm">${e.time ? esc(e.time) : "<small>cały<br>dzień</small>"}</span>
     <span class="bd"><b>${esc(e.title)}</b>${e.note ? `<p>${esc(e.note)}</p>` : ""}
-      <span class="tags"><span class="tag">${cat.n}</span>${e.repeat && EVREP[e.repeat] ? `<span class="tag g">↻ ${EVREP[e.repeat].toLowerCase()}</span>` : ""}
+      <span class="tags"><span class="tag">${cat.n}</span>${repTag(e)}
       <span class="tag g">${avatarHTML(e.createdBy,"av-xs")} ${esc(e.createdBy||"")}</span></span></span></button>`;
 }
 /* Najbliższe wystąpienie wydarzenia od danego dnia (dla powtarzających się) */
@@ -1682,19 +1716,23 @@ function nextOcc(ev, from){
   if (!ev.repeat) return ev.date;
   if (ev.date >= from) return ev.date;
   const d = parseDs(from);
-  for (let i = 0; i < 400; i++) { const x = ds(d); if (occurs(ev, x)) return x; d.setDate(d.getDate()+1); }
+  for (let i = 0; i < 400; i++) { const x = ds(d); if (ev.until && x > ev.until) return null; if (occurs(ev, x)) return x; d.setDate(d.getDate()+1); }
   return null;
 }
-let showPast = false;
+let showPast = false, calFilter = "", sortOpen = false;
+const FILTERS = { "":"Wszystko", natalka:"Natalka", maciek:"Maciek" };
+const passF = e => !calFilter || e.cat === calFilter;
 function listCard(e, day){
   const cat = EVC[e.cat] || EVC.inne;
   const fresh = e.createdBy && e.createdBy !== me && seenAtEnter && (toDate(e.createdAt)?.getTime() || 0) > seenAtEnter;
   return `<button class="ev ${fresh ? "fresh" : ""}" style="--c:${cat.c}" data-ev="${e.id}">${fresh ? `<span class="ev-new">NOWE</span>` : ""}
     <span class="tm">${e.time ? esc(e.time) : "<small>cały<br>dzień</small>"}</span>
     <span class="bd"><span class="when">${relDay(day)}</span><b>${esc(e.title)}</b>${e.note ? `<p>${esc(e.note)}</p>` : ""}
-      <span class="tags"><span class="tag">${cat.n}</span>${e.repeat && EVREP[e.repeat] ? `<span class="tag g">↻ ${EVREP[e.repeat].toLowerCase()}</span>` : ""}
+      <span class="tags"><span class="tag">${cat.n}</span>${repTag(e)}
       <span class="tag g">${avatarHTML(e.createdBy,"av-xs")} ${esc(e.createdBy||"")}</span></span></span></button>`;
 }
+const fmtD = s => s ? s.split("-").reverse().join(".") : "";
+function repTag(e){ return e.repeat && EVREP[e.repeat] ? `<span class="tag g">↻ ${EVREP[e.repeat].toLowerCase()}${e.until ? " · do " + fmtD(e.until) : ""}</span>` : ""; }
 function dayBlock(day, list, cls = ""){
   const d = parseDs(day), t = today(), tm = ds(new Date(Date.now() + 864e5));
   return `<div class="cl-day ${cls}"><div class="cl-date ${day===t?"today":day===tm?"tom":""}"><b>${d.getDate()}</b><span>${WD3[d.getDay()]}</span><span>${MON3[d.getMonth()]}</span></div>
@@ -1703,13 +1741,24 @@ function dayBlock(day, list, cls = ""){
 /* GŁÓWNY WIDOK: lista wydarzeń od najbliższego do najdalszego */
 function renderCalendar(){
   const t = today();
-  const up = events.map(e => ({ e, d: nextOcc(e, t) })).filter(x => x.d && x.d >= t)
+  const evs = events.filter(passF);
+  const up = evs.map(e => ({ e, d: nextOcc(e, t) })).filter(x => x.d && x.d >= t)
                    .sort((a,b) => a.d.localeCompare(b.d) || (a.e.time||"").localeCompare(b.e.time||""));
-  const past = events.filter(e => !e.repeat && e.date < t).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 30);
-  $("#hSub").textContent = up.length ? `${up.length} ${up.length===1?"nadchodzące wydarzenie":"nadchodzących wydarzeń"} · wspólny` : "Wspólny kalendarz";
-  let h = `<div class="cl-hint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
-           Stuknij kalendarzyk w prawym górnym rogu, aby zobaczyć cały miesiąc</div>`;
-  if (!up.length) h += `<div class="cl-empty"><div class="ico"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></div>
+  const past = evs.filter(e => !e.repeat && e.date < t).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 30);
+  $("#hSub").textContent = up.length ? `${up.length} ${up.length===1?"nadchodzące wydarzenie":"nadchodzących wydarzeń"}${calFilter ? " · " + FILTERS[calFilter] : " · wszystkie"}` : "Wspólny kalendarz";
+  const fc = calFilter ? EVC[calFilter].c : "#14161F";
+  let h = `<div class="cl-tools" style="--fc:${fc}">
+      <button class="sort-btn ${calFilter ? "active" : ""}" data-cal="sort">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+        ${calFilter ? `Tylko: ${FILTERS[calFilter]} <span class="x" data-cal="clear">✕</span>` : "Sortuj po osobie"}</button>
+      <button class="month-open" data-cal="month"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Miesiąc</button>
+      ${sortOpen ? `<div class="sort-menu"><div class="lbl2">Pokaż wydarzenia</div>
+        ${Object.entries(FILTERS).map(([k,v]) => `<button class="${k===calFilter?"on":""}" data-filter="${k}">
+          ${k ? `<i style="width:12px;height:12px;border-radius:50%;background:${EVC[k].c}"></i>` : `<i style="width:12px;height:12px;border-radius:50%;background:conic-gradient(#D97706,#DB2777,#2563EB,#7C3AED,#0D9488,#D97706)"></i>`}
+          ${k ? "Dla: " + v : "Wszystkie"}${k===calFilter ? '<span class="ck">✓</span>' : ""}</button>`).join("")}</div>` : ""}
+    </div>`;
+  if (!up.length && calFilter) h += `<div class="cl-empty"><b>Brak wydarzeń dla: ${FILTERS[calFilter]}</b>Zmień filtr albo dodaj wydarzenie przyciskiem +.</div>`;
+  else if (!up.length) h += `<div class="cl-empty"><div class="ico"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></div>
         <b>Brak zaplanowanych wydarzeń</b>Dotknij <b style="display:inline">+</b> albo otwórz kalendarzyk, aby coś dodać.</div>`;
   let lastMonth = "", i = 0;
   while (i < up.length) {
@@ -1759,14 +1808,20 @@ function renderMonth(){
     ${selReal.length ? selReal.map(evCard).join("") : `<div class="ag-empty">Wolny dzień. Stuknij <b>+ Dodaj</b>, aby wpisać wydarzenie na ${sel.getDate()} ${MON3[sel.getMonth()].toLowerCase()}.</div>`}
   </section>`;
 }
-function openMonth(){ calSel = calSel || today(); renderMonth(); openLayer("#monthSheet"); }
+function openMonth(){ calSel = calSel || today(); sortOpen = false; $("#msTitle").textContent = calFilter ? `Kalendarz · ${FILTERS[calFilter]}` : "Kalendarz"; renderMonth(); openLayer("#monthSheet"); }
 $("#calBtn").addEventListener("click", openMonth);
 $("#msClose").addEventListener("click", closeSheets);
 function calClick(e){
+  const fb = e.target.closest("[data-filter]");
+  if (fb) { calFilter = fb.dataset.filter; sortOpen = false; renderCalendar(); if (navigator.vibrate) navigator.vibrate(8); return; }
+  if (sortOpen && !e.target.closest(".sort-menu,[data-cal=sort]")) { sortOpen = false; renderCalendar(); }
   const c = e.target.closest("[data-cal]"), d = e.target.closest("[data-d]"), ev = e.target.closest("[data-ev]");
   if (c) {
     const a = c.dataset.cal;
     if (a === "past") { showPast = !showPast; renderCalendar(); return; }
+    if (a === "clear") { e.stopPropagation(); calFilter = ""; sortOpen = false; renderCalendar(); return; }
+    if (a === "sort") { sortOpen = !sortOpen; renderCalendar(); return; }
+    if (a === "month") { openMonth(); return; }
     if (a === "prev") calMonth.setMonth(calMonth.getMonth()-1);
     else if (a === "next") calMonth.setMonth(calMonth.getMonth()+1);
     else if (a === "today") { calMonth = new Date(); calMonth.setDate(1); calSel = today(); }
@@ -1795,7 +1850,8 @@ function openEvSheet(ev, day){
   $("#evTitle").textContent = ev ? "Edytuj wydarzenie" : "Nowe wydarzenie";
   $("#eTitle").value = ev?.title || ""; $("#eNote").value = ev?.note || "";
   $("#eDate").value = ev?.date || day || today(); $("#eTime").value = ev?.time || "";
-  evForm.cat = ev?.cat || (me === "Natalka" ? "wspolne" : "wspolne"); evForm.rep = ev?.repeat || ""; evForm.all = !ev?.time;
+  evForm.cat = ev?.cat || (calFilter || "wspolne"); evForm.rep = ev?.repeat || ""; evForm.all = !ev?.time;
+  $("#eUntil").value = ev?.until || ""; untilUI();
   $("#eCat").innerHTML = Object.entries(EVC).map(([k,v]) => `<button type="button" style="--c:${v.c}" class="${k===evForm.cat?"on":""}" data-c="${k}"><i style="background:${v.c}"></i>${v.n}</button>`).join("");
   $("#eRep").innerHTML = Object.entries(EVREP).map(([k,v]) => `<button type="button" class="${k===evForm.rep?"on":""}" data-r="${k}">${v}</button>`).join("");
   $("#eAll").classList.toggle("on", evForm.all); $("#eTime").classList.toggle("hidden", evForm.all);
@@ -1805,7 +1861,34 @@ function openEvSheet(ev, day){
   if (!ev) setTimeout(() => $("#eTitle").focus(), 280);
 }
 $("#eCat").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; evForm.cat = b.dataset.c; [...$("#eCat").children].forEach(x => x.classList.toggle("on", x === b)); });
-$("#eRep").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; evForm.rep = b.dataset.r; [...$("#eRep").children].forEach(x => x.classList.toggle("on", x === b)); });
+$("#eRep").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; evForm.rep = b.dataset.r; [...$("#eRep").children].forEach(x => x.classList.toggle("on", x === b)); untilUI(); });
+/* „Powtarzaj do kiedy” — pokazuje się tylko przy powtarzaniu */
+function countOcc(){
+  const st = $("#eDate").value, un = $("#eUntil").value; if (!st || !un || !evForm.rep) return 0;
+  const tmp = { date:st, repeat:evForm.rep, until:un }; let n = 0; const d = parseDs(st);
+  for (let i = 0; i < 1500 && ds(d) <= un; i++) { if (occurs(tmp, ds(d))) n++; d.setDate(d.getDate()+1); }
+  return n;
+}
+function untilUI(){
+  const box = $("#eUntilBox"); box.classList.toggle("hidden", !evForm.rep);
+  if (!evForm.rep) return;
+  const u = $("#eUntil").value, st = $("#eDate").value;
+  $("#eUntil").min = st || "";
+  [...$("#eUntilQuick").children].forEach(b => b.classList.toggle("on", b.dataset.u === "" && !u));
+  $("#eUntilSum").textContent = !u ? `Powtarza się ${EVREP[evForm.rep].toLowerCase()} bez końca`
+    : u < st ? "⚠ Data końca jest wcześniejsza niż data wydarzenia"
+    : `${EVREP[evForm.rep]} do ${fmtD(u)} · razem ${countOcc()} ${countOcc()===1?"raz":"razy"}`;
+}
+$("#eUntil").addEventListener("change", untilUI);
+$("#eDate").addEventListener("change", untilUI);
+$("#eUntilQuick").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const base = parseDs($("#eDate").value || today()), k = b.dataset.u;
+  if (!k) $("#eUntil").value = "";
+  else if (k === "eoy") $("#eUntil").value = `${base.getFullYear()}-12-31`;
+  else { base.setMonth(base.getMonth() + Number(k)); $("#eUntil").value = ds(base); }
+  untilUI();
+});
 $("#eAllRow").addEventListener("click", () => {
   evForm.all = !evForm.all; $("#eAll").classList.toggle("on", evForm.all); $("#eTime").classList.toggle("hidden", evForm.all);
   if (!evForm.all && !$("#eTime").value) $("#eTime").value = "12:00";
@@ -1813,7 +1896,9 @@ $("#eAllRow").addEventListener("click", () => {
 $("#evForm").addEventListener("submit", e => {
   e.preventDefault();
   const title = $("#eTitle").value.trim(), date = $("#eDate").value; if (!title || !date) return;
-  const data = { title, date, time: evForm.all ? "" : ($("#eTime").value || ""), cat: evForm.cat, repeat: evForm.rep,
+  const until = evForm.rep ? ($("#eUntil").value || "") : "";
+  if (until && until < date) { toast("Data „do kiedy” musi być po dacie wydarzenia"); return; }
+  const data = { title, date, time: evForm.all ? "" : ($("#eTime").value || ""), cat: evForm.cat, repeat: evForm.rep, until,
                  note: $("#eNote").value.trim(), updatedAt: serverTimestamp(), updatedBy: me };
   closeSheets();
   calSel = date; const d = parseDs(date); calMonth = new Date(d.getFullYear(), d.getMonth(), 1);
