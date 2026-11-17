@@ -6,12 +6,12 @@
 // ================================================================
 
 const firebaseConfig = {
-  apiKey: "WKLEJ_TUTAJ",
-  authDomain: "WKLEJ_TUTAJ",
-  projectId: "WKLEJ_TUTAJ",
-  storageBucket: "WKLEJ_TUTAJ",
-  messagingSenderId: "WKLEJ_TUTAJ",
-  appId: "WKLEJ_TUTAJ"
+  apiKey: "AIzaSyBr0o7MtYClzFOZ5mY38jogxH0x1lsaHo8",
+  authDomain: "nasz-dom-cbfcf.firebaseapp.com",
+  projectId: "nasz-dom-cbfcf",
+  storageBucket: "nasz-dom-cbfcf.firebasestorage.app",
+  messagingSenderId: "924129881281",
+  appId: "1:924129881281:web:20ab37a1ab293bdd243840"
 };
 
 export default firebaseConfig;
