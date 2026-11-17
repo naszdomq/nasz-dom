@@ -96,7 +96,7 @@
   .pchip.on .dot{background:#22C55E;animation:pulse 2s infinite}
   .pchip .txt{min-width:0;display:flex;align-items:baseline;gap:6px;white-space:nowrap;overflow:hidden}
   .pchip b{font-size:13.5px;flex-shrink:0}
-  .pchip small{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis}
+  .pchip small{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;font-weight:600}
   .pchip.on small{color:#16A34A;font-weight:800;font-size:10.5px}
   .pchip.typing small{color:#2563EB;font-weight:700;letter-spacing:0}
   header.compact{padding-top:calc(8px + var(--safe-t));padding-bottom:8px;box-shadow:0 1px 0 var(--line)}
@@ -127,7 +127,7 @@
   .chat-h small.typ{color:#2563EB;font-weight:700}
   .msgs{flex:1;overflow-y:auto;padding:12px 12px 10px;display:flex;flex-direction:column;gap:3px;-webkit-overflow-scrolling:touch}
   .day{align-self:center;font-size:12px;font-weight:600;color:var(--muted);background:#DFE2EA;padding:4px 11px;border-radius:999px;margin:12px 0 8px}
-  .bub{max-width:80%;padding:8px 12px 5px;border-radius:19px;font-size:16px;line-height:1.35;white-space:pre-wrap;word-wrap:break-word;
+  .bub-unused{max-width:80%;padding:8px 12px 5px;border-radius:19px;font-size:16px;line-height:1.35;white-space:pre-wrap;word-wrap:break-word;
        box-shadow:0 1px 1px rgba(0,0,0,.05);animation:pop .2s ease}
   .bub.me{align-self:flex-end;color:#fff;border-bottom-right-radius:6px;background:#2563EB}
   .bub.me.from-Natalka{background:#DB2777}
@@ -172,7 +172,11 @@
   main{padding:6px 16px calc(var(--nav-h) + var(--safe-b) + 110px);max-width:640px;margin:0 auto}
   .list{display:flex;flex-direction:column;gap:10px}
   .item{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);display:flex;align-items:flex-start;
-        padding:6px 2px 6px 4px;position:relative;overflow:hidden;animation:pop .22s ease}
+        padding:6px 2px 6px 4px;position:relative;overflow:hidden;transition:background .4s,box-shadow .4s}
+  .enter{animation:pop .25s ease}
+  .item.fresh{background:linear-gradient(135deg,#ECFDF5,#F0F9FF);box-shadow:0 0 0 1.5px #6EE7B7,0 6px 18px rgba(16,185,129,.14)}
+  .item.fresh .title{color:#065F46}
+  .chip.new{background:#10B981;color:#fff}
   @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
   .check{width:52px;height:52px;flex-shrink:0;display:grid;place-items:center}
   .check span{width:28px;height:28px;border-radius:50%;border:2.2px solid #C7C9D3;display:grid;place-items:center;transition:all .15s}
@@ -191,7 +195,6 @@
   .chip.cat{background:var(--accent-soft);color:var(--accent)}
   .chip.overdue{background:var(--danger);color:#fff}
   .chip.soon{background:#FEF3C7;color:#B45309}
-  .chip.new{background:#16A34A;color:#fff}
   nav .badge.newdot{background:#16A34A}
   .meta{font-size:12px;color:#9A9EAC;margin-top:8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 
@@ -263,7 +266,7 @@
   .ag-head .add{margin-left:auto;padding:10px 14px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:14px;flex-shrink:0}
   .holiday{display:flex;align-items:center;gap:8px;background:#FEF2F2;color:#B91C1C;border-radius:14px;padding:10px 14px;font-weight:600;font-size:14px;margin-bottom:10px}
   .ev{display:flex;gap:12px;background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:12px 14px 12px 0;position:relative;overflow:hidden;
-      text-align:left;width:100%;margin-bottom:10px;animation:pop .2s}
+      text-align:left;width:100%;margin-bottom:10px}
   .ev::before{content:"";width:5px;align-self:stretch;background:var(--c);border-radius:0 4px 4px 0;flex-shrink:0}
   .ev .tm{width:54px;flex-shrink:0;font-weight:800;font-size:16px;color:var(--c);padding-top:1px}
   .ev .tm small{display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase}
@@ -273,6 +276,8 @@
   .ev .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
   .ev .tag{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--c) 14%,#fff);color:var(--c)}
   .ev .tag.g{background:#F0F1F5;color:#4B5060}
+  .ev.fresh{background:linear-gradient(135deg,#ECFDF5,#F0F9FF);box-shadow:0 0 0 1.5px #6EE7B7,0 6px 18px rgba(16,185,129,.14)}
+  .ev-new{position:absolute;top:10px;right:12px;font-size:10px;font-weight:800;letter-spacing:.06em;color:#fff;background:#10B981;border-radius:999px;padding:2px 8px}
   .ev.task{border:1.5px dashed #D5D7DF;box-shadow:none;background:#FCFCFD}
   .ag-empty{text-align:center;color:var(--muted);padding:22px 10px;background:var(--card);border-radius:16px;border:1.5px dashed var(--line);font-size:15px}
   .up-day{display:flex;gap:12px;margin-bottom:14px}
@@ -326,6 +331,29 @@
   .msgpop span.t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
   .msgpop b{font-weight:700}
 
+  /* Pasek GRAFIK w zakładce Maciek */
+  .gf-bar{display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin:2px 0 14px;padding:12px 14px;border-radius:18px;color:#fff;
+          background:linear-gradient(135deg,#2563EB,#1D4ED8);box-shadow:0 8px 20px rgba(37,99,235,.28)}
+  .gf-bar:active{transform:scale(.985)}
+  .gf-ico{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.18);display:grid;place-items:center;flex-shrink:0}
+  .gf-txt{flex:1;min-width:0}
+  .gf-txt b{display:block;font-size:16px;letter-spacing:.12em;font-weight:800}
+  .gf-txt small{display:block;font-size:12.5px;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .gf-go{font-weight:700;font-size:14px;background:#fff;color:#1D4ED8;padding:8px 12px;border-radius:12px;flex-shrink:0}
+  /* Podgląd pliku */
+  .viewer{position:fixed;inset:0;z-index:85;background:#0B0D14;color:#fff;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .2s}
+  .viewer.show{opacity:1;pointer-events:auto}
+  .v-head{display:flex;align-items:center;gap:10px;padding:calc(10px + var(--safe-t)) 10px 10px}
+  .v-title{flex:1;min-width:0;text-align:center}
+  .v-title b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .v-title small{display:block;font-size:12px;color:#9CA3AF}
+  .v-btn{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);display:grid;place-items:center;color:#fff;flex-shrink:0}
+  .v-body{--z:1;flex:1;overflow:auto;-webkit-overflow-scrolling:touch;padding:8px;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+  .v-page{display:block;width:calc((100vw - 16px) * var(--z));max-width:none;height:auto;background:#fff;border-radius:6px;margin:0 auto;flex-shrink:0}
+  .v-msg{margin:auto;text-align:center;color:#D1D5DB;padding:30px;line-height:1.6}
+  .v-zoom{display:flex;align-items:center;justify-content:center;gap:18px;padding:10px 0 calc(12px + var(--safe-b))}
+  .v-zoom span{font-weight:700;min-width:54px;text-align:center}
+
   /* Przeciągnij, aby odświeżyć */
   #ptr{position:fixed;left:50%;top:calc(var(--safe-t) + 6px);z-index:40;width:42px;height:42px;margin-left:-21px;border-radius:50%;background:#fff;
        box-shadow:0 4px 14px rgba(0,0,0,.15);display:grid;place-items:center;color:var(--accent);transform:translateY(-70px);opacity:0;pointer-events:none}
@@ -338,18 +366,21 @@
   .fab:active{transform:scale(.92)}
 
   /* ---------- Radio ---------- */
-  .radio-pill{position:fixed;left:16px;bottom:calc(var(--nav-h) + var(--safe-b) + 22px);z-index:25;height:52px;border-radius:26px;
-              background:var(--card);box-shadow:0 6px 22px rgba(20,22,31,.14);display:flex;align-items:center;padding:4px;
-              max-width:calc(100% - 120px)}
-  .radio-toggle{width:44px;height:44px;border-radius:50%;background:var(--text);color:#fff;display:grid;place-items:center;flex-shrink:0}
+  .topbar{display:flex;justify-content:center;margin:-4px 0 8px}
+  .radio-pill{height:32px;border-radius:16px;background:var(--card);box-shadow:0 2px 8px rgba(20,22,31,.08);display:flex;align-items:center;
+              padding:3px;max-width:230px;border:1px solid var(--line)}
+  .radio-toggle{width:26px;height:26px;border-radius:50%;background:var(--text);color:#fff;display:grid;place-items:center;flex-shrink:0}
+  .radio-toggle svg{width:12px;height:12px}
+  header.compact .topbar{margin-bottom:6px}
   .radio-pill.on .radio-toggle{background:var(--danger)}
-  .radio-label{display:flex;align-items:center;gap:8px;padding:0 6px 0 10px;min-width:0;height:44px;font-weight:600;font-size:14px}
+  .radio-label{display:flex;align-items:center;gap:6px;padding:0 8px 0 8px;min-width:0;height:26px;font-weight:600;font-size:12.5px}
+  .radio-label > svg{width:13px;height:13px}
   .radio-label span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .radio-label svg{flex-shrink:0;color:var(--muted)}
-  .eq{display:none;align-items:flex-end;gap:2px;height:14px;flex-shrink:0}
+  .eq{display:none;align-items:flex-end;gap:2px;height:12px;flex-shrink:0}
   .eq i{width:3px;background:var(--danger);border-radius:2px;animation:eq 1s ease-in-out infinite}
   .eq i:nth-child(2){animation-delay:.2s}.eq i:nth-child(3){animation-delay:.4s}
-  @keyframes eq{0%,100%{height:4px}50%{height:14px}}
+  @keyframes eq{0%,100%{height:3px}50%{height:12px}}
   .radio-pill.on .eq{display:flex}
   .radio-pill.loading .eq{display:none}
   .radio-pill.loading .radio-toggle svg{animation:spin .8s linear infinite}
@@ -456,6 +487,16 @@
 <!-- ========== APLIKACJA ========== -->
 <section id="scrApp" class="hidden">
   <header>
+    <div class="topbar">
+      <div class="radio-pill" id="radioPill">
+        <button class="radio-toggle" id="radioToggle" aria-label="Włącz / wyłącz radio"></button>
+        <button class="radio-label" id="radioPick" aria-label="Wybierz stację">
+          <span class="eq"><i></i><i></i><i></i></span>
+          <span id="radioName">Radio</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </div>
+    </div>
     <div class="hrow">
       <div style="min-width:0">
         <h2 id="hTitle">Diego</h2>
@@ -468,12 +509,8 @@
       </div>
     </div>
     <div class="pbar">
-      <button class="pchip" data-pres="Natalka"></button>
-      <button class="pchip" data-pres="Maciek"></button>
-      <button class="chat-btn" id="chatBtn" aria-label="Czat">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12z"/></svg>
-        <span class="cbadge hidden" id="chatBadge"></span>
-      </button>
+      <div class="pchip" data-pres="Natalka"></div>
+      <div class="pchip" data-pres="Maciek"></div>
     </div>
   </header>
 
@@ -510,8 +547,26 @@
     </div>
 
     <div class="card">
+      <h4>Grafik Maćka</h4>
+      <p class="desc" id="gfInfo">Zdjęcie lub PDF grafiku. Widać go w zakładce Maciek pod przyciskiem GRAFIK.</p>
+      <div class="stack">
+        <button class="btn accent" id="gfUp" style="background:#2563EB">⬆ Wgraj plik</button>
+        <button class="btn soft" id="gfShow">👁 Pokaż aktualny grafik</button>
+        <button class="btn danger" id="gfDel">🗑 Usuń aktualny grafik</button>
+      </div>
+      <input type="file" id="gfFile" accept="image/*,application/pdf,.pdf,.doc,.docx,.xls,.xlsx" class="hidden">
+    </div>
+
+    <div class="card">
+      <h4>Kosz — ostatnio usunięte</h4>
+      <p class="desc">Usunięte wpisy i wydarzenia czekają tu 30 dni. Jednym stuknięciem przywrócisz je na miejsce.</p>
+      <div id="trashList"><div class="loader"></div></div>
+    </div>
+
+    <div class="card">
       <h4>Kopie zapasowe</h4>
-      <p class="desc">Kopia robi się sama raz dziennie. Trzymamy 30 ostatnich. Możesz też zapisać kopię jako plik na telefonie.</p>
+      <p class="desc">Kopia całej bazy robi się <b>sama</b> co najmniej raz dziennie i dodatkowo przed każdym przywracaniem. Trzymamy 30 ostatnich. W każdej chwili możesz zrobić własną kopię lub zapisać ją jako plik na telefonie.</p>
+      <div class="file-pill" id="bkLast" style="margin-bottom:12px">Ostatnia kopia: sprawdzam…</div>
       <div id="bkList"><div class="loader"></div></div>
       <div class="stack" style="margin-top:12px">
         <button class="btn soft" id="bkNow">Zrób kopię teraz</button>
@@ -532,21 +587,13 @@
         <button class="btn danger" id="logoutBtn">Wyloguj z tego telefonu</button>
       </div>
     </div>
-    <div class="version">Nasz Dom · wersja 2.4</div>
+    <div class="version">Nasz Dom · wersja 2.5</div>
   </main>
 
   <button class="fab" id="fab" aria-label="Dodaj">
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
   </button>
 
-  <div class="radio-pill" id="radioPill">
-    <button class="radio-toggle" id="radioToggle" aria-label="Włącz / wyłącz radio"></button>
-    <button class="radio-label" id="radioPick" aria-label="Wybierz stację">
-      <span class="eq"><i></i><i></i><i></i></span>
-      <span id="radioName">Radio</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>
-    </button>
-  </div>
 
   <nav id="nav">
     <button data-tab="diego"><span class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8.3 6.4C6.6 5.3 4.2 5.9 3.7 8.3c-.5 2.3.5 4.6 2.2 5.3l1.7-2.1"/><path d="M15.7 6.4c1.7-1.1 4.1-.5 4.6 1.9.5 2.3-.5 4.6-2.2 5.3l-1.7-2.1"/><path d="M7.6 10.6c0-3 2-5 4.4-5s4.4 2 4.4 5v3.4c0 3.3-2 5.9-4.4 5.9s-4.4-2.6-4.4-5.9z"/><circle cx="10.1" cy="11.2" r=".9" fill="currentColor" stroke="none"/><circle cx="13.9" cy="11.2" r=".9" fill="currentColor" stroke="none"/><path d="M10.9 14.6h2.2L12 15.9z" fill="currentColor"/><path d="M12 15.9v1.2"/></svg></span>Diego<span class="badge hidden"></span></button>
@@ -558,29 +605,19 @@
   </nav>
 </section>
 
-<!-- ========== CZAT ========== -->
-<div class="overlay" id="chatOverlay"></div>
-<div class="chat" id="chat" role="dialog" aria-label="Czat">
-  <div class="chat-grab" id="chatGrab"><i></i></div>
-  <div class="chat-h">
-    <button class="back" id="chatBack" aria-label="Zamknij"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
-    <span id="chatAv"></span>
-    <div style="min-width:0"><b id="chatName"></b><small id="chatStatus"></small></div>
-    <button class="grow" id="chatGrow" aria-label="Powiększ"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+<!-- ========== PODGLĄD GRAFIKU ========== -->
+<div class="viewer" id="viewer" role="dialog" aria-label="Grafik">
+  <div class="v-head">
+    <button class="v-btn" id="vClose" aria-label="Zamknij"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="v-title"><b id="vName">Grafik</b><small id="vSub"></small></div>
+    <button class="v-btn" id="vOpen" aria-label="Otwórz w nowym oknie"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></button>
   </div>
-  <div class="msgs" id="msgs"></div>
-  <div class="quick" id="quick"></div>
-  <form class="chat-in" id="chatForm">
-    <textarea id="chatText" rows="1" placeholder="Napisz wiadomość…" maxlength="2000" enterkeyhint="send"></textarea>
-    <button class="send" id="sendBtn" type="submit" aria-label="Wyślij" disabled><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4l17.45-7.48a1 1 0 0 0 0-1.84L3.4 3.6a.99.99 0 0 0-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"/></svg></button>
-  </form>
-</div>
-<div class="msgpop" id="msgPop" role="status"><span id="mpAv"></span><span class="t" id="mpText"></span></div>
-<div class="msgbanner hidden" id="msgBanner">
-  <span id="mbAv"></span>
-  <div class="mb-txt"><b id="mbTitle"></b><small id="mbText"></small></div>
-  <button class="mb-open" id="mbOpen">Czytaj</button>
-  <button class="mb-x" id="mbClose" aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="v-body" id="vBody"></div>
+  <div class="v-zoom">
+    <button class="v-btn" id="vOut" aria-label="Pomniejsz"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+    <span id="vZoomTxt">100%</span>
+    <button class="v-btn" id="vIn" aria-label="Powiększ"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+  </div>
 </div>
 
 <!-- ========== ARKUSZ: DODAJ / EDYTUJ ========== -->
@@ -712,7 +749,7 @@ const ICON = {
   load:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9"/></svg>'
 };
 
-let items = [], profiles = {}, unsub = null, unsubProf = null, unsubPres = null, unsubMsg = null;
+let items = [], profiles = {}, unsub = null, unsubProf = null, unsubPres = null, unsubFile = null;
 let profilesResolve; const profilesReady = new Promise(r => profilesResolve = r);
 const OTHER = () => me === "Maciek" ? "Natalka" : "Maciek";
 let tab = localStorage.getItem("tab") || "diego"; if (!TABS[tab]) tab = "diego";
@@ -789,7 +826,6 @@ $("#keypad").addEventListener("click", e => {
 document.querySelectorAll(".who-btn").forEach(b => b.addEventListener("click", () => {
   me = b.dataset.who; localStorage.setItem("who", me); welcomeTried = false;
   if (playing?.kind === "song" && localStorage.getItem("lastWho") !== me) stopAudio();
-  if (unsubMsg) { unsubMsg(); unsubMsg = null; msgsLoaded = false; bannerShown = false; }
   startApp();
 }));
 
@@ -800,7 +836,7 @@ function startProfiles(){
     profiles = {}; s.forEach(d => profiles[d.id] = d.data());
     if (me && profiles[me]) localStorage.setItem("songOnCache:"+me, profiles[me].songOn === false ? "0" : "1");
     profilesResolve();
-    paintAvatars(); render(); renderPresence(); if (chatOpen) renderChat();
+    paintAvatars(); render(); renderPresence();
   }, () => {});
 }
 function startApp(){
@@ -809,7 +845,7 @@ function startApp(){
   ["diego","natalka","maciek","wspolne","kalendarz"].forEach(t => { if (!localStorage.getItem(seenKey(t))) markSeen(t); });
   setTab(tab);
   paintAvatars();
-  startPresence(); startMessages(); startEvents();
+  startPresence(); startEvents(); startFiles();
   if (!welcomeTried) { welcomeTried = true; welcomeSong(); }
   if (unsub) return;
   $("#tasksView").innerHTML = '<div class="loader"></div>';
@@ -822,9 +858,9 @@ function startApp(){
 }
 function stopSync(){
   if (unsub){ unsub(); unsub = null; } if (unsubProf){ unsubProf(); unsubProf = null; }
-  if (unsubPres){ unsubPres(); unsubPres = null; } if (unsubMsg){ unsubMsg(); unsubMsg = null; }
+  if (unsubPres){ unsubPres(); unsubPres = null; } if (unsubFile){ unsubFile(); unsubFile = null; }
   if (unsubEv){ unsubEv(); unsubEv = null; } events = [];
-  clearInterval(hbTimer); msgs = []; msgsLoaded = false; closeChat(true);
+  clearInterval(hbTimer);
   items = []; backupChecked = false;
 }
 
@@ -912,7 +948,8 @@ function render(){
 
   $("#hSub").textContent = open.length ? `${open.length} ${pluralWpis(open.length)} do zrobienia` : "Wszystko zrobione";
 
-  let h = `<section class="pinned">
+  let h = tab === "maciek" ? grafikBar() : "";
+  h += `<section class="pinned">
       <div class="pinned-h"><span>${ICON.starOn.replace('width="24" height="24"','width="18" height="18"')} NAJWAŻNIEJSZE</span>${pinned.length ? `<b>${pinned.length}</b>` : ""}</div>
       ${pinned.length ? `<div class="list">${pinned.map(card).join("")}</div>`
         : `<div class="pinned-empty">Dotknij ☆ przy dowolnej liczbie wpisów, aby przypiąć je tutaj</div>`}
@@ -924,7 +961,9 @@ function render(){
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
       ${showDone ? `<div class="list">${done.map(card).join("")}</div>` : ""}`;
   $("#tasksView").innerHTML = h;
+  firstPaintDone = true;
 }
+const renderedIds = new Set(); let firstPaintDone = false;
 function isNew(i){
   if (i.done || !i.createdBy || i.createdBy === me || !seenAtEnter) return false;
   const c = toDate(i.createdAt); return c && c.getTime() > seenAtEnter;
@@ -938,13 +977,14 @@ function card(i){
     meta = `${avatarHTML(i.createdBy,"av-xs")} ${esc(i.createdBy||"?")} · ${fmtWhen(created)}`;
     if (updated && created && updated - created > 60000 && i.updatedBy) meta += ` · edyt. ${esc(i.updatedBy)}`;
   }
-  return `<div class="item ${i.done?"done":""}" data-id="${i.id}">
+  const enter = !renderedIds.has(i.id); renderedIds.add(i.id);
+  return `<div class="item ${i.done?"done":""} ${isNew(i)?"fresh":""} ${enter && firstPaintDone ? "enter" : ""}" data-id="${i.id}">
     <button class="check" data-act="toggle" aria-label="Oznacz jako wykonane"><span>${ICON.check}</span></button>
     <div class="body" data-act="edit">
       <div class="title">${esc(i.title)}</div>
       ${i.note ? `<div class="note">${esc(i.note)}</div>` : ""}
       ${(i.category || due || i.repeat || isNew(i)) ? `<div class="chips">
-        ${isNew(i) ? `<span class="chip new">Nowe</span>` : ""}
+        ${isNew(i) ? `<span class="chip new">Nowe · od ${i.createdBy === "Natalka" ? "Natalki" : "Maćka"}</span>` : ""}
         ${i.category ? `<span class="chip cat">${esc(i.category)}</span>` : ""}
         ${i.repeat && REPEAT[i.repeat] ? `<span class="chip">↻ ${REPEAT[i.repeat].toLowerCase()}</span>` : ""}
         ${due ? `<span class="chip ${due.cls}">${esc(due.text)}</span>` : ""}</div>` : ""}
@@ -954,6 +994,7 @@ function card(i){
   </div>`;
 }
 $("#tasksView").addEventListener("click", e => {
+  if (e.target.closest("[data-grafik]")) { fileMeta ? openViewer() : (setTab("ustawienia"), toast("Wgraj grafik w sekcji „Grafik Maćka”")); return; }
   const t = e.target.closest("[data-act]"); if (!t) return;
   if (t.dataset.act === "donetoggle") { showDone = !showDone; render(); return; }
   const id = t.closest(".item").dataset.id; const it = items.find(x => x.id === id); if (!it) return;
@@ -1028,6 +1069,7 @@ $("#fDelete").addEventListener("click", async () => {
   const ok = await confirmDlg("Usunąć wpis?", `„${editing.title}” zostanie trwale usunięty u was obojga.`);
   if (!ok) return;
   const id = editing.id, copy = plain(editing); closeSheets();
+  toTrash("items", copy);
   deleteDoc(doc(db,"items",id))
     .then(() => toast("Usunięto", { label:"Cofnij", fn: () => setDoc(doc(db,"items",id), revive(copy)).then(() => toast("Przywrócono")) }))
     .catch(() => toast("Nie udało się usunąć"));
@@ -1059,7 +1101,7 @@ function updatePill(){
   pill.classList.toggle("on", !!playing);
   if (!playing) pill.classList.remove("loading");
   $("#radioToggle").innerHTML = playing ? (pill.classList.contains("loading") ? ICON.load : ICON.stop) : ICON.play;
-  $("#radioName").textContent = playing ? playing.title : (station?.name || "Radio");
+  $("#radioName").textContent = playing ? playing.title : (station?.name ? "Radio · " + station.name : "Radio");
   document.querySelectorAll(".st").forEach(el => el.classList.toggle("cur", playing?.kind==="radio" && el.dataset.url === station?.url));
 }
 player.addEventListener("playing", () => { $("#radioPill").classList.remove("loading"); updatePill(); });
@@ -1217,7 +1259,7 @@ async function renderSettings(){
   $("#songName").textContent = meta ? `${meta.name} (${(meta.size/1048576).toFixed(1)} MB)` : "Nie wybrano piosenki";
   $("#songOn").classList.toggle("on", songOn(me));
   $("#songTest").disabled = $("#songDel").disabled = !meta;
-  loadBackups();
+  loadBackups(); loadTrash(); gfInfo();
 }
 /* --- awatar: zdjęcie zmniejszane na telefonie do 256×256 i zapisywane w bazie --- */
 $("#avPick").addEventListener("click", () => $("#avFile").click());
@@ -1273,6 +1315,30 @@ const plain = it => ({ ...it,
 const revive = it => { const { id, ...r } = it;
   ["createdAt","updatedAt","doneAt"].forEach(k => r[k] = typeof r[k] === "number" ? Timestamp.fromMillis(r[k]) : null); return r; };
 
+/* --- Kosz --- */
+function toTrash(colName, copy){
+  setDoc(doc(db,"trash",`${colName}_${copy.id}`), { col: colName, data: JSON.stringify(copy), title: copy.title || "",
+         deletedAt: serverTimestamp(), deletedBy: me }).catch(() => {});
+}
+async function loadTrash(){
+  try {
+    const list = (await getDocs(collection(db,"trash"))).docs.map(d => ({ id:d.id, ...d.data() }))
+      .sort((a,b) => (toDate(b.deletedAt)||0) - (toDate(a.deletedAt)||0));
+    $("#trashList").innerHTML = list.length ? list.slice(0,15).map(t => `
+      <div class="bk-row"><div style="min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(t.title)}</b>
+      <small>${t.col === "events" ? "Kalendarz" : (TABS[JSON.parse(t.data).tab]?.name || "Wpis")} · usunął(a) ${esc(t.deletedBy||"?")}, ${fmtWhen(toDate(t.deletedAt))}</small></div>
+      <button data-tr="${esc(t.id)}">Przywróć</button></div>`).join("") : '<p class="desc" style="margin:0">Kosz jest pusty.</p>';
+  } catch { $("#trashList").innerHTML = '<p class="desc">Nie udało się wczytać kosza.</p>'; }
+}
+$("#trashList").addEventListener("click", async e => {
+  const b = e.target.closest("[data-tr]"); if (!b) return;
+  const s = await getDoc(doc(db,"trash",b.dataset.tr)); if (!s.exists()) return;
+  const t = s.data(), data = JSON.parse(t.data);
+  await setDoc(doc(db, t.col, data.id), revive(data));
+  await deleteDoc(doc(db,"trash",b.dataset.tr));
+  toast("Przywrócono ✓"); loadTrash();
+});
+
 async function writeBackup(id){
   const data = items.map(plain);
   await setDoc(doc(db,"backups",id), { createdAt: serverTimestamp(), by: me, count: data.length, data: JSON.stringify(data),
@@ -1284,6 +1350,8 @@ async function autoBackup(){
     if (!(await getDoc(doc(db,"backups",id))).exists() && items.length) await writeBackup(id);
     const all = (await getDocs(collection(db,"backups"))).docs.map(d => d.id).sort().reverse();
     for (const old of all.slice(30)) await deleteDoc(doc(db,"backups",old));
+    const tr = await getDocs(collection(db,"trash"));
+    tr.forEach(d => { if (Date.now() - (toDate(d.data().deletedAt)?.getTime() || Date.now()) > 30 * 864e5) deleteDoc(d.ref).catch(() => {}); });
   } catch (e) { console.warn("Kopia:", e); }
 }
 function bkLabel(id){
@@ -1295,6 +1363,8 @@ function bkLabel(id){
 async function loadBackups(){
   try {
     const list = (await getDocs(collection(db,"backups"))).docs.map(d => ({ id:d.id, ...d.data() })).sort((a,b) => b.id.localeCompare(a.id));
+    const last = list.map(b => toDate(b.createdAt)).filter(Boolean).sort((a,b) => b - a)[0];
+    $("#bkLast").innerHTML = last ? `✅ Ostatnia kopia: <b>${fmtWhen(last)}</b> · zapisanych kopii: ${list.length}` : "Pierwsza kopia utworzy się automatycznie dziś.";
     $("#bkList").innerHTML = list.length ? list.slice(0,10).map(b => `
       <div class="bk-row"><div><b>${esc(bkLabel(b.id))}</b><small>${b.count} wpisów · ${esc(b.by||"")}</small></div>
       <button data-bk="${esc(b.id)}">Przywróć</button></div>`).join("") + (list.length > 10 ? `<p class="desc" style="margin:8px 0 0">…i ${list.length-10} starszych</p>` : "")
@@ -1369,7 +1439,7 @@ function startPresence(){
   if (unsubPres) return;
   unsubPres = onSnapshot(collection(db,"presence"), s => {
     presence = {}; s.forEach(d => presence[d.id] = d.data({ serverTimestamps:"estimate" }));
-    renderPresence(); if (chatOpen) renderChat();
+    renderPresence();
   }, () => {});
 }
 function isOnline(n){
@@ -1377,169 +1447,163 @@ function isOnline(n){
   const p = presence[n]; if (!p) return false;
   return p.online !== false && Date.now() - (toDate(p.lastActive)?.getTime() || 0) < 90000;
 }
-const isTyping = n => Date.now() - (toDate(presence[n]?.typingAt)?.getTime() || 0) < 6000;
 function lastSeenText(n){
   const t = toDate(presence[n]?.lastActive); if (!t) return "offline";
-  const m = Math.round((Date.now() - t) / 60000);
-  if (m < 1) return "był(a) przed chwilą";
-  if (m < 60) return `${m} min temu`;
-  const h = Math.round(m / 60); if (h < 24) return `${h} godz. temu`;
-  return fmtWhen(t);
+  const m = Math.floor((Date.now() - t) / 60000);
+  if (m < 1) return "offline · przed chwilą";
+  if (m < 60) return `offline · ${m} min`;
+  const h = Math.floor(m / 60); if (h < 24) return `offline · ${h} godz.`;
+  const d = Math.floor(h / 24); return d === 1 ? "offline · wczoraj" : `offline · ${d} dni`;
 }
 function renderPresence(){
   document.querySelectorAll("[data-pres]").forEach(el => {
-    const n = el.dataset.pres, on = isOnline(n), typ = n !== me && on && isTyping(n);
-    el.className = "pchip" + (on ? " on" : "") + (typ ? " typing" : "");
-    el.innerHTML = `<span class="avw">${avatarHTML(n, "av-xsm")}<i class="dot"></i></span>
-      <span class="txt"><b>${n}</b><small>${typ ? "pisze…" : on ? "ONLINE" : lastSeenText(n)}</small></span>`;
+    const n = el.dataset.pres, on = isOnline(n), html = `<span class="avw">${avatarHTML(n, "av-xsm")}<i class="dot"></i></span>
+      <span class="txt"><b>${n}</b><small>${on ? "ONLINE" : lastSeenText(n)}</small></span>`;
+    el.className = "pchip" + (on ? " on" : "");
+    if (el.dataset.h !== html) { el.innerHTML = html; el.dataset.h = html; }
   });
-  if (chatOpen) chatHeader();
 }
-setInterval(() => { if (me) renderPresence(); }, 5000);
+setInterval(() => { if (me) renderPresence(); }, 15000);
 window.addEventListener("pagehide", () => beat(false));
 
-/* =================== CZAT =================== */
-let msgs = [], msgsLoaded = false, chatOpen = false, bannerShown = false;
-const unread = () => msgs.filter(m => m.to === me && !m.readAt);
-function startMessages(){
-  if (unsubMsg) return;
-  const q = query(collection(db,"messages"), orderBy("createdAt","desc"), limit(300));
-  unsubMsg = onSnapshot(q, snap => {
-    const fresh = msgsLoaded ? snap.docChanges().filter(c => c.type === "added" && c.doc.data().from !== me && !c.doc.data().readAt) : [];
-    msgs = snap.docs.map(d => ({ id:d.id, pending:d.metadata.hasPendingWrites, ...d.data({ serverTimestamps:"estimate" }) })).reverse();
-    msgsLoaded = true;
-    if (fresh.length) {
-      ding();
-      if (!chatOpen || document.hidden) showBanner();
-    } else if (!bannerShown && unread().length && !chatOpen) { bannerShown = true; ding(); showBanner(); }
-    if (chatOpen && !document.hidden) markRead();
-    renderChat(); renderChatBadge();
-  }, err => console.warn("Czat:", err));
+/* =================== GRAFIK MAĆKA =================== */
+/* Plik leży w bazie w kawałkach (jak piosenka). Telefon trzyma kopię, żeby otwierał się błyskawicznie. */
+let fileMeta = null;
+function startFiles(){
+  if (unsubFile) return;
+  unsubFile = onSnapshot(doc(db,"files","grafik"), s => {
+    fileMeta = s.exists() && s.data().id ? s.data() : null;
+    if (tab === "maciek") render();
+    if (tab === "ustawienia") gfInfo();
+  }, () => {});
 }
-function renderChatBadge(){
-  const n = unread().length, b = $("#chatBadge");
-  b.textContent = n > 99 ? "99+" : n; b.classList.toggle("hidden", !n);
+function grafikBar(){
+  const m = fileMeta;
+  return `<button class="gf-bar" data-grafik="1">
+    <span class="gf-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M7.5 14h3M13.5 14h3M7.5 17h3"/></svg></span>
+    <span class="gf-txt"><b>GRAFIK</b><small>${m ? `Wgrany ${fmtWhen(toDate(m.uploadedAt))} · ${esc(m.uploadedBy||"")}` : "Brak — wgraj w Ustawieniach"}</small></span>
+    <span class="gf-go">${m ? "Pokaż" : "Dodaj"} ›</span></button>`;
 }
-function markRead(){
-  const list = unread(); if (!list.length) return;
-  const b = writeBatch(db); list.forEach(m => b.update(doc(db,"messages",m.id), { readAt: serverTimestamp() }));
-  b.commit().catch(() => {});
+function gfInfo(){
+  const m = fileMeta;
+  $("#gfInfo").innerHTML = m ? `Aktualny: <b>${esc(m.name)}</b> (${(m.size/1048576).toFixed(1)} MB), wgrany ${fmtWhen(toDate(m.uploadedAt))} przez ${esc(m.uploadedBy||"?")}.`
+                              : "Zdjęcie lub PDF grafiku. Widać go w zakładce Maciek pod przyciskiem GRAFIK.";
+  $("#gfShow").disabled = $("#gfDel").disabled = !m;
 }
-function chatHeader(){
-  const o = OTHER(), on = isOnline(o), typ = on && isTyping(o);
-  $("#chatAv").innerHTML = avatarHTML(o, "av-md");
-  $("#chatName").textContent = o;
-  const st = $("#chatStatus");
-  st.className = typ ? "typ" : on ? "on" : "";
-  st.textContent = typ ? "pisze…" : on ? "ONLINE" : "offline · " + lastSeenText(o);
+async function shrinkImage(f){
+  // Duże zdjęcia zmniejszamy do 3000 px — nadal bardzo ostre, a ładują się szybciej
+  if (!f.type.startsWith("image/") || f.size < 2.5e6 || f.type === "image/gif") return f;
+  try {
+    const url = URL.createObjectURL(f);
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+    const k = Math.min(1, 3000 / Math.max(img.naturalWidth, img.naturalHeight));
+    const c = document.createElement("canvas"); c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k);
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+    const blob = await new Promise(r => c.toBlob(r, "image/jpeg", .9));
+    return blob && blob.size < f.size ? new File([blob], f.name.replace(/\.\w+$/, "") + ".jpg", { type:"image/jpeg" }) : f;
+  } catch { return f; }
 }
-function renderChat(){
-  if (!chatOpen) return;
-  chatHeader();
-  const box = $("#msgs"), nearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 120;
-  const o = OTHER();
-  if (!msgs.length) {
-    box.innerHTML = `<div class="chat-empty">${avatarHTML(o,"av-xl")}<b>Napisz do ${o === "Natalka" ? "Natalki" : "Maćka"}</b>
-      Wiadomość dotrze nawet, gdy jest offline — zobaczy ją po otwarciu aplikacji.</div>`;
-  } else {
-    let h = "", lastDay = "", lastFrom = "";
-    for (const m of msgs) {
-      const d = toDate(m.createdAt) || new Date(), day = d.toDateString();
-      if (day !== lastDay) {
-        const t0 = new Date(), y = new Date(); y.setDate(t0.getDate()-1);
-        h += `<div class="day">${day === t0.toDateString() ? "Dziś" : day === y.toDateString() ? "Wczoraj" :
-              d.toLocaleDateString("pl-PL",{ weekday:"long", day:"numeric", month:"long" })}</div>`;
-        lastDay = day; lastFrom = "";
-      }
-      const mine = m.from === me;
-      const time = d.toLocaleTimeString("pl-PL",{ hour:"2-digit", minute:"2-digit" });
-      const tick = mine ? (m.pending ? " ·" : m.readAt ? `<span class="rd">✓✓</span>` : `<span class="rd">✓</span>`) : "";
-      h += `<div class="bub ${mine ? "me" : "them"} from-${esc(m.from)} ${m.from !== lastFrom ? "gap" : ""}">${esc(m.text)}<span class="t">${time}${tick}</span></div>`;
-      lastFrom = m.from;
+$("#gfUp").addEventListener("click", () => $("#gfFile").click());
+$("#gfFile").addEventListener("change", async e => {
+  let f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  if (f.size > 25 * 1048576) { toast("Plik jest za duży (maks. 25 MB)"); return; }
+  $("#gfUp").disabled = true;
+  try {
+    f = await shrinkImage(f);
+    const buf = new Uint8Array(await f.arrayBuffer()), id = Date.now().toString(36), n = Math.ceil(buf.length / CHUNK);
+    for (let i = 0; i < n; i++) {
+      toast(`Wysyłanie grafiku… ${Math.round(i / n * 100)}%`);
+      await setDoc(doc(db,"fileChunks",`grafik_${i}`), { id, i, data: Bytes.fromUint8Array(buf.subarray(i*CHUNK, (i+1)*CHUNK)) });
     }
-    if (isOnline(o) && isTyping(o)) h += `<div class="typing-b"><i></i><i></i><i></i></div>`;
-    box.innerHTML = h;
+    const old = fileMeta?.chunks || 0;
+    for (let i = n; i < old; i++) await deleteDoc(doc(db,"fileChunks",`grafik_${i}`)).catch(() => {});
+    const type = f.type || "application/octet-stream";
+    await songPut("file:grafik", { id, blob: new Blob([buf], { type }), name: f.name }).catch(() => {});
+    await setDoc(doc(db,"files","grafik"), { id, name: f.name, type, size: buf.length, chunks: n, uploadedBy: me, uploadedAt: serverTimestamp() });
+    toast("Grafik zapisany ✓");
+  } catch (err) { console.error(err); toast("Nie udało się wysłać pliku"); }
+  $("#gfUp").disabled = false;
+});
+$("#gfDel").addEventListener("click", async () => {
+  if (!fileMeta || !await confirmDlg("Usunąć grafik?", "Plik zniknie u was obojga.")) return;
+  const n = fileMeta.chunks;
+  await deleteDoc(doc(db,"files","grafik")).catch(() => {});
+  for (let i = 0; i < n; i++) deleteDoc(doc(db,"fileChunks",`grafik_${i}`)).catch(() => {});
+  songPut("file:grafik", null).catch(() => {});
+  toast("Usunięto grafik");
+});
+$("#gfShow").addEventListener("click", () => openViewer());
+async function getGrafik(){
+  const m = fileMeta; if (!m) return null;
+  const c = await songGet("file:grafik"); if (c?.id === m.id && c.blob) return c;
+  const parts = [];
+  for (let i = 0; i < m.chunks; i++) {
+    const d = await getDoc(doc(db,"fileChunks",`grafik_${i}`));
+    if (!d.exists() || d.data().id !== m.id) return null;
+    parts.push(d.data().data.toUint8Array());
   }
-  if (nearBottom || box.dataset.first !== "0") { box.scrollTop = box.scrollHeight; box.dataset.first = "0"; }
+  const val = { id: m.id, blob: new Blob(parts, { type: m.type }), name: m.name };
+  songPut("file:grafik", val).catch(() => {});
+  return val;
 }
-const QUICK = ["👍 OK", "❤️", "Kupię po drodze", "Będę za 15 min", "Wyszłam/em z Diego", "Zadzwoń, jak możesz", "Dzięki! 😘"];
-$("#quick").innerHTML = QUICK.map(q => `<button type="button">${q}</button>`).join("");
-$("#quick").addEventListener("click", e => { const b = e.target.closest("button"); if (b) sendMsg(b.textContent); });
-function openChat(){
-  hideBanner();
-  chatOpen = true; $("#msgs").dataset.first = "1";
-  $("#chat").classList.add("show"); $("#chatOverlay").classList.add("show");
-  history.pushState({ chat:1 }, "");
-  renderChat(); markRead();
+/* --- przeglądarka: zdjęcie z powiększaniem, PDF strona po stronie --- */
+let vZoom = 1, vUrl = null;
+async function openViewer(){
+  if (!fileMeta) { toast("Nie ma jeszcze wgranego grafiku"); return; }
+  const v = $("#viewer"), body = $("#vBody");
+  $("#vName").textContent = fileMeta.name; $("#vSub").textContent = `Wgrany ${fmtWhen(toDate(fileMeta.uploadedAt))} · ${fileMeta.uploadedBy || ""}`;
+  body.innerHTML = '<div class="loader" style="border-top-color:#fff;border-color:rgba(255,255,255,.2)"></div>';
+  v.classList.add("show"); history.pushState({ viewer:1 }, "");
+  vZoom = 1; setZoom(1);
+  const f = await getGrafik();
+  if (!f) { body.innerHTML = '<p class="v-msg">Nie udało się pobrać pliku. Sprawdź internet.</p>'; return; }
+  if (vUrl) URL.revokeObjectURL(vUrl); vUrl = URL.createObjectURL(f.blob);
+  const t = fileMeta.type || "";
+  if (t.startsWith("image/")) body.innerHTML = `<img src="${vUrl}" alt="Grafik" class="v-page">`;
+  else if (t === "application/pdf" || /\.pdf$/i.test(fileMeta.name)) renderPdf(f.blob, body);
+  else body.innerHTML = `<div class="v-msg"><b>${esc(fileMeta.name)}</b><br>Tego typu pliku nie da się pokazać w aplikacji.<br><br>
+      <a class="btn" style="background:#fff;color:#14161F;display:inline-flex;width:auto;padding:14px 22px;text-decoration:none" href="${vUrl}" download="${esc(fileMeta.name)}">Otwórz / pobierz plik</a></div>`;
 }
-function closeChat(silent){
-  if (!chatOpen) return;
-  chatOpen = false; $("#chat").classList.remove("show","big"); $("#chatOverlay").classList.remove("show"); $("#chatText").blur();
-  if (!silent && history.state?.chat) history.back();
-}
-window.addEventListener("popstate", () => { if (chatOpen) { chatOpen = false; $("#chat").classList.remove("show","big"); $("#chatOverlay").classList.remove("show"); } });
-$("#chatOverlay").addEventListener("click", () => closeChat());
-$("#chatGrab").addEventListener("click", () => closeChat());
-$("#chatGrow").addEventListener("click", () => { $("#chat").classList.toggle("big"); setTimeout(() => { const b = $("#msgs"); b.scrollTop = b.scrollHeight; }, 220); });
-/* Gdy wysuwa się klawiatura, czat podjeżdża nad nią */
-function fitChat(){
-  const vv = window.visualViewport, c = $("#chat"); if (!vv) return;
-  const kb = window.innerHeight - vv.height - vv.offsetTop;
-  if (kb > 80 && chatOpen) { c.style.bottom = kb + "px"; c.style.height = Math.min(vv.height - 12, c.classList.contains("big") ? 2000 : vv.height * .78) + "px"; }
-  else { c.style.bottom = ""; c.style.height = ""; }
-  const b = $("#msgs"); b.scrollTop = b.scrollHeight;
-}
-window.visualViewport?.addEventListener("resize", fitChat);
-$("#chatBtn").addEventListener("click", openChat);
-document.querySelectorAll("[data-pres]").forEach(el => el.addEventListener("click", openChat));
-$("#chatBack").addEventListener("click", () => closeChat());
-function sendMsg(text){
-  text = text.trim(); if (!text || !me) return;
-  addDoc(collection(db,"messages"), { from:me, to:OTHER(), text, createdAt: serverTimestamp(), readAt:null }).catch(() => toast("Nie wysłano — sprawdź internet"));
-  pop();
-}
-const ta = $("#chatText");
-ta.addEventListener("input", () => {
-  ta.style.height = "auto"; ta.style.height = Math.min(ta.scrollHeight, 120) + "px";
-  $("#sendBtn").disabled = !ta.value.trim();
-  if (ta.value && Date.now() - lastTypingSent > 4000) {
-    lastTypingSent = Date.now();
-    setDoc(doc(db,"presence",me), { typingAt: serverTimestamp(), online:true, lastActive: serverTimestamp() }, { merge:true }).catch(() => {});
+async function renderPdf(blob, body){
+  try {
+    const pdfjs = await import("https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.min.mjs");
+    pdfjs.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.4.168/build/pdf.worker.min.mjs";
+    const pdf = await pdfjs.getDocument({ data: new Uint8Array(await blob.arrayBuffer()) }).promise;
+    body.innerHTML = "";
+    const w = Math.min(body.clientWidth - 16, 1100), dpr = Math.min(window.devicePixelRatio || 1, 3);
+    for (let p = 1; p <= pdf.numPages; p++) {
+      const page = await pdf.getPage(p), vp0 = page.getViewport({ scale:1 });
+      const scale = (w / vp0.width) * dpr * 1.6, vp = page.getViewport({ scale });
+      const c = document.createElement("canvas"); c.width = vp.width; c.height = vp.height; c.className = "v-page";
+      body.appendChild(c);
+      await page.render({ canvasContext: c.getContext("2d"), viewport: vp }).promise;
+    }
+  } catch (e) {
+    console.warn(e);
+    body.innerHTML = `<div class="v-msg">Nie udało się wyświetlić PDF w aplikacji.<br><br>
+      <a class="btn" style="background:#fff;color:#14161F;display:inline-flex;width:auto;padding:14px 22px;text-decoration:none" href="${vUrl}" target="_blank">Otwórz PDF</a></div>`;
   }
-});
-ta.addEventListener("keydown", e => {
-  // Na komputerze Enter wysyła, Shift+Enter = nowa linia
-  if (e.key === "Enter" && !e.shiftKey && matchMedia("(hover:hover)").matches) { e.preventDefault(); $("#chatForm").requestSubmit(); }
-});
-$("#chatForm").addEventListener("submit", e => {
-  e.preventDefault(); sendMsg(ta.value); ta.value = ""; ta.style.height = "auto"; $("#sendBtn").disabled = true; ta.focus();
-});
-/* --- mały dymek „nowa wiadomość” — pokazuje się na chwilę i znika --- */
-let popT;
-function showBanner(){
-  const list = unread(); if (!list.length) return;
-  const last = list[list.length-1], n = list.length;
-  $("#mpAv").innerHTML = avatarHTML(last.from, "av-xsm");
-  $("#mpText").innerHTML = n > 1 ? `<b>${esc(last.from)}</b> · ${n} nowe wiadomości` : `<b>${esc(last.from)}:</b> ${esc(last.text)}`;
-  const p = $("#msgPop"); p.classList.add("show");
-  clearTimeout(popT); popT = setTimeout(hideBanner, 1800);
 }
-function hideBanner(){ $("#msgPop").classList.remove("show"); }
-$("#msgPop").addEventListener("click", openChat);
-
-/* --- dźwięki (generowane, bez plików) --- */
-let actx = null;
-function audioCtx(){ try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); } catch {} return actx; }
-["touchend","click","keydown"].forEach(t => document.addEventListener(t, () => { const c = audioCtx(); if (c?.state === "suspended") c.resume(); }, { capture:true, passive:true }));
-function tone(freq, start, dur, vol = .18){
-  const c = audioCtx(); if (!c || c.state !== "running") return;
-  const o = c.createOscillator(), g = c.createGain(), t = c.currentTime + start;
-  o.type = "sine"; o.frequency.setValueAtTime(freq, t);
-  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + .015); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
-  o.connect(g).connect(c.destination); o.start(t); o.stop(t + dur + .05);
+function setZoom(z){
+  vZoom = Math.max(1, Math.min(4, z));
+  $("#vBody").style.setProperty("--z", vZoom);
+  $("#vZoomTxt").textContent = Math.round(vZoom * 100) + "%";
 }
-function ding(){ tone(880, 0, .35); tone(1318.5, .13, .5); if (navigator.vibrate) navigator.vibrate([40, 60, 40]); }
-function pop(){ tone(660, 0, .12, .1); }
+function closeViewer(fromPop){
+  const v = $("#viewer"); if (!v.classList.contains("show")) return;
+  v.classList.remove("show");
+  if (!fromPop && history.state?.viewer) history.back();
+}
+$("#vClose").addEventListener("click", () => closeViewer());
+$("#vIn").addEventListener("click", () => setZoom(vZoom + .5));
+$("#vOut").addEventListener("click", () => setZoom(vZoom - .5));
+$("#vOpen").addEventListener("click", () => { if (vUrl) window.open(vUrl, "_blank"); });
+let lastTap = 0;
+$("#vBody").addEventListener("click", e => {
+  if (Date.now() - lastTap < 300) setZoom(vZoom > 1 ? 1 : 2.5);
+  lastTap = Date.now();
+});
+window.addEventListener("popstate", () => closeViewer(true));
 
 /* =================== KALENDARZ (wspólny) =================== */
 const EVC = {
@@ -1624,7 +1688,8 @@ function nextOcc(ev, from){
 let showPast = false;
 function listCard(e, day){
   const cat = EVC[e.cat] || EVC.inne;
-  return `<button class="ev" style="--c:${cat.c}" data-ev="${e.id}">
+  const fresh = e.createdBy && e.createdBy !== me && seenAtEnter && (toDate(e.createdAt)?.getTime() || 0) > seenAtEnter;
+  return `<button class="ev ${fresh ? "fresh" : ""}" style="--c:${cat.c}" data-ev="${e.id}">${fresh ? `<span class="ev-new">NOWE</span>` : ""}
     <span class="tm">${e.time ? esc(e.time) : "<small>cały<br>dzień</small>"}</span>
     <span class="bd"><span class="when">${relDay(day)}</span><b>${esc(e.title)}</b>${e.note ? `<p>${esc(e.note)}</p>` : ""}
       <span class="tags"><span class="tag">${cat.n}</span>${e.repeat && EVREP[e.repeat] ? `<span class="tag g">↻ ${EVREP[e.repeat].toLowerCase()}</span>` : ""}
@@ -1762,6 +1827,7 @@ $("#eDelete").addEventListener("click", async () => {
   if (!editingEv) return;
   if (!await confirmDlg("Usunąć wydarzenie?", `„${editingEv.title}” zniknie z kalendarza u was obojga.`)) return;
   const id = editingEv.id, copy = plain(editingEv); closeSheets();
+  toTrash("events", copy);
   deleteDoc(doc(db,"events",id))
     .then(() => toast("Usunięto", { label:"Cofnij", fn: () => setDoc(doc(db,"events",id), revive(copy)).then(() => toast("Przywrócono")) }))
     .catch(() => toast("Nie udało się usunąć"));
@@ -1775,7 +1841,7 @@ async function pageHash(){
   const r = await fetch("index.html?v=" + Date.now(), { cache:"no-store" });
   const t = await r.text(); let h = 0; for (let i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) | 0; return h;
 }
-const busy = () => document.querySelector(".sheet.show, .dialog.show") || chatOpen || document.activeElement?.matches?.("input,textarea");
+const busy = () => document.querySelector(".sheet.show, .dialog.show, .viewer.show") || document.activeElement?.matches?.("input,textarea");
 async function checkUpdate(){
   try {
     const h = await pageHash();
@@ -1829,7 +1895,7 @@ document.addEventListener("visibilitychange", () => {
   if (document.hidden) { if (me) { markSeen(tab); beat(false); } }
   else {
     seenAtEnter = Number(localStorage.getItem(seenKey(tab)) || 0); render();
-    if (me && unsub) { beat(true); if (chatOpen) markRead(); else if (unread().length) showBanner(); }
+    if (me && unsub) beat(true);
   }
 });
 setInterval(render, 60000);
