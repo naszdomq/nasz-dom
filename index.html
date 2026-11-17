@@ -284,6 +284,48 @@
   .seg.colors button{display:flex;align-items:center;gap:7px}
   .seg.colors button i{width:10px;height:10px;border-radius:50%}
   .seg.colors button.on{background:#fff;border-color:var(--c);color:var(--c)}
+  /* Ikona kalendarzyka w nagłówku */
+  .cal-btn{width:44px;height:44px;border-radius:12px;background:#fff;box-shadow:0 3px 10px rgba(13,148,136,.25);overflow:hidden;
+           display:flex;flex-direction:column;border:1.5px solid #0D9488;animation:pop .3s}
+  .cal-btn .cb-m{background:#0D9488;color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.06em;line-height:14px;text-align:center}
+  .cal-btn .cb-d{flex:1;display:grid;place-items:center;font-size:19px;font-weight:800;color:#14161F;line-height:1}
+  header.compact .cal-btn{width:38px;height:38px}
+  /* Lista kalendarza */
+  .cl-month{font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;margin:22px 4px 10px;display:flex;align-items:center;gap:10px}
+  .cl-month::after{content:"";flex:1;height:1.5px;background:var(--accent-soft)}
+  .cl-month:first-child{margin-top:6px}
+  .cl-day{display:flex;gap:12px;margin-bottom:12px}
+  .cl-date{width:58px;flex-shrink:0;border-radius:16px;background:var(--card);box-shadow:var(--shadow);text-align:center;padding:9px 0 8px;align-self:flex-start}
+  .cl-date b{display:block;font-size:26px;font-weight:800;line-height:1}
+  .cl-date span{display:block;font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.05em;margin-top:4px}
+  .cl-date.today{background:var(--accent);color:#fff;box-shadow:0 6px 16px rgba(13,148,136,.3)}
+  .cl-date.today span{color:#D1FAF5}
+  .cl-date.tom{box-shadow:inset 0 0 0 2px var(--accent)}
+  .cl-day .evs{flex:1;min-width:0}
+  .ev .when{font-size:12px;font-weight:800;color:var(--accent);margin-bottom:2px;display:block}
+  .cl-empty{text-align:center;padding:50px 20px;color:var(--muted)}
+  .cl-empty .ico{width:72px;height:72px;border-radius:22px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin:0 auto 14px}
+  .cl-empty b{display:block;color:var(--text);font-size:18px;margin-bottom:6px}
+  .cl-hint{display:flex;align-items:center;gap:10px;background:var(--accent-soft);color:#0F766E;border-radius:14px;padding:10px 14px;font-size:14px;font-weight:600;margin:0 0 14px}
+  .past-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px 6px;color:var(--muted);font-weight:700;font-size:14px;margin-top:10px}
+  .past .ev{opacity:.6}
+  /* Arkusz z miesiącem */
+  #monthSheet{z-index:58;padding-left:12px;padding-right:12px;background:#F4F5F9}
+  #monthSheet .ms-head{display:flex;align-items:center;justify-content:space-between;padding:0 6px 10px}
+  #monthSheet .ms-head h3{margin:0}
+  #monthSheet .ms-x{width:40px;height:40px;border-radius:50%;background:#E7E9EF;display:grid;place-items:center}
+  #monthSheet .cd{height:58px}
+  #monthSheet .cd .n{width:36px;height:36px;font-size:17px}
+  #evSheet{z-index:61}
+  /* Mały dymek wiadomości */
+  .msgpop{position:fixed;left:50%;top:calc(var(--safe-t) + 10px);z-index:95;transform:translate(-50%,-90px);max-width:calc(100% - 40px);
+          background:rgba(20,22,31,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;border-radius:999px;
+          padding:6px 16px 6px 6px;display:flex;align-items:center;gap:9px;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.22);
+          transition:transform .35s cubic-bezier(.2,.9,.25,1.2),opacity .3s;opacity:0}
+  .msgpop.show{transform:translate(-50%,0);opacity:1}
+  .msgpop span.t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  .msgpop b{font-weight:700}
+
   /* Przeciągnij, aby odświeżyć */
   #ptr{position:fixed;left:50%;top:calc(var(--safe-t) + 6px);z-index:40;width:42px;height:42px;margin-left:-21px;border-radius:50%;background:#fff;
        box-shadow:0 4px 14px rgba(0,0,0,.15);display:grid;place-items:center;color:var(--accent);transform:translateY(-70px);opacity:0;pointer-events:none}
@@ -328,7 +370,7 @@
              font-size:10.5px;letter-spacing:-.01em;font-weight:600;color:#9A9EAC;border-radius:14px;position:relative;white-space:nowrap}
   nav button.active{color:var(--accent)}
   nav button .pill{padding:4px 12px;border-radius:999px;transition:background .2s}
-  nav .badge.cal{background:#0D9488}
+  nav .badge.cal{background:var(--danger)}
   nav button.active .pill{background:var(--accent-soft)}
   nav .badge{position:absolute;top:2px;left:calc(50% + 8px);min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:var(--danger);
              color:#fff;font-size:11px;display:grid;place-items:center;font-weight:700}
@@ -420,6 +462,7 @@
         <div class="sub"><span class="sync-dot" id="syncDot"></span><span id="hSub"></span></div>
       </div>
       <div class="head-actions">
+        <button class="cal-btn hidden" id="calBtn" aria-label="Otwórz kalendarz miesięczny"><span class="cb-m" id="cbM"></span><span class="cb-d" id="cbD"></span></button>
         <button class="round-btn" id="refreshBtn" aria-label="Odśwież"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
         <button id="meBtn" aria-label="Ustawienia profilu"></button>
       </div>
@@ -489,7 +532,7 @@
         <button class="btn danger" id="logoutBtn">Wyloguj z tego telefonu</button>
       </div>
     </div>
-    <div class="version">Nasz Dom · wersja 2.3</div>
+    <div class="version">Nasz Dom · wersja 2.4</div>
   </main>
 
   <button class="fab" id="fab" aria-label="Dodaj">
@@ -532,7 +575,8 @@
     <button class="send" id="sendBtn" type="submit" aria-label="Wyślij" disabled><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4l17.45-7.48a1 1 0 0 0 0-1.84L3.4 3.6a.99.99 0 0 0-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"/></svg></button>
   </form>
 </div>
-<div class="msgbanner" id="msgBanner">
+<div class="msgpop" id="msgPop" role="status"><span id="mpAv"></span><span class="t" id="mpText"></span></div>
+<div class="msgbanner hidden" id="msgBanner">
   <span id="mbAv"></span>
   <div class="mb-txt"><b id="mbTitle"></b><small id="mbText"></small></div>
   <button class="mb-open" id="mbOpen">Czytaj</button>
@@ -567,6 +611,13 @@
     </div>
     <div class="meta-full" id="fMeta"></div>
   </form>
+</div>
+
+<!-- ========== ARKUSZ: KALENDARZ MIESIĘCZNY ========== -->
+<div class="sheet" id="monthSheet" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <div class="ms-head"><h3>Kalendarz</h3><button class="ms-x" id="msClose" aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div id="monthBody"></div>
 </div>
 
 <!-- ========== ARKUSZ: WYDARZENIE W KALENDARZU ========== -->
@@ -678,7 +729,7 @@ function nextDate(str, rep){
 }
 /* „Nowe” = dodane przez drugą osobę od Twojej ostatniej wizyty w zakładce */
 const seenKey = t => "seen:" + t;
-function markSeen(t){ if (TABS[t]?.cats) localStorage.setItem(seenKey(t), String(Date.now())); }
+function markSeen(t){ if (TABS[t]?.cats || t === "kalendarz") localStorage.setItem(seenKey(t), String(Date.now())); }
 let seenAtEnter = 0;
 let me = localStorage.getItem("who");
 let backupChecked = false, welcomeTried = false;
@@ -755,6 +806,7 @@ function startProfiles(){
 function startApp(){
   show("scrApp");
   localStorage.setItem("lastWho", me);
+  ["diego","natalka","maciek","wspolne","kalendarz"].forEach(t => { if (!localStorage.getItem(seenKey(t))) markSeen(t); });
   setTab(tab);
   paintAvatars();
   startPresence(); startMessages(); startEvents();
@@ -792,6 +844,8 @@ function setTab(t){
   $("#settingsView").classList.toggle("hidden", !isSet);
   $("#calView").classList.toggle("hidden", !isCal);
   $("#fab").classList.toggle("hidden", isSet);
+  $("#calBtn").classList.toggle("hidden", !isCal);
+  if (isCal) { const d = new Date(); $("#cbM").textContent = ["STY","LUT","MAR","KWI","MAJ","CZE","LIP","SIE","WRZ","PAŹ","LIS","GRU"][d.getMonth()]; $("#cbD").textContent = d.getDate(); }
   showDone = false;
   if (isSet) renderSettings();
   render();
@@ -840,11 +894,11 @@ function render(){
   if ($("#scrApp").classList.contains("hidden") || !unsub) return;
   document.querySelectorAll("nav button").forEach(b => {
     const badge = b.querySelector(".badge"); if (!badge) return;
-    if (b.dataset.tab === "kalendarz") { const n = dayEntries(today()).filter(e => e.kind !== "hol").length; badge.textContent = n; badge.classList.toggle("hidden", !n); return; }
-    const bt = b.dataset.tab, n = items.filter(i => i.tab === bt && !i.done).length;
-    const seen = Number(localStorage.getItem(seenKey(bt)) || 0);
-    const fresh = bt !== tab && items.some(i => i.tab === bt && !i.done && i.createdBy && i.createdBy !== me && (toDate(i.createdAt)?.getTime()||0) > seen);
-    badge.textContent = n; badge.classList.toggle("hidden", !n); badge.classList.toggle("newdot", fresh);
+    // Liczba NOWYCH pozycji od drugiej osoby, których jeszcze nie widziałeś w tej zakładce
+    const bt = b.dataset.tab, seen = Number(localStorage.getItem(seenKey(bt)) || Date.now());
+    const src = bt === "kalendarz" ? events : items.filter(i => i.tab === bt && !i.done);
+    const n = bt === tab ? 0 : src.filter(i => i.createdBy && i.createdBy !== me && (toDate(i.createdAt)?.getTime() || 0) > seen).length;
+    badge.textContent = n > 99 ? "99+" : n; badge.classList.toggle("hidden", !n);
   });
   if (tab === "ustawienia") { $("#hSub").textContent = "Profil, muzyka, kopie zapasowe"; return; }
   if (tab === "kalendarz") { renderCalendar(); return; }
@@ -942,8 +996,8 @@ function openSheet(it){
   if (!it) setTimeout(() => $("#fTitle").focus(), 280);
 }
 function openLayer(sel){ $("#overlay").classList.add("show"); $(sel).classList.add("show"); }
-function closeSheets(){ ["#overlay","#sheet","#radioSheet","#evSheet"].forEach(s => $(s).classList.remove("show")); document.activeElement?.blur(); }
-$("#fab").addEventListener("click", () => tab === "kalendarz" ? openEvSheet(null, calSel) : openSheet(null));
+function closeSheets(){ ["#overlay","#sheet","#radioSheet","#evSheet","#monthSheet"].forEach(s => $(s).classList.remove("show")); document.activeElement?.blur(); }
+$("#fab").addEventListener("click", () => tab === "kalendarz" ? openEvSheet(null, today()) : openSheet(null));
 $("#overlay").addEventListener("click", closeSheets);
 $("#fCat").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
@@ -1460,20 +1514,18 @@ ta.addEventListener("keydown", e => {
 $("#chatForm").addEventListener("submit", e => {
   e.preventDefault(); sendMsg(ta.value); ta.value = ""; ta.style.height = "auto"; $("#sendBtn").disabled = true; ta.focus();
 });
-/* --- baner „masz nową wiadomość” --- */
-let bannerT;
+/* --- mały dymek „nowa wiadomość” — pokazuje się na chwilę i znika --- */
+let popT;
 function showBanner(){
   const list = unread(); if (!list.length) return;
-  const last = list[list.length-1], who = last.from, n = list.length;
-  $("#mbAv").innerHTML = avatarHTML(who, "av-md");
-  $("#mbTitle").textContent = n === 1 ? `${who} napisał${who === "Natalka" ? "a" : ""}` : `${who}: ${n} nowe wiadomości`;
-  $("#mbText").textContent = last.text;
-  $("#msgBanner").classList.add("show");
-  clearTimeout(bannerT); bannerT = setTimeout(hideBanner, 9000);
+  const last = list[list.length-1], n = list.length;
+  $("#mpAv").innerHTML = avatarHTML(last.from, "av-xsm");
+  $("#mpText").innerHTML = n > 1 ? `<b>${esc(last.from)}</b> · ${n} nowe wiadomości` : `<b>${esc(last.from)}:</b> ${esc(last.text)}`;
+  const p = $("#msgPop"); p.classList.add("show");
+  clearTimeout(popT); popT = setTimeout(hideBanner, 1800);
 }
-function hideBanner(){ $("#msgBanner").classList.remove("show"); }
-$("#mbOpen").addEventListener("click", openChat);
-$("#mbClose").addEventListener("click", hideBanner);
+function hideBanner(){ $("#msgPop").classList.remove("show"); }
+$("#msgPop").addEventListener("click", openChat);
 
 /* --- dźwięki (generowane, bez plików) --- */
 let actx = null;
@@ -1541,7 +1593,6 @@ function dayEntries(day){
   const out = [];
   const hol = holidays(+day.slice(0,4))[day]; if (hol) out.push({ kind:"hol", title:hol });
   events.filter(e => occurs(e, day)).forEach(e => out.push({ kind:"ev", ev:e, time:e.time || "", c:(EVC[e.cat]||EVC.inne).c }));
-  items.filter(i => !i.done && i.date === day && TABS[i.tab]?.cats).forEach(i => out.push({ kind:"task", it:i, time:"", c:(EVC[i.tab]||EVC.inne).c }));
   return out.sort((x,y) => (x.kind==="hol" ? -1 : 0) - (y.kind==="hol" ? -1 : 0) || (x.time||"").localeCompare(y.time||"") || (x.kind==="task") - (y.kind==="task"));
 }
 function relDay(day){
@@ -1562,27 +1613,71 @@ function evCard(x){
       <span class="tags"><span class="tag">${cat.n}</span>${e.repeat && EVREP[e.repeat] ? `<span class="tag g">↻ ${EVREP[e.repeat].toLowerCase()}</span>` : ""}
       <span class="tag g">${avatarHTML(e.createdBy,"av-xs")} ${esc(e.createdBy||"")}</span></span></span></button>`;
 }
+/* Najbliższe wystąpienie wydarzenia od danego dnia (dla powtarzających się) */
+function nextOcc(ev, from){
+  if (!ev.repeat) return ev.date;
+  if (ev.date >= from) return ev.date;
+  const d = parseDs(from);
+  for (let i = 0; i < 400; i++) { const x = ds(d); if (occurs(ev, x)) return x; d.setDate(d.getDate()+1); }
+  return null;
+}
+let showPast = false;
+function listCard(e, day){
+  const cat = EVC[e.cat] || EVC.inne;
+  return `<button class="ev" style="--c:${cat.c}" data-ev="${e.id}">
+    <span class="tm">${e.time ? esc(e.time) : "<small>cały<br>dzień</small>"}</span>
+    <span class="bd"><span class="when">${relDay(day)}</span><b>${esc(e.title)}</b>${e.note ? `<p>${esc(e.note)}</p>` : ""}
+      <span class="tags"><span class="tag">${cat.n}</span>${e.repeat && EVREP[e.repeat] ? `<span class="tag g">↻ ${EVREP[e.repeat].toLowerCase()}</span>` : ""}
+      <span class="tag g">${avatarHTML(e.createdBy,"av-xs")} ${esc(e.createdBy||"")}</span></span></span></button>`;
+}
+function dayBlock(day, list, cls = ""){
+  const d = parseDs(day), t = today(), tm = ds(new Date(Date.now() + 864e5));
+  return `<div class="cl-day ${cls}"><div class="cl-date ${day===t?"today":day===tm?"tom":""}"><b>${d.getDate()}</b><span>${WD3[d.getDay()]}</span><span>${MON3[d.getMonth()]}</span></div>
+    <div class="evs">${list.map(e => listCard(e, day)).join("")}</div></div>`;
+}
+/* GŁÓWNY WIDOK: lista wydarzeń od najbliższego do najdalszego */
 function renderCalendar(){
+  const t = today();
+  const up = events.map(e => ({ e, d: nextOcc(e, t) })).filter(x => x.d && x.d >= t)
+                   .sort((a,b) => a.d.localeCompare(b.d) || (a.e.time||"").localeCompare(b.e.time||""));
+  const past = events.filter(e => !e.repeat && e.date < t).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 30);
+  $("#hSub").textContent = up.length ? `${up.length} ${up.length===1?"nadchodzące wydarzenie":"nadchodzących wydarzeń"} · wspólny` : "Wspólny kalendarz";
+  let h = `<div class="cl-hint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+           Stuknij kalendarzyk w prawym górnym rogu, aby zobaczyć cały miesiąc</div>`;
+  if (!up.length) h += `<div class="cl-empty"><div class="ico"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></div>
+        <b>Brak zaplanowanych wydarzeń</b>Dotknij <b style="display:inline">+</b> albo otwórz kalendarzyk, aby coś dodać.</div>`;
+  let lastMonth = "", i = 0;
+  while (i < up.length) {
+    const day = up[i].d, group = [];
+    while (i < up.length && up[i].d === day) group.push(up[i++].e);
+    const d = parseDs(day), mk = `${d.getFullYear()}-${d.getMonth()}`;
+    if (mk !== lastMonth) { h += `<div class="cl-month">${MONTHS[d.getMonth()]} ${d.getFullYear()}</div>`; lastMonth = mk; }
+    h += dayBlock(day, group);
+  }
+  if (past.length) {
+    h += `<button class="past-toggle" data-cal="past"><span>Minione (${past.length})</span><span>${showPast ? "Ukryj" : "Pokaż"}</span></button>`;
+    if (showPast) h += `<div class="past">${past.map(e => dayBlock(e.date, [e])).join("")}</div>`;
+  }
+  $("#calView").innerHTML = h;
+  if ($("#monthSheet").classList.contains("show")) renderMonth();
+}
+/* KALENDARZYK MIESIĘCZNY (otwierany ikoną w rogu) */
+function renderMonth(){
   if (!calSel) calSel = today();
   const y = calMonth.getFullYear(), m = calMonth.getMonth(), t = today();
   const first = new Date(y, m, 1), startOff = (first.getDay() + 6) % 7;
   const start = new Date(y, m, 1 - startOff);
   const weeks = Math.ceil((startOff + new Date(y, m+1, 0).getDate()) / 7);
-  let monthCount = 0, cells = "";
+  let cells = "";
   for (let i = 0; i < weeks * 7; i++) {
     const d = new Date(start); d.setDate(start.getDate() + i);
-    const day = ds(d), ent = dayEntries(day), real = ent.filter(e => e.kind !== "hol");
-    if (d.getMonth() === m) monthCount += real.filter(e => e.kind === "ev").length;
-    const hol = ent.some(e => e.kind === "hol");
+    const day = ds(d), ent = dayEntries(day), real = ent.filter(e => e.kind !== "hol"), hol = ent.length !== real.length;
     const dots = real.slice(0,4).map(e => `<i style="background:${e.c}"></i>`).join("") + (real.length > 4 ? `<b>+${real.length-4}</b>` : "");
     cells += `<button class="cd ${d.getMonth()!==m?"out":""} ${day===t?"today":""} ${day===calSel?"sel":""} ${d.getDay()===0?"sun":""} ${hol?"hol":""}" data-d="${day}">
       <span class="n">${d.getDate()}</span><span class="dots">${dots}</span></button>`;
   }
-  $("#hSub").textContent = `Wspólny dla was obojga · ${monthCount} ${monthCount===1?"wydarzenie":(monthCount%10>=2&&monthCount%10<=4&&(monthCount%100<12||monthCount%100>14))?"wydarzenia":"wydarzeń"} w tym miesiącu`;
-
-  const sel = parseDs(calSel), selEnt = dayEntries(calSel), selReal = selEnt.filter(e => e.kind !== "hol");
-  const hol = selEnt.find(e => e.kind === "hol");
-  let h = `<div class="cal-card" id="calCard">
+  const sel = parseDs(calSel), selEnt = dayEntries(calSel), selReal = selEnt.filter(e => e.kind !== "hol"), hol = selEnt.find(e => e.kind === "hol");
+  $("#monthBody").innerHTML = `<div class="cal-card" id="calCard">
     <div class="cal-head"><h3>${MONTHS[m]} ${y}</h3>
       <div class="nav-b"><button data-cal="prev" aria-label="Poprzedni miesiąc"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
       <button data-cal="today">Dziś</button>
@@ -1593,52 +1688,42 @@ function renderCalendar(){
   </div>
   <section class="agenda">
     <div class="ag-head"><div class="bigdate"><b>${sel.getDate()}</b><span>${MON3[sel.getMonth()]}</span></div>
-      <div style="min-width:0"><h4>${WD[sel.getDay()]}</h4><small>${relDay(calSel)} · ${selReal.length ? selReal.length + " " + (selReal.length===1?"wpis":"wpisy") : "wolne"}</small></div>
+      <div style="min-width:0"><h4>${WD[sel.getDay()]}</h4><small>${relDay(calSel)} · ${selReal.length ? selReal.length + " " + (selReal.length===1?"wydarzenie":"wydarzenia") : "wolne"}</small></div>
       <button class="add" data-cal="add">+ Dodaj</button></div>
     ${hol ? `<div class="holiday">🎉 ${esc(hol.title)}</div>` : ""}
-    ${selReal.length ? selReal.map(evCard).join("") : `<div class="ag-empty">Nic zaplanowanego. Stuknij <b>+ Dodaj</b>, aby wpisać wydarzenie.</div>`}
+    ${selReal.length ? selReal.map(evCard).join("") : `<div class="ag-empty">Wolny dzień. Stuknij <b>+ Dodaj</b>, aby wpisać wydarzenie na ${sel.getDate()} ${MON3[sel.getMonth()].toLowerCase()}.</div>`}
   </section>`;
-
-  // Nadchodzące 30 dni
-  let up = "", shown = 0;
-  for (let i = 0; i <= 30 && shown < 20; i++) {
-    const d = new Date(); d.setDate(d.getDate() + i); const day = ds(d);
-    if (day === calSel) continue;
-    const ent = dayEntries(day).filter(e => e.kind !== "hol"); if (!ent.length) continue;
-    shown++;
-    up += `<div class="up-day"><button class="up-date" data-d="${day}"><b>${d.getDate()}</b><span>${WD3[d.getDay()]} · ${MON3[d.getMonth()]}</span>${i<=1?`<em>${i?"JUTRO":"DZIŚ"}</em>`:""}</button>
-      <div class="evs">${ent.map(evCard).join("")}</div></div>`;
-  }
-  h += `<section class="agenda"><div class="section-h">Nadchodzące 30 dni</div>${up || '<div class="ag-empty">Brak zaplanowanych wydarzeń w najbliższym miesiącu.</div>'}</section>`;
-  $("#calView").innerHTML = h;
 }
-$("#calView").addEventListener("click", e => {
-  const c = e.target.closest("[data-cal]"), d = e.target.closest("[data-d]"), ev = e.target.closest("[data-ev]"), tk = e.target.closest("[data-task]");
+function openMonth(){ calSel = calSel || today(); renderMonth(); openLayer("#monthSheet"); }
+$("#calBtn").addEventListener("click", openMonth);
+$("#msClose").addEventListener("click", closeSheets);
+function calClick(e){
+  const c = e.target.closest("[data-cal]"), d = e.target.closest("[data-d]"), ev = e.target.closest("[data-ev]");
   if (c) {
     const a = c.dataset.cal;
+    if (a === "past") { showPast = !showPast; renderCalendar(); return; }
     if (a === "prev") calMonth.setMonth(calMonth.getMonth()-1);
     else if (a === "next") calMonth.setMonth(calMonth.getMonth()+1);
     else if (a === "today") { calMonth = new Date(); calMonth.setDate(1); calSel = today(); }
     else if (a === "add") { openEvSheet(null, calSel); return; }
-    renderCalendar(); return;
+    renderMonth(); return;
   }
   if (d) {
     calSel = d.dataset.d; const sd = parseDs(calSel);
     if (sd.getMonth() !== calMonth.getMonth() || sd.getFullYear() !== calMonth.getFullYear()) calMonth = new Date(sd.getFullYear(), sd.getMonth(), 1);
     if (navigator.vibrate) navigator.vibrate(6);
-    renderCalendar();
-    if (d.classList.contains("up-date")) window.scrollTo({ top: 0, behavior: "smooth" });
-    return;
+    renderMonth(); return;
   }
-  if (ev) { const x = events.find(z => z.id === ev.dataset.ev); if (x) openEvSheet(x); return; }
-  if (tk) { const x = items.find(z => z.id === tk.dataset.task); if (x) openSheet(x); }
-});
-/* przesuwanie palcem po kalendarzu = zmiana miesiąca */
+  if (ev) { const x = events.find(z => z.id === ev.dataset.ev); if (x) openEvSheet(x); }
+}
+$("#calView").addEventListener("click", calClick);
+$("#monthBody").addEventListener("click", calClick);
+/* przesuwanie palcem po kalendarzyku = zmiana miesiąca */
 let swX = null;
-$("#calView").addEventListener("touchstart", e => { swX = e.target.closest("#calCard") ? e.touches[0].clientX : null; }, { passive:true });
-$("#calView").addEventListener("touchend", e => {
+$("#monthBody").addEventListener("touchstart", e => { swX = e.target.closest("#calCard") ? e.touches[0].clientX : null; }, { passive:true });
+$("#monthBody").addEventListener("touchend", e => {
   if (swX === null) return; const dx = e.changedTouches[0].clientX - swX; swX = null;
-  if (Math.abs(dx) > 60) { calMonth.setMonth(calMonth.getMonth() + (dx < 0 ? 1 : -1)); renderCalendar(); }
+  if (Math.abs(dx) > 60) { calMonth.setMonth(calMonth.getMonth() + (dx < 0 ? 1 : -1)); renderMonth(); }
 });
 function openEvSheet(ev, day){
   editingEv = ev || null;
@@ -1667,9 +1752,10 @@ $("#evForm").addEventListener("submit", e => {
                  note: $("#eNote").value.trim(), updatedAt: serverTimestamp(), updatedBy: me };
   closeSheets();
   calSel = date; const d = parseDs(date); calMonth = new Date(d.getFullYear(), d.getMonth(), 1);
+  if (tab !== "kalendarz") setTab("kalendarz");
   if (editingEv) updateDoc(doc(db,"events",editingEv.id), data).then(() => toast("Zapisano zmiany")).catch(() => toast("Nie udało się zapisać"));
   else { addDoc(collection(db,"events"), { ...data, createdAt: serverTimestamp(), createdBy: me, updatedBy: null }).catch(() => toast("Nie udało się zapisać"));
-         toast(`Dodano do kalendarza · ${relDay(date)}`); }
+         toast(`Dodano do listy · ${relDay(date)}`); }
   renderCalendar();
 });
 $("#eDelete").addEventListener("click", async () => {
