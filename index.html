@@ -332,6 +332,12 @@
   .until-quick button{padding:8px 12px;border-radius:999px;background:#fff;border:1.5px solid var(--line);font-weight:600;font-size:13.5px}
   .until-quick button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
   .until-sum{font-size:13.5px;color:var(--accent);font-weight:700;margin-top:10px}
+  .cl-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 6px}
+  .cl-stats div{background:var(--card);border-radius:14px;box-shadow:var(--shadow);text-align:center;padding:9px 4px}
+  .cl-stats b{display:block;font-size:22px;font-weight:800;line-height:1.1}
+  .cl-stats span{font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--muted)}
+  .cl-stats .hot{background:var(--accent);color:#fff}
+  .cl-stats .hot span{color:#D1FAF5}
   .past-toggle{display:flex;justify-content:space-between;align-items:center;width:100%;padding:14px 6px;color:var(--muted);font-weight:700;font-size:14px;margin-top:10px}
   .past .ev{opacity:.6}
   /* Arkusz z miesiącem */
@@ -373,6 +379,48 @@
   .v-msg{margin:auto;text-align:center;color:#D1D5DB;padding:30px;line-height:1.6}
   .v-zoom{display:flex;align-items:center;justify-content:center;gap:18px;padding:10px 0 calc(12px + var(--safe-b))}
   .v-zoom span{font-weight:700;min-width:54px;text-align:center}
+
+  /* Karta Diego */
+  .dg-card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);margin:2px 0 14px;overflow:hidden}
+  .dg-head{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px}
+  .dg-ico{width:42px;height:42px;border-radius:12px;background:#FEF3E2;color:#D97706;display:grid;place-items:center;flex-shrink:0}
+  .dg-head .gf-txt b{color:#B45309}
+  .dg-head .gf-txt small{color:var(--muted);opacity:1}
+  .dg-arr{color:var(--muted);transition:transform .2s;flex-shrink:0}
+  .dg-card.open .dg-arr{transform:rotate(180deg)}
+  .dg-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line)}
+  .dg-grid div{background:#fff;padding:10px 14px}
+  .dg-grid span{display:block;font-size:11.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .dg-grid b{display:block;font-size:15px;margin-top:2px;word-wrap:break-word}
+  .dg-grid a{color:#2563EB;text-decoration:none}
+  .dg-notes{padding:12px 14px;font-size:14.5px;color:#4B5060;border-top:1px solid var(--line);white-space:pre-wrap}
+  .dg-foot{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-top:1px solid var(--line)}
+  .dg-foot small{color:var(--muted);font-size:12px}
+  .dg-foot button{padding:8px 16px;border-radius:999px;background:#FEF3E2;color:#B45309;font-weight:700;font-size:14px}
+  /* Kopie: podgląd */
+  .bk-acts{display:flex;gap:6px;flex-shrink:0}
+  .bk-sum{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+  .bk-sum div{background:#F4F5F9;border-radius:12px;text-align:center;padding:8px 2px}
+  .bk-sum b{display:block;font-size:19px}
+  .bk-sum span{font-size:10.5px;font-weight:700;color:var(--muted)}
+  .bk-items{background:#F7F8FB;border-radius:14px;padding:4px 12px}
+  .bk-items div{display:flex;gap:8px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+  .bk-items div:last-child{border-bottom:0}
+  .bk-items span{flex:1;min-width:0}
+  .bk-items em{font-style:normal;font-size:12px;color:var(--muted);flex-shrink:0}
+  .bk-items .dn span{text-decoration:line-through;color:var(--muted)}
+  /* Historia aktualizacji */
+  .cl-v{border-top:1px solid var(--line);padding:4px 0}
+  .cl-v:first-of-type{border-top:0}
+  .cl-v summary{list-style:none;display:flex;align-items:center;gap:10px;padding:10px 2px;cursor:pointer}
+  .cl-v summary::-webkit-details-marker{display:none}
+  .cl-v summary b{flex:1;font-size:14.5px}
+  .cl-v summary small{color:var(--muted);font-size:12px}
+  .vtag{font-size:12px;font-weight:800;padding:3px 9px;border-radius:999px;background:#F0F1F5;color:#4B5060;flex-shrink:0}
+  .vtag.cur{background:#16A34A;color:#fff}
+  .cl-v ul,.news{margin:0 0 8px;padding-left:20px;color:#4B5060;font-size:14px;line-height:1.5}
+  .news{font-size:15.5px;color:var(--text)}
+  .news li{margin-bottom:8px}
 
   /* Przeciągnij, aby odświeżyć */
   #ptr{position:fixed;left:50%;top:calc(var(--safe-t) + 6px);z-index:40;width:42px;height:42px;margin-left:-21px;border-radius:50%;background:#fff;
@@ -607,7 +655,12 @@
         <button class="btn danger" id="logoutBtn">Wyloguj z tego telefonu</button>
       </div>
     </div>
-    <div class="version">Nasz Dom · wersja 2.6</div>
+    <div class="card">
+      <h4>Historia aktualizacji</h4>
+      <p class="desc">Co zmieniało się w aplikacji, od najnowszej wersji.</p>
+      <div id="changelog"></div>
+    </div>
+    <div class="version" id="verLabel"></div>
   </main>
 
   <button class="fab" id="fab" aria-label="Dodaj">
@@ -709,12 +762,34 @@
     <textarea class="field" id="eNote" placeholder="Adres, co zabrać… (opcjonalnie)" maxlength="1000"></textarea>
     <div class="sheet-actions">
       <button class="btn accent" type="submit">Zapisz w kalendarzu</button>
+      <button class="btn soft hidden" type="button" id="eIcs">📲 Dodaj do kalendarza telefonu (z przypomnieniem)</button>
       <button class="btn danger hidden" type="button" id="eDelete">Usuń wydarzenie</button>
     </div>
     <div class="meta-full" id="eMeta"></div>
   </form>
 </div>
 <div id="ptr"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></div>
+
+<!-- ========== ARKUSZ: KARTA DIEGO ========== -->
+<div class="sheet" id="dgSheet" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <h3>Karta Diego 🐶</h3>
+  <form id="dgForm"><div class="dg-fields"></div>
+    <div class="sheet-actions"><button class="btn accent" type="submit" style="background:#D97706">Zapisz</button></div></form>
+</div>
+<!-- ========== ARKUSZ: PODGLĄD KOPII ========== -->
+<div class="sheet" id="bkSheet" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <h3 id="bkTitle">Kopia</h3>
+  <div id="bkBody"></div>
+</div>
+<!-- ========== ARKUSZ: CO NOWEGO ========== -->
+<div class="sheet" id="newsSheet" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <h3 id="newsTitle">Co nowego</h3>
+  <div id="newsBody"></div>
+  <div class="sheet-actions"><button class="btn" id="newsOk">Super, dzięki!</button></div>
+</div>
 
 <!-- ========== ARKUSZ: STACJE RADIOWE ========== -->
 <div class="sheet" id="radioSheet">
@@ -782,14 +857,17 @@ const ICON = {
 };
 
 let items = [], profiles = {}, unsub = null, unsubProf = null, unsubPres = null, unsubFile = null;
+let infoStarted = false;
+const DOG_SVG = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8.3 6.4C6.6 5.3 4.2 5.9 3.7 8.3c-.5 2.3.5 4.6 2.2 5.3l1.7-2.1"/><path d="M15.7 6.4c1.7-1.1 4.1-.5 4.6 1.9.5 2.3-.5 4.6-2.2 5.3l-1.7-2.1"/><path d="M7.6 10.6c0-3 2-5 4.4-5s4.4 2 4.4 5v3.4c0 3.3-2 5.9-4.4 5.9s-4.4-2.6-4.4-5.9z"/><circle cx="10.1" cy="11.2" r=".9" fill="currentColor" stroke="none"/><circle cx="13.9" cy="11.2" r=".9" fill="currentColor" stroke="none"/><path d="M10.9 14.6h2.2L12 15.9z" fill="currentColor"/></svg>';
 let profilesResolve; const profilesReady = new Promise(r => profilesResolve = r);
 const OTHER = () => me === "Maciek" ? "Natalka" : "Maciek";
 let tab = localStorage.getItem("tab") || "diego"; if (!TABS[tab]) tab = "diego";
 let showDone = false, editing = null, form = { cat:null, prio:false, rep:"" };
-const REPEAT = { "":"Nie", week:"Co tydzień", "2week":"Co 2 tyg.", month:"Co miesiąc", "3month":"Co 3 mies.", year:"Co rok" };
+const REPEAT = { "":"Nie", day:"Codziennie", week:"Co tydzień", "2week":"Co 2 tyg.", month:"Co miesiąc", "3month":"Co 3 mies.", year:"Co rok" };
 function nextDate(str, rep){
   const b = str ? new Date(str + "T12:00:00") : new Date();
-  if (rep === "week") b.setDate(b.getDate()+7);
+  if (rep === "day") b.setDate(b.getDate()+1);
+  else if (rep === "week") b.setDate(b.getDate()+7);
   else if (rep === "2week") b.setDate(b.getDate()+14);
   else if (rep === "month") b.setMonth(b.getMonth()+1);
   else if (rep === "3month") b.setMonth(b.getMonth()+3);
@@ -874,10 +952,11 @@ function startProfiles(){
 function startApp(){
   show("scrApp");
   localStorage.setItem("lastWho", me);
+  whatsNew();
   ["diego","natalka","maciek","wspolne","kalendarz"].forEach(t => { if (!localStorage.getItem(seenKey(t))) markSeen(t); });
   setTab(tab);
   paintAvatars();
-  startPresence(); startEvents(); startFiles();
+  startPresence(); startEvents(); startFiles(); if (!infoStarted) { infoStarted = true; startInfo(); }
   if (!welcomeTried) { welcomeTried = true; welcomeSong(); }
   if (unsub) return;
   $("#tasksView").innerHTML = '<div class="loader"></div>';
@@ -913,7 +992,7 @@ function setTab(t){
   $("#calView").classList.toggle("hidden", !isCal);
   $("#fab").classList.toggle("hidden", isSet);
   $("#calBtn").classList.toggle("hidden", !isCal);
-  if (isCal) { calFilter = ""; sortOpen = false; }
+  if (isCal) { calFilter = ""; sortOpen = false; calLimit = 40; }
   if (isCal) { const d = new Date(); $("#cbM").textContent = ["STY","LUT","MAR","KWI","MAJ","CZE","LIP","SIE","WRZ","PAŹ","LIS","GRU"][d.getMonth()]; $("#cbD").textContent = d.getDate(); }
   showDone = false;
   if (isSet) renderSettings();
@@ -981,7 +1060,7 @@ function render(){
 
   $("#hSub").textContent = open.length ? `${open.length} ${pluralWpis(open.length)} do zrobienia` : "Wszystko zrobione";
 
-  let h = tab === "maciek" ? grafikBar() : "";
+  let h = tab === "maciek" ? grafikBar() : tab === "diego" ? diegoCard() : "";
   h += `<section class="pinned">
       <div class="pinned-h"><span>${ICON.starOn.replace('width="24" height="24"','width="18" height="18"')} NAJWAŻNIEJSZE</span>${pinned.length ? `<b>${pinned.length}</b>` : ""}</div>
       ${pinned.length ? `<div class="list">${pinned.map(card).join("")}</div>`
@@ -1027,6 +1106,11 @@ function card(i){
   </div>`;
 }
 $("#tasksView").addEventListener("click", e => {
+  if (e.target.closest("[data-dg]")) { const a = e.target.closest("[data-dg]").dataset.dg;
+    if (a === "toggle") { localStorage.setItem("dgOpen", localStorage.getItem("dgOpen") === "1" ? "0" : "1"); render(); }
+    else if (a === "edit") openDiego();
+    return; }
+  if (e.target.closest("a[href^='tel:']")) return;
   if (e.target.closest("[data-grafik]")) { fileMeta ? openViewer() : (setTab("ustawienia"), toast("Wgraj grafik w sekcji „Grafik Maćka”")); return; }
   const t = e.target.closest("[data-act]"); if (!t) return;
   if (t.dataset.act === "donetoggle") { showDone = !showDone; render(); return; }
@@ -1070,7 +1154,7 @@ function openSheet(it){
   if (!it) setTimeout(() => $("#fTitle").focus(), 280);
 }
 function openLayer(sel){ $("#overlay").classList.add("show"); $(sel).classList.add("show"); }
-function closeSheets(){ ["#overlay","#sheet","#radioSheet","#evSheet","#monthSheet"].forEach(s => $(s).classList.remove("show")); document.activeElement?.blur(); }
+function closeSheets(){ ["#overlay","#sheet","#radioSheet","#evSheet","#monthSheet","#dgSheet","#bkSheet","#newsSheet"].forEach(s => $(s).classList.remove("show")); document.activeElement?.blur(); }
 $("#fab").addEventListener("click", () => tab === "kalendarz" ? openEvSheet(null, today()) : openSheet(null));
 $("#overlay").addEventListener("click", closeSheets);
 $("#fCat").addEventListener("click", e => {
@@ -1400,7 +1484,7 @@ async function loadBackups(){
     $("#bkLast").innerHTML = last ? `✅ Ostatnia kopia: <b>${fmtWhen(last)}</b> · zapisanych kopii: ${list.length}` : "Pierwsza kopia utworzy się automatycznie dziś.";
     $("#bkList").innerHTML = list.length ? list.slice(0,10).map(b => `
       <div class="bk-row"><div><b>${esc(bkLabel(b.id))}</b><small>${b.count} wpisów · ${esc(b.by||"")}</small></div>
-      <button data-bk="${esc(b.id)}">Przywróć</button></div>`).join("") + (list.length > 10 ? `<p class="desc" style="margin:8px 0 0">…i ${list.length-10} starszych</p>` : "")
+      <span class="bk-acts"><button data-bkv="${esc(b.id)}">Podgląd</button><button data-bk="${esc(b.id)}">Przywróć</button></span></div>`).join("") + (list.length > 10 ? `<p class="desc" style="margin:8px 0 0">…i ${list.length-10} starszych</p>` : "")
       : '<p class="desc">Pierwsza kopia utworzy się automatycznie dziś.</p>';
   } catch { $("#bkList").innerHTML = '<p class="desc">Nie udało się wczytać listy kopii.</p>'; }
 }
@@ -1420,7 +1504,33 @@ async function restore(list, label, evList){
     toast("Przywrócono kopię ✓"); loadBackups();
   } catch (e) { console.error(e); toast("Nie udało się przywrócić"); }
 }
+async function previewBackup(id){
+  $("#bkBody").innerHTML = '<div class="loader"></div>'; $("#bkTitle").textContent = "Kopia: " + bkLabel(id);
+  openLayer("#bkSheet");
+  const s = await getDoc(doc(db,"backups",id)); if (!s.exists()) { $("#bkBody").innerHTML = '<p class="desc">Nie znaleziono kopii.</p>'; return; }
+  const list = JSON.parse(s.data().data || "[]"), evs = s.data().events ? JSON.parse(s.data().events) : [];
+  const tabs = ["diego","natalka","maciek","wspolne"];
+  let h = `<div class="bk-sum">${tabs.map(t => `<div><b>${list.filter(i => i.tab === t).length}</b><span>${TABS[t].name}</span></div>`).join("")}
+           <div><b>${evs.length}</b><span>Kalendarz</span></div></div>`;
+  tabs.forEach(t => {
+    const its = list.filter(i => i.tab === t).sort((a,b) => (a.done - b.done) || (b.priority==="high") - (a.priority==="high"));
+    if (!its.length) return;
+    h += `<div class="section-h" style="margin:16px 4px 8px">${TABS[t].name} · ${its.length}</div><div class="bk-items">${its.map(i =>
+      `<div class="${i.done ? "dn" : ""}">${i.done ? "✓" : i.priority === "high" ? "★" : "•"} <span>${esc(i.title)}</span>${i.date ? `<em>${fmtD(i.date)}</em>` : ""}</div>`).join("")}</div>`;
+  });
+  if (evs.length) h += `<div class="section-h" style="margin:16px 4px 8px">Kalendarz · ${evs.length}</div><div class="bk-items">${evs.sort((a,b) => a.date.localeCompare(b.date)).map(e =>
+      `<div>📅 <span>${esc(e.title)}</span><em>${fmtD(e.date)}${e.time ? " " + esc(e.time) : ""}</em></div>`).join("")}</div>`;
+  h += `<button class="btn accent" style="margin-top:18px" data-bkr="${esc(id)}">Przywróć tę kopię</button>`;
+  $("#bkBody").innerHTML = h;
+}
+$("#bkBody").addEventListener("click", async e => {
+  const b = e.target.closest("[data-bkr]"); if (!b) return;
+  closeSheets();
+  const s = await getDoc(doc(db,"backups",b.dataset.bkr));
+  if (s.exists()) restore(JSON.parse(s.data().data), bkLabel(b.dataset.bkr), s.data().events ? JSON.parse(s.data().events) : null);
+});
 $("#bkList").addEventListener("click", async e => {
+  const v = e.target.closest("[data-bkv]"); if (v) { previewBackup(v.dataset.bkv); return; }
   const b = e.target.closest("[data-bk]"); if (!b) return;
   const s = await getDoc(doc(db,"backups",b.dataset.bk));
   if (s.exists()) restore(JSON.parse(s.data().data), bkLabel(b.dataset.bk), s.data().events ? JSON.parse(s.data().events) : null);
@@ -1498,6 +1608,46 @@ function renderPresence(){
 }
 setInterval(() => { if (me) renderPresence(); }, 15000);
 window.addEventListener("pagehide", () => beat(false));
+
+/* =================== KARTA DIEGO =================== */
+let diego = {};
+const DG = [ ["weight","Waga","np. 12 kg"], ["born","Data urodzenia",""], ["chip","Nr chipa",""], ["vet","Weterynarz","nazwa / adres"],
+             ["vetTel","Telefon do weterynarza","np. 600 100 200"], ["food","Karma i porcja","np. Brit 2× dziennie 150 g"], ["notes","Uwagi","alergie, leki, nawyki…"] ];
+function ageOf(b){
+  if (!b) return ""; const d = parseDs(b), n = new Date(); let y = n.getFullYear() - d.getFullYear(), m = n.getMonth() - d.getMonth();
+  if (n.getDate() < d.getDate()) m--; if (m < 0) { y--; m += 12; }
+  return y > 0 ? `${y} ${y===1?"rok":(y%10>=2&&y%10<=4&&(y%100<12||y%100>14))?"lata":"lat"}${m ? ` ${m} mies.` : ""}` : `${m} mies.`;
+}
+function diegoCard(){
+  const open = localStorage.getItem("dgOpen") === "1", d = diego;
+  const sum = [d.weight, ageOf(d.born)].filter(Boolean).join(" · ") || "Uzupełnij podstawowe informacje";
+  let h = `<div class="dg-card ${open ? "open" : ""}"><button class="dg-head" data-dg="toggle">
+      <span class="dg-ico">${DOG_SVG}</span><span class="gf-txt"><b>KARTA DIEGO</b><small>${esc(sum)}</small></span>
+      <svg class="dg-arr" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>`;
+  if (open) {
+    h += `<div class="dg-grid">${DG.filter(([k]) => k !== "notes").map(([k,l]) => `<div><span>${l}</span><b>${
+      k === "vetTel" && d[k] ? `<a href="tel:${esc(d[k].replace(/[^+\d]/g,""))}">📞 ${esc(d[k])}</a>` :
+      k === "born" && d[k] ? `${fmtD(d[k])} (${ageOf(d[k])})` : esc(d[k] || "—")}</b></div>`).join("")}</div>
+      ${d.notes ? `<div class="dg-notes">${esc(d.notes)}</div>` : ""}
+      <div class="dg-foot"><small>${d.updatedBy ? `Zmiana: ${esc(d.updatedBy)}, ${fmtWhen(toDate(d.updatedAt))}` : ""}</small><button data-dg="edit">Edytuj</button></div>`;
+  }
+  return h + `</div>`;
+}
+function startInfo(){
+  onSnapshot(doc(db,"info","diego"), s => { diego = s.exists() ? s.data() : {}; if (tab === "diego") render(); }, () => {});
+}
+function openDiego(){
+  $("#dgForm .dg-fields").innerHTML = DG.map(([k,l,ph]) => `<label class="lbl">${l}</label>${k === "notes"
+    ? `<textarea class="field" data-k="${k}" placeholder="${ph}">${esc(diego[k]||"")}</textarea>`
+    : `<input class="field" data-k="${k}" ${k==="born" ? 'type="date"' : k==="vetTel" ? 'type="tel"' : ""} placeholder="${ph}" value="${esc(diego[k]||"")}">`}`).join("");
+  openLayer("#dgSheet");
+}
+$("#dgForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const v = {}; $("#dgForm").querySelectorAll("[data-k]").forEach(el => v[el.dataset.k] = el.value.trim());
+  setDoc(doc(db,"info","diego"), { ...v, updatedBy: me, updatedAt: serverTimestamp() }).then(() => toast("Karta Diego zapisana 🐶")).catch(() => toast("Nie udało się zapisać"));
+  closeSheets();
+});
 
 /* =================== GRAFIK MAĆKA =================== */
 /* Plik leży w bazie w kawałkach (jak piosenka). Telefon trzyma kopię, żeby otwierał się błyskawicznie. */
@@ -1646,7 +1796,7 @@ const EVC = {
   wspolne: { n:"N+M",     c:"#7C3AED" },
   inne:    { n:"Inne",    c:"#0D9488" }
 };
-const EVREP = { "":"Nie", week:"Co tydzień", month:"Co miesiąc", year:"Co rok" };
+const EVREP = { "":"Nie", day:"Codziennie", week:"Co tydzień", month:"Co miesiąc", year:"Co rok" };
 let events = [], unsubEv = null, calMonth = new Date(), calSel = null, editingEv = null, evForm = { cat:"wspolne", rep:"", all:true };
 calMonth.setDate(1);
 const ds = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
@@ -1682,6 +1832,7 @@ function occurs(ev, day){
   if (!ev.repeat || day < ev.date) return false;
   if (ev.until && day > ev.until) return false;
   const a = parseDs(ev.date), b = parseDs(day);
+  if (ev.repeat === "day")   return true;
   if (ev.repeat === "week")  return Math.round((b - a) / 864e5) % 7 === 0;
   if (ev.repeat === "month") return a.getDate() === b.getDate();
   if (ev.repeat === "year")  return a.getDate() === b.getDate() && a.getMonth() === b.getMonth();
@@ -1719,8 +1870,16 @@ function nextOcc(ev, from){
   for (let i = 0; i < 400; i++) { const x = ds(d); if (ev.until && x > ev.until) return null; if (occurs(ev, x)) return x; d.setDate(d.getDate()+1); }
   return null;
 }
-let showPast = false, calFilter = "", sortOpen = false;
-const FILTERS = { "":"Wszystko", natalka:"Natalka", maciek:"Maciek" };
+let showPast = false, calFilter = "", sortOpen = false, calLimit = 40;
+function occList(e, from){
+  if (!e.repeat) return e.date >= from ? [e.date] : [];
+  const H = { day:14, week:91, month:365, year:730 }[e.repeat] || 365;   // bez daty końca: pokazujemy najbliższy okres
+  const end = e.until || ds(new Date(parseDs(from).getTime() + H * 864e5));
+  const out = [], d = parseDs(e.date > from ? e.date : from);
+  for (let i = 0; i < 3700 && ds(d) <= end && out.length < 400; i++) { const x = ds(d); if (occurs(e, x)) out.push(x); d.setDate(d.getDate()+1); }
+  return out;
+}
+const FILTERS = { "":"Wszystko", natalka:"Natalka", maciek:"Maciek", wspolne:"N+M" };
 const passF = e => !calFilter || e.cat === calFilter;
 function listCard(e, day){
   const cat = EVC[e.cat] || EVC.inne;
@@ -1742,10 +1901,14 @@ function dayBlock(day, list, cls = ""){
 function renderCalendar(){
   const t = today();
   const evs = events.filter(passF);
-  const up = evs.map(e => ({ e, d: nextOcc(e, t) })).filter(x => x.d && x.d >= t)
-                   .sort((a,b) => a.d.localeCompare(b.d) || (a.e.time||"").localeCompare(b.e.time||""));
+  // Każde wystąpienie powtarzającego się wydarzenia osobno — aż do daty „do kiedy”
+  const up = evs.flatMap(e => occList(e, t).map(d => ({ e, d })))
+                .sort((a,b) => a.d.localeCompare(b.d) || (a.e.time||"").localeCompare(b.e.time||""));
+  const tm = ds(new Date(Date.now() + 864e5)), wk = ds(new Date(Date.now() + 6 * 864e5));
+  const stat = { d: up.filter(x => x.d === t).length, j: up.filter(x => x.d === tm).length, w: up.filter(x => x.d <= wk).length };
   const past = evs.filter(e => !e.repeat && e.date < t).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 30);
-  $("#hSub").textContent = up.length ? `${up.length} ${up.length===1?"nadchodzące wydarzenie":"nadchodzących wydarzeń"}${calFilter ? " · " + FILTERS[calFilter] : " · wszystkie"}` : "Wspólny kalendarz";
+  const nEv = new Set(up.map(x => x.e.id)).size;
+  $("#hSub").textContent = up.length ? `${nEv} ${nEv===1?"wydarzenie":"wydarzeń"} w planie${calFilter ? " · " + FILTERS[calFilter] : " · wszystkie"}` : "Wspólny kalendarz";
   const fc = calFilter ? EVC[calFilter].c : "#14161F";
   let h = `<div class="cl-tools" style="--fc:${fc}">
       <button class="sort-btn ${calFilter ? "active" : ""}" data-cal="sort">
@@ -1755,19 +1918,25 @@ function renderCalendar(){
       ${sortOpen ? `<div class="sort-menu"><div class="lbl2">Pokaż wydarzenia</div>
         ${Object.entries(FILTERS).map(([k,v]) => `<button class="${k===calFilter?"on":""}" data-filter="${k}">
           ${k ? `<i style="width:12px;height:12px;border-radius:50%;background:${EVC[k].c}"></i>` : `<i style="width:12px;height:12px;border-radius:50%;background:conic-gradient(#D97706,#DB2777,#2563EB,#7C3AED,#0D9488,#D97706)"></i>`}
-          ${k ? "Dla: " + v : "Wszystkie"}${k===calFilter ? '<span class="ck">✓</span>' : ""}</button>`).join("")}</div>` : ""}
+          ${k === "wspolne" ? "Wspólne: N+M" : k ? "Dla: " + v : "Wszystkie"}${k===calFilter ? '<span class="ck">✓</span>' : ""}</button>`).join("")}</div>` : ""}
     </div>`;
+  if (up.length) h += `<div class="cl-stats">
+      <div class="${stat.d ? "hot" : ""}"><b>${stat.d}</b><span>DZIŚ</span></div>
+      <div><b>${stat.j}</b><span>JUTRO</span></div>
+      <div><b>${stat.w}</b><span>7 DNI</span></div></div>`;
   if (!up.length && calFilter) h += `<div class="cl-empty"><b>Brak wydarzeń dla: ${FILTERS[calFilter]}</b>Zmień filtr albo dodaj wydarzenie przyciskiem +.</div>`;
   else if (!up.length) h += `<div class="cl-empty"><div class="ico"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></div>
         <b>Brak zaplanowanych wydarzeń</b>Dotknij <b style="display:inline">+</b> albo otwórz kalendarzyk, aby coś dodać.</div>`;
-  let lastMonth = "", i = 0;
-  while (i < up.length) {
+  let lastMonth = "", i = 0, groups = 0;
+  while (i < up.length && groups < calLimit) {
+    groups++;
     const day = up[i].d, group = [];
     while (i < up.length && up[i].d === day) group.push(up[i++].e);
     const d = parseDs(day), mk = `${d.getFullYear()}-${d.getMonth()}`;
     if (mk !== lastMonth) { h += `<div class="cl-month">${MONTHS[d.getMonth()]} ${d.getFullYear()}</div>`; lastMonth = mk; }
     h += dayBlock(day, group);
   }
+  if (i < up.length) h += `<button class="btn soft" data-cal="more" style="margin:6px 0 10px">Pokaż dalsze terminy (${up.length - i})</button>`;
   if (past.length) {
     h += `<button class="past-toggle" data-cal="past"><span>Minione (${past.length})</span><span>${showPast ? "Ukryj" : "Pokaż"}</span></button>`;
     if (showPast) h += `<div class="past">${past.map(e => dayBlock(e.date, [e])).join("")}</div>`;
@@ -1822,6 +1991,7 @@ function calClick(e){
     if (a === "clear") { e.stopPropagation(); calFilter = ""; sortOpen = false; renderCalendar(); return; }
     if (a === "sort") { sortOpen = !sortOpen; renderCalendar(); return; }
     if (a === "month") { openMonth(); return; }
+    if (a === "more") { calLimit += 40; renderCalendar(); return; }
     if (a === "prev") calMonth.setMonth(calMonth.getMonth()-1);
     else if (a === "next") calMonth.setMonth(calMonth.getMonth()+1);
     else if (a === "today") { calMonth = new Date(); calMonth.setDate(1); calSel = today(); }
@@ -1855,7 +2025,7 @@ function openEvSheet(ev, day){
   $("#eCat").innerHTML = Object.entries(EVC).map(([k,v]) => `<button type="button" style="--c:${v.c}" class="${k===evForm.cat?"on":""}" data-c="${k}"><i style="background:${v.c}"></i>${v.n}</button>`).join("");
   $("#eRep").innerHTML = Object.entries(EVREP).map(([k,v]) => `<button type="button" class="${k===evForm.rep?"on":""}" data-r="${k}">${v}</button>`).join("");
   $("#eAll").classList.toggle("on", evForm.all); $("#eTime").classList.toggle("hidden", evForm.all);
-  $("#eDelete").classList.toggle("hidden", !ev);
+  $("#eDelete").classList.toggle("hidden", !ev); $("#eIcs").classList.toggle("hidden", !ev);
   $("#eMeta").textContent = ev ? `Dodane: ${ev.createdBy||"?"}, ${fmtWhen(toDate(ev.createdAt))}` + (ev.updatedBy ? ` · zmiana: ${ev.updatedBy}, ${fmtWhen(toDate(ev.updatedAt))}` : "") : "";
   openLayer("#evSheet");
   if (!ev) setTimeout(() => $("#eTitle").focus(), 280);
@@ -1908,6 +2078,33 @@ $("#evForm").addEventListener("submit", e => {
          toast(`Dodano do listy · ${relDay(date)}`); }
   renderCalendar();
 });
+/* Eksport do kalendarza telefonu — telefon sam przypomni o wydarzeniu (1 h przed, a całodniowe dzień wcześniej o 18:00) */
+function icsText(e){
+  const z = s => String(s||"").replace(/\\/g,"\\\\").replace(/([,;])/g,"\\$1").replace(/\n/g,"\\n");
+  const d = e.date.replace(/-/g,""), now = new Date().toISOString().replace(/[-:]/g,"").replace(/\.\d+/,"");
+  const L = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//NaszDom//PL","CALSCALE:GREGORIAN","BEGIN:VEVENT",
+    `UID:${e.id}@nasz-dom`, `DTSTAMP:${now}`, `SUMMARY:${z(e.title)}`];
+  if (e.time) {
+    const [hh, mm] = e.time.split(":").map(Number), end = new Date(parseDs(e.date)); end.setHours(hh + 1, mm);
+    L.push(`DTSTART:${d}T${pad(hh)}${pad(mm)}00`, `DTEND:${ds(end).replace(/-/g,"")}T${pad(end.getHours())}${pad(end.getMinutes())}00`);
+  } else {
+    const n = parseDs(e.date); n.setDate(n.getDate()+1);
+    L.push(`DTSTART;VALUE=DATE:${d}`, `DTEND;VALUE=DATE:${ds(n).replace(/-/g,"")}`);
+  }
+  const F = { day:"DAILY", week:"WEEKLY", month:"MONTHLY", year:"YEARLY" }[e.repeat];
+  if (F) L.push(`RRULE:FREQ=${F}` + (e.until ? `;UNTIL=${e.until.replace(/-/g,"")}${e.time ? "T235959" : ""}` : ""));
+  if (e.note) L.push(`DESCRIPTION:${z(e.note)}`);
+  L.push("BEGIN:VALARM","ACTION:DISPLAY",`DESCRIPTION:${z(e.title)}`, e.time ? "TRIGGER:-PT1H" : "TRIGGER:-PT6H","END:VALARM","END:VEVENT","END:VCALENDAR");
+  return L.join("\r\n");
+}
+$("#eIcs").addEventListener("click", async () => {
+  if (!editingEv) return;
+  const name = (editingEv.title.replace(/[^\wąćęłńóśźżĄĆĘŁŃÓŚŹŻ -]/g,"").trim() || "wydarzenie") + ".ics";
+  const file = new File([icsText(editingEv)], name, { type:"text/calendar" });
+  if (navigator.canShare?.({ files:[file] })) { try { await navigator.share({ files:[file], title: editingEv.title }); return; } catch (err) { if (err.name === "AbortError") return; } }
+  const a = document.createElement("a"); a.href = URL.createObjectURL(file); a.download = name; a.click();
+  toast("Otwórz pobrany plik, aby dodać do kalendarza");
+});
 $("#eDelete").addEventListener("click", async () => {
   if (!editingEv) return;
   if (!await confirmDlg("Usunąć wydarzenie?", `„${editingEv.title}” zniknie z kalendarza u was obojga.`)) return;
@@ -1958,6 +2155,65 @@ document.addEventListener("touchend", () => {
 
 /* Kompaktowy nagłówek po przewinięciu — więcej miejsca na listę */
 window.addEventListener("scroll", () => $("header")?.classList.toggle("compact", window.scrollY > 30), { passive:true });
+
+/* =================== HISTORIA AKTUALIZACJI =================== */
+/* Przy każdej nowej wersji dopisujemy nowy wpis NA GÓRZE tej listy. */
+const APP_VERSION = "2.7";
+const CHANGELOG = [
+  { v:"2.7", d:"17.11.2026", t:"Kalendarz pełniejszy, Karta Diego, przypomnienia w telefonie", p:[
+    "Kalendarz: filtr „N+M” — tylko wspólne wydarzenia",
+    "Powtarzające się wydarzenia pokazują się na liście jako każdy termin osobno, aż do daty „do kiedy”",
+    "Nowa opcja powtarzania: „Codziennie” (w kalendarzu i w zadaniach)",
+    "Licznik na górze kalendarza: ile wydarzeń dziś, jutro i w 7 dni",
+    "„Dodaj do kalendarza telefonu” — telefon sam przypomni o wydarzeniu",
+    "Karta Diego w zakładce Diego: waga, wiek, chip, weterynarz z przyciskiem dzwonienia, karma, uwagi",
+    "Podgląd zawartości każdej kopii zapasowej przed przywróceniem",
+    "Historia aktualizacji i okienko „Co nowego” po aktualizacji" ] },
+  { v:"2.6", d:"17.11.2026", t:"Filtrowanie kalendarza i powtarzanie do daty", p:[
+    "„Sortuj po osobie” w kalendarzu: Natalka / Maciek",
+    "„Powtarzaj do kiedy” z wyborem daty końca i szybkimi przyciskami" ] },
+  { v:"2.5", d:"17.11.2026", t:"Grafik Maćka, kosz, radio na górze", p:[
+    "Grafik Maćka: wgraj, pokaż, usuń (zdjęcie lub PDF), pasek GRAFIK w zakładce Maciek",
+    "Kosz: usunięte wpisy można przywrócić przez 30 dni",
+    "Radio przeniesione na górę ekranu, czat usunięty",
+    "Nowe wpisy od drugiej osoby wyróżnione kolorem przy pierwszym obejrzeniu",
+    "Płynniejsze działanie: animują się tylko nowe pozycje" ] },
+  { v:"2.4", d:"17.11.2026", t:"Kalendarz jako lista", p:[
+    "Kalendarz pokazuje listę wydarzeń od najbliższego, kalendarzyk miesięczny pod ikonką w rogu",
+    "Cyfry na dole pokazują tylko nowe, nieobejrzane pozycje" ] },
+  { v:"2.3", d:"17.11.2026", t:"Wspólny kalendarz", p:[
+    "Zakładka Kalendarz ze świętami, kolorami osób i powtarzaniem",
+    "Nowe ikony: pies, kobieta, mężczyzna",
+    "Automatyczne odświeżanie po wgraniu nowej wersji, „przeciągnij w dół” by odświeżyć" ] },
+  { v:"2.2", d:"17.11.2026", t:"Status ONLINE", p:[
+    "Pasek ONLINE: kto teraz używa aplikacji",
+    "Piosenka powitalna zapisywana na profilu w chmurze" ] },
+  { v:"2.1", d:"17.11.2026", t:"Bezpieczne aktualizacje", p:[
+    "Klucze bazy w osobnym pliku config.js — aktualizacje nie ruszają danych",
+    "Zadania cykliczne, plakietka „Nowe”, „Cofnij” po usunięciu" ] },
+  { v:"2.0", d:"17.11.2026", t:"Duża aktualizacja", p:[
+    "Zakładka N+M, sekcja NAJWAŻNIEJSZE, radio online, Ustawienia",
+    "Zdjęcie profilowe, piosenka powitalna, automatyczne kopie zapasowe" ] },
+  { v:"1.1", d:"17.11.2026", t:"Logowanie kodem", p:[ "Klawiatura numeryczna jak w domofonie (kod 1997)" ] },
+  { v:"1.0", d:"17.11.2026", t:"Pierwsza wersja", p:[ "Zakładki Diego, Natalka, Maciek, synchronizacja na żywo między telefonami" ] }
+];
+function renderChangelog(){
+  $("#verLabel").textContent = `Nasz Dom · wersja ${APP_VERSION}`;
+  $("#changelog").innerHTML = CHANGELOG.map((c, i) => `<details class="cl-v" ${i === 0 ? "open" : ""}>
+    <summary><span class="vtag ${i === 0 ? "cur" : ""}">v${c.v}</span><b>${esc(c.t)}</b><small>${c.d}</small></summary>
+    <ul>${c.p.map(x => `<li>${esc(x)}</li>`).join("")}</ul></details>`).join("");
+}
+renderChangelog();
+function whatsNew(){
+  const last = localStorage.getItem("seenVersion");
+  localStorage.setItem("seenVersion", APP_VERSION);
+  if (!last || last === APP_VERSION) return;
+  const c = CHANGELOG[0];
+  $("#newsBody").innerHTML = `<p class="desc" style="margin:-8px 0 14px">${esc(c.t)}</p><ul class="news">${c.p.map(x => `<li>${esc(x)}</li>`).join("")}</ul>`;
+  $("#newsTitle").textContent = `Co nowego w wersji ${c.v}`;
+  setTimeout(() => openLayer("#newsSheet"), 700);
+}
+$("#newsOk").addEventListener("click", closeSheets);
 
 /* =================== DIALOG I TOAST =================== */
 function confirmDlg(title, text, yes="Usuń"){
