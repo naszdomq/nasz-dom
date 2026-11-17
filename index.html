@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>Nasz Dom</title>
+<meta name="theme-color" content="#F4F5F9">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Nasz Dom">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+  :root{
+    --bg:#F4F5F9; --card:#FFFFFF; --text:#14161F; --muted:#6B7080; --line:#E7E8EF;
+    --accent:#D97706; --accent-soft:#FEF3E2;
+    --danger:#DC2626; --danger-soft:#FDECEC; --ok:#16A34A; --star:#F59E0B;
+    --radius:18px; --shadow:0 1px 2px rgba(20,22,31,.04),0 4px 14px rgba(20,22,31,.05);
+    --nav-h:70px; --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+  }
+  body[data-tab="diego"]{--accent:#D97706;--accent-soft:#FEF3E2}
+  body[data-tab="natalka"]{--accent:#DB2777;--accent-soft:#FDEBF4}
+  body[data-tab="maciek"]{--accent:#2563EB;--accent-soft:#E8F0FE}
+  body[data-tab="wspolne"]{--accent:#7C3AED;--accent-soft:#F1EBFE}
+  body[data-tab="ustawienia"]{--accent:#334155;--accent-soft:#EEF1F5}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text)}
+  body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;
+       font-size:16px;line-height:1.4;-webkit-font-smoothing:antialiased;min-height:100vh;overscroll-behavior-y:none}
+  button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
+  input,textarea{font:inherit;font-size:16px;color:var(--text)}
+  .hidden{display:none!important}
+  svg{display:block}
+
+  /* ---------- Awatary ---------- */
+  .av{display:inline-grid;place-items:center;border-radius:50%;color:#fff;font-weight:700;overflow:hidden;flex-shrink:0;
+      background:#9CA3AF;vertical-align:middle}
+  .av img{width:100%;height:100%;object-fit:cover;display:block}
+  .av-natalka{background:linear-gradient(140deg,#F472B6,#DB2777)}
+  .av-maciek{background:linear-gradient(140deg,#60A5FA,#2563EB)}
+  .av-xs{width:18px;height:18px;font-size:10px}
+  .av-md{width:42px;height:42px;font-size:16px}
+  .av-lg{width:60px;height:60px;font-size:24px}
+  .av-xl{width:96px;height:96px;font-size:38px}
+
+  /* ---------- Ekrany startowe ---------- */
+  .screen-center{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+                 padding:32px 24px calc(32px + var(--safe-b));text-align:center}
+  .logo{width:76px;height:76px;border-radius:22px;background:linear-gradient(140deg,#F59E0B,#D97706);
+        display:grid;place-items:center;box-shadow:0 10px 30px rgba(217,119,6,.3);margin-bottom:22px}
+  .screen-center h1{font-size:28px;margin:0 0 6px;letter-spacing:-.02em}
+  .screen-center p{color:var(--muted);margin:0 0 28px}
+  .field{width:100%;padding:16px 18px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);outline:none;transition:border .15s}
+  .field:focus{border-color:var(--accent)}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:15px;border-radius:14px;
+       font-weight:600;font-size:16px;background:var(--text);color:#fff;transition:transform .1s,opacity .15s}
+  .btn:active{transform:scale(.98)}
+  .btn:disabled{opacity:.5}
+  .btn.accent{background:var(--accent)}
+  .btn.ghost{background:var(--card);color:var(--text);border:1.5px solid var(--line)}
+  .btn.soft{background:#F0F1F5;color:var(--text)}
+  .btn.danger{background:var(--danger-soft);color:var(--danger)}
+  .error{color:var(--danger);font-size:14px;min-height:20px}
+  .pin-dots{display:flex;gap:18px;justify-content:center;margin:4px 0 14px}
+  .pin-dots i{width:16px;height:16px;border-radius:50%;border:2px solid #C7C9D3;transition:all .15s}
+  .pin-dots i.on{background:var(--text);border-color:var(--text);transform:scale(1.08)}
+  .pin-dots.ok i{background:var(--ok);border-color:var(--ok)}
+  .pin-dots.shake{animation:shake .4s}
+  @keyframes shake{20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+  .keypad{display:grid;grid-template-columns:repeat(3,80px);gap:18px 26px;justify-content:center;margin-top:10px}
+  .keypad button{width:80px;height:80px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);font-size:32px;font-weight:500;
+                 display:grid;place-items:center;transition:background .1s,transform .08s;user-select:none;-webkit-user-select:none}
+  .keypad button:active{background:#E4E6EE;transform:scale(.94)}
+  .keypad button.k-del{background:none;box-shadow:none;color:var(--muted)}
+  .keypad.busy{opacity:.5;pointer-events:none}
+  .who-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:360px}
+  .who-btn{background:var(--card);border-radius:20px;padding:26px 12px;box-shadow:var(--shadow);
+           display:flex;flex-direction:column;align-items:center;gap:12px;font-weight:600;font-size:18px}
+  .who-btn:active{transform:scale(.97)}
+
+  /* ---------- Nagłówek ---------- */
+  header{position:sticky;top:0;z-index:20;background:rgba(244,245,249,.88);backdrop-filter:saturate(180%) blur(14px);
+         -webkit-backdrop-filter:saturate(180%) blur(14px);padding:calc(14px + var(--safe-t)) 20px 12px;
+         display:flex;align-items:center;justify-content:space-between;gap:10px}
+  header h2{margin:0;font-size:30px;letter-spacing:-.025em;line-height:1.1}
+  header .sub{color:var(--muted);font-size:14px;margin-top:3px}
+  .head-actions{display:flex;align-items:center;gap:10px}
+  .round-btn{width:42px;height:42px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--muted)}
+  .round-btn.spin svg{animation:spin .7s linear infinite}
+  .sync-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-right:6px;vertical-align:1px}
+  .sync-dot.off{background:#F59E0B}
+
+  /* ---------- Lista ---------- */
+  main{padding:6px 16px calc(var(--nav-h) + var(--safe-b) + 110px);max-width:640px;margin:0 auto}
+  .list{display:flex;flex-direction:column;gap:10px}
+  .item{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);display:flex;align-items:flex-start;
+        padding:6px 2px 6px 4px;position:relative;overflow:hidden;animation:pop .22s ease}
+  @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .check{width:52px;height:52px;flex-shrink:0;display:grid;place-items:center}
+  .check span{width:28px;height:28px;border-radius:50%;border:2.2px solid #C7C9D3;display:grid;place-items:center;transition:all .15s}
+  .check span svg{opacity:0;transform:scale(.5);transition:all .15s}
+  .item.done .check span{background:var(--ok);border-color:var(--ok)}
+  .item.done .check span svg{opacity:1;transform:scale(1)}
+  .body{flex:1;min-width:0;padding:13px 0 10px;cursor:pointer}
+  .title{font-weight:600;font-size:17px;word-wrap:break-word}
+  .note{color:var(--muted);font-size:15px;margin-top:3px;white-space:pre-wrap;word-wrap:break-word}
+  .item.done .title{text-decoration:line-through;color:var(--muted);font-weight:500}
+  .item.done{opacity:.72;box-shadow:none;border:1px solid var(--line)}
+  .star{width:48px;height:52px;flex-shrink:0;display:grid;place-items:center;color:#C7C9D3}
+  .star.on{color:var(--star)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .chip{font-size:12.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:#F0F1F5;color:#4B5060}
+  .chip.cat{background:var(--accent-soft);color:var(--accent)}
+  .chip.overdue{background:var(--danger);color:#fff}
+  .chip.soon{background:#FEF3C7;color:#B45309}
+  .chip.new{background:#16A34A;color:#fff}
+  nav .badge.newdot{background:#16A34A}
+  .meta{font-size:12px;color:#9A9EAC;margin-top:8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+
+  /* Sekcja NAJWAŻNIEJSZE */
+  .pinned{border-radius:22px;padding:4px 10px 12px;margin:4px 0 18px;
+          background:linear-gradient(160deg,#FFF4E5 0%,#FFE9EC 100%);border:1.5px solid #FBCFA8;
+          box-shadow:0 6px 20px rgba(245,158,11,.12)}
+  .pinned-h{display:flex;align-items:center;justify-content:space-between;padding:10px 6px 10px}
+  .pinned-h span{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;letter-spacing:.09em;color:#B4410E}
+  .pinned-h b{min-width:26px;height:26px;padding:0 8px;border-radius:999px;background:linear-gradient(140deg,#F97316,#DC2626);
+              color:#fff;font-size:13px;display:grid;place-items:center}
+  .pinned .item{box-shadow:0 1px 2px rgba(180,65,14,.06),0 3px 10px rgba(180,65,14,.08)}
+  .pinned-empty{font-size:14px;color:#B4410E;opacity:.8;padding:4px 8px 6px;display:flex;align-items:center;gap:6px}
+  .section-h{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:0 6px 10px}
+
+  .done-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;margin:22px 0 10px;padding:12px 6px;
+               font-weight:600;color:var(--muted);font-size:15px}
+  .done-toggle svg{transition:transform .2s}
+  .done-toggle.open svg{transform:rotate(180deg)}
+  .empty{text-align:center;color:var(--muted);padding:36px 20px}
+  .empty .ico{width:64px;height:64px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin:0 auto 14px}
+  .empty b{display:block;color:var(--text);font-size:17px;margin-bottom:4px}
+
+  /* ---------- Ustawienia ---------- */
+  .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:14px}
+  .card h4{margin:0 0 4px;font-size:17px}
+  .card .desc{color:var(--muted);font-size:14px;margin:0 0 14px}
+  .card .stack{display:flex;flex-direction:column;gap:10px}
+  .card .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .profile-row{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+  .profile-row b{font-size:22px;display:block}
+  .profile-row small{color:var(--muted)}
+  .file-pill{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:#F7F8FB;font-size:14px;margin-bottom:10px;word-break:break-all}
+  .bk-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 2px;border-top:1px solid var(--line)}
+  .bk-row:first-child{border-top:0}
+  .bk-row small{display:block;color:var(--muted);font-size:13px}
+  .bk-row button{padding:9px 14px;border-radius:999px;background:#F0F1F5;font-weight:600;font-size:14px;flex-shrink:0}
+  .version{text-align:center;color:#A3A7B5;font-size:12px;margin-top:6px}
+
+  /* ---------- FAB ---------- */
+  .fab{position:fixed;right:20px;bottom:calc(var(--nav-h) + var(--safe-b) + 18px);z-index:25;width:60px;height:60px;border-radius:20px;
+       background:var(--accent);color:#fff;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.18);transition:transform .12s,background .2s}
+  .fab:active{transform:scale(.92)}
+
+  /* ---------- Radio ---------- */
+  .radio-pill{position:fixed;left:16px;bottom:calc(var(--nav-h) + var(--safe-b) + 22px);z-index:25;height:52px;border-radius:26px;
+              background:var(--card);box-shadow:0 6px 22px rgba(20,22,31,.14);display:flex;align-items:center;padding:4px;
+              max-width:calc(100% - 120px)}
+  .radio-toggle{width:44px;height:44px;border-radius:50%;background:var(--text);color:#fff;display:grid;place-items:center;flex-shrink:0}
+  .radio-pill.on .radio-toggle{background:var(--danger)}
+  .radio-label{display:flex;align-items:center;gap:8px;padding:0 6px 0 10px;min-width:0;height:44px;font-weight:600;font-size:14px}
+  .radio-label span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .radio-label svg{flex-shrink:0;color:var(--muted)}
+  .eq{display:none;align-items:flex-end;gap:2px;height:14px;flex-shrink:0}
+  .eq i{width:3px;background:var(--danger);border-radius:2px;animation:eq 1s ease-in-out infinite}
+  .eq i:nth-child(2){animation-delay:.2s}.eq i:nth-child(3){animation-delay:.4s}
+  @keyframes eq{0%,100%{height:4px}50%{height:14px}}
+  .radio-pill.on .eq{display:flex}
+  .radio-pill.loading .eq{display:none}
+  .radio-pill.loading .radio-toggle svg{animation:spin .8s linear infinite}
+  .st-list{display:flex;flex-direction:column;max-height:56vh;overflow-y:auto;margin:10px -6px 0;-webkit-overflow-scrolling:touch}
+  .st{display:flex;align-items:center;gap:12px;padding:10px 6px;border-radius:14px;text-align:left;width:100%}
+  .st:active{background:#F4F5F9}
+  .st .fav{width:44px;height:44px;border-radius:12px;background:#F0F1F5;flex-shrink:0;overflow:hidden;display:grid;place-items:center;font-weight:700;color:var(--muted)}
+  .st .fav img{width:100%;height:100%;object-fit:cover}
+  .st b{display:block;font-size:15.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .st small{display:block;color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .st .txt{min-width:0;flex:1}
+  .st.cur b{color:var(--danger)}
+
+  /* ---------- Dolna nawigacja ---------- */
+  nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      border-top:1px solid var(--line);display:flex;padding:6px 4px calc(6px + var(--safe-b))}
+  nav button{flex:1;min-width:0;height:calc(var(--nav-h) - 12px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+             font-size:11.5px;font-weight:600;color:#9A9EAC;border-radius:14px;position:relative;white-space:nowrap}
+  nav button.active{color:var(--accent)}
+  nav button .pill{padding:4px 14px;border-radius:999px;transition:background .2s}
+  nav button.active .pill{background:var(--accent-soft)}
+  nav .badge{position:absolute;top:2px;left:calc(50% + 8px);min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:var(--danger);
+             color:#fff;font-size:11px;display:grid;place-items:center;font-weight:700}
+
+  /* ---------- Arkusze ---------- */
+  .overlay{position:fixed;inset:0;background:rgba(15,17,26,.42);z-index:50;opacity:0;pointer-events:none;transition:opacity .22s}
+  .overlay.show{opacity:1;pointer-events:auto}
+  .sheet{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--card);border-radius:24px 24px 0 0;max-width:640px;margin:0 auto;
+         padding:10px 20px calc(20px + var(--safe-b));transform:translateY(105%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
+         max-height:92vh;overflow-y:auto}
+  .sheet.show{transform:none}
+  .grab{width:40px;height:5px;border-radius:3px;background:#DADCE3;margin:2px auto 14px}
+  .sheet h3{margin:0 0 16px;font-size:21px;letter-spacing:-.01em}
+  .sheet label.lbl{display:block;font-size:13px;font-weight:600;color:var(--muted);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.04em}
+  .sheet textarea.field{min-height:84px;resize:vertical}
+  .row{display:flex;gap:8px;align-items:center}
+  .row .field{flex:1}
+  .icon-btn{width:52px;height:52px;border-radius:14px;background:#F0F1F5;display:grid;place-items:center;flex-shrink:0;color:var(--muted)}
+  .seg{display:flex;flex-wrap:wrap;gap:8px}
+  .seg button{padding:10px 16px;border-radius:999px;background:#F0F1F5;font-weight:600;font-size:15px;color:#4B5060;border:1.5px solid transparent}
+  .seg button.on{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+  .switch-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;background:#F7F8FB;margin-top:18px;cursor:pointer}
+  .switch-row b{font-weight:600}
+  .switch-row small{display:block;color:var(--muted);font-size:13px}
+  .card .switch-row{margin:0 0 10px}
+  .switch{width:52px;height:32px;border-radius:999px;background:#D5D7DF;position:relative;transition:background .2s;flex-shrink:0}
+  .switch::after{content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s}
+  .switch.on{background:var(--ok)}
+  .switch.star-sw.on{background:var(--star)}
+  .switch.on::after{transform:translateX(20px)}
+  .sheet-actions{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+  .sheet .meta-full{font-size:13px;color:var(--muted);text-align:center;margin-top:14px}
+
+  /* ---------- Dialog / toast ---------- */
+  .dialog{position:fixed;left:50%;top:50%;z-index:80;width:calc(100% - 48px);max-width:340px;background:var(--card);border-radius:22px;
+          padding:24px 20px 18px;transform:translate(-50%,-46%) scale(.96);opacity:0;pointer-events:none;transition:all .2s;text-align:center}
+  .dialog.show{opacity:1;pointer-events:auto;transform:translate(-50%,-50%)}
+  .dialog h4{margin:0 0 6px;font-size:19px}
+  .dialog p{margin:0 0 20px;color:var(--muted)}
+  .dialog .row{gap:10px}
+  #dlgOverlay{z-index:70}
+  .toast{position:fixed;left:50%;top:calc(var(--safe-t) + 14px);transform:translateX(-50%) translateY(-20px);z-index:90;
+         background:var(--text);color:#fff;padding:12px 18px;border-radius:14px;font-size:15px;font-weight:500;opacity:0;transition:all .25s;
+         pointer-events:none;max-width:calc(100% - 32px);text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%)}
+  .toast.has-action{pointer-events:auto;display:flex;align-items:center;gap:14px}
+  .toast button{color:#FBBF24;font-weight:700;padding:4px 2px}
+  .loader{width:28px;height:28px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:40px auto}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body data-tab="diego">
+
+<!-- ========== ŁADOWANIE ========== -->
+<section id="scrBoot" class="screen-center"><div class="loader"></div></section>
+
+<!-- ========== LOGOWANIE KODEM ========== -->
+<section id="scrLogin" class="screen-center hidden">
+  <div class="logo"><svg width="40" height="40" viewBox="0 0 24 24" fill="#fff"><ellipse cx="12" cy="16" rx="5" ry="4.2"/><ellipse cx="5.5" cy="10.5" rx="2" ry="2.5"/><ellipse cx="9.3" cy="6.5" rx="2" ry="2.6"/><ellipse cx="14.7" cy="6.5" rx="2" ry="2.6"/><ellipse cx="18.5" cy="10.5" rx="2" ry="2.5"/></svg></div>
+  <h1>Nasz Dom</h1>
+  <p>Wpisz kod dostępu</p>
+  <div class="pin-dots" id="pinDots"></div>
+  <div class="error" id="loginErr"></div>
+  <div class="keypad" id="keypad">
+    <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+    <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+    <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+    <span></span><button data-k="0">0</button>
+    <button data-k="del" class="k-del" aria-label="Usuń cyfrę"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/><path d="M17 9l-5 6M12 9l5 6"/></svg></button>
+  </div>
+</section>
+
+<!-- ========== KIM JESTEŚ ========== -->
+<section id="scrWho" class="screen-center hidden">
+  <h1>Kim jesteś?</h1>
+  <p>Tylko raz na tym telefonie — dzięki temu widać, kto co dodał</p>
+  <div class="who-grid">
+    <button class="who-btn" data-who="Natalka"><span data-av="Natalka" data-size="av-lg"></span>Natalka</button>
+    <button class="who-btn" data-who="Maciek"><span data-av="Maciek" data-size="av-lg"></span>Maciek</button>
+  </div>
+</section>
+
+<!-- ========== APLIKACJA ========== -->
+<section id="scrApp" class="hidden">
+  <header>
+    <div style="min-width:0">
+      <h2 id="hTitle">Diego</h2>
+      <div class="sub"><span class="sync-dot" id="syncDot"></span><span id="hSub"></span></div>
+    </div>
+    <div class="head-actions">
+      <button class="round-btn" id="refreshBtn" aria-label="Odśwież"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
+      <button id="meBtn" aria-label="Ustawienia profilu"></button>
+    </div>
+  </header>
+
+  <main id="tasksView"></main>
+
+  <main id="settingsView" class="hidden">
+    <div class="card">
+      <div class="profile-row">
+        <span id="setAvatar"></span>
+        <div><b id="setName"></b><small>To jest Twój profil na tym telefonie</small></div>
+      </div>
+      <div class="two">
+        <button class="btn soft" id="avPick">Zmień zdjęcie</button>
+        <button class="btn soft" id="avDel">Usuń zdjęcie</button>
+      </div>
+      <input type="file" id="avFile" accept="image/*" class="hidden">
+    </div>
+
+    <div class="card">
+      <h4>Piosenka powitalna</h4>
+      <p class="desc">Gra po otwarciu aplikacji. Plik zapisuje się w pamięci tego telefonu.</p>
+      <div class="file-pill"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span id="songName">Nie wybrano piosenki</span></div>
+      <div class="switch-row" id="songOnRow"><div><b>Graj po otwarciu</b><small>Wyłącz, jeśli nie chcesz jej słyszeć</small></div><div class="switch" id="songOn"></div></div>
+      <div class="stack">
+        <button class="btn soft" id="songPick">Wybierz plik MP3</button>
+        <div class="two">
+          <button class="btn soft" id="songTest">▶ Odsłuchaj</button>
+          <button class="btn danger" id="songDel">Usuń</button>
+        </div>
+      </div>
+      <input type="file" id="songFile" accept="audio/*,.mp3" class="hidden">
+    </div>
+
+    <div class="card">
+      <h4>Kopie zapasowe</h4>
+      <p class="desc">Kopia robi się sama raz dziennie. Trzymamy 30 ostatnich. Możesz też zapisać kopię jako plik na telefonie.</p>
+      <div id="bkList"><div class="loader"></div></div>
+      <div class="stack" style="margin-top:12px">
+        <button class="btn soft" id="bkNow">Zrób kopię teraz</button>
+        <div class="two">
+          <button class="btn soft" id="bkExport">Zapisz plik</button>
+          <button class="btn soft" id="bkImport">Wczytaj plik</button>
+        </div>
+      </div>
+      <input type="file" id="bkFile" accept=".json,application/json" class="hidden">
+    </div>
+
+    <div class="card">
+      <h4>Aplikacja</h4>
+      <p class="desc">Zalogowano jako <b id="setWho"></b></p>
+      <div class="stack">
+        <button class="btn soft" id="setRefresh">Odśwież aplikację</button>
+        <button class="btn soft" id="switchWho">Zmień osobę</button>
+        <button class="btn danger" id="logoutBtn">Wyloguj z tego telefonu</button>
+      </div>
+    </div>
+    <div class="version">Nasz Dom · wersja 2.1</div>
+  </main>
+
+  <button class="fab" id="fab" aria-label="Dodaj">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+  </button>
+
+  <div class="radio-pill" id="radioPill">
+    <button class="radio-toggle" id="radioToggle" aria-label="Włącz / wyłącz radio"></button>
+    <button class="radio-label" id="radioPick" aria-label="Wybierz stację">
+      <span class="eq"><i></i><i></i><i></i></span>
+      <span id="radioName">Radio</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg>
+    </button>
+  </div>
+
+  <nav id="nav">
+    <button data-tab="diego"><span class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="16" rx="5" ry="4.2"/><ellipse cx="5.5" cy="10.5" rx="2" ry="2.5"/><ellipse cx="9.3" cy="6.5" rx="2" ry="2.6"/><ellipse cx="14.7" cy="6.5" rx="2" ry="2.6"/><ellipse cx="18.5" cy="10.5" rx="2" ry="2.5"/></svg></span>Diego<span class="badge hidden"></span></button>
+    <button data-tab="natalka"><span class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span>Natalka<span class="badge hidden"></span></button>
+    <button data-tab="maciek"><span class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span>Maciek<span class="badge hidden"></span></button>
+    <button data-tab="wspolne"><span class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8.5" cy="8" r="3.2"/><circle cx="16" cy="9" r="2.8"/><path d="M2.5 20c0-3.6 2.7-5.8 6-5.8s6 2.2 6 5.8"/><path d="M15 14.4c3.2-.4 6.5 1.3 6.5 5.1"/></svg></span>N+M<span class="badge hidden"></span></button>
+    <button data-tab="ustawienia"><span class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>Ustawienia</button>
+  </nav>
+</section>
+
+<!-- ========== ARKUSZ: DODAJ / EDYTUJ ========== -->
+<div class="overlay" id="overlay"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <h3 id="sheetTitle">Nowy wpis</h3>
+  <form id="itemForm">
+    <input class="field" id="fTitle" placeholder="Co trzeba zrobić / zapamiętać?" maxlength="140" required autocomplete="off">
+    <label class="lbl">Notatka</label>
+    <textarea class="field" id="fNote" placeholder="Szczegóły (opcjonalnie)" maxlength="1000"></textarea>
+    <label class="lbl">Data</label>
+    <div class="row">
+      <input class="field" id="fDate" type="date">
+      <button type="button" class="icon-btn" id="fDateClear" aria-label="Wyczyść datę"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <label class="lbl">Powtarzaj</label>
+    <div class="seg" id="fRep"></div>
+    <label class="lbl">Kategoria</label>
+    <div class="seg" id="fCat"></div>
+    <div class="switch-row" id="fPrioRow">
+      <div><b>★ Najważniejsze</b><small>Przypnij w wyróżnionej sekcji na górze</small></div>
+      <div class="switch star-sw" id="fPrio"></div>
+    </div>
+    <div class="sheet-actions">
+      <button class="btn accent" type="submit">Zapisz</button>
+      <button class="btn danger hidden" type="button" id="fDelete">Usuń wpis</button>
+    </div>
+    <div class="meta-full" id="fMeta"></div>
+  </form>
+</div>
+
+<!-- ========== ARKUSZ: STACJE RADIOWE ========== -->
+<div class="sheet" id="radioSheet">
+  <div class="grab"></div>
+  <h3>Radio online</h3>
+  <input class="field" id="stSearch" placeholder="Szukaj stacji, np. RMF, Trójka, jazz…" autocomplete="off" enterkeyhint="search">
+  <div class="st-list" id="stList"></div>
+</div>
+
+<!-- ========== DIALOG ========== -->
+<div class="overlay" id="dlgOverlay"></div>
+<div class="dialog" id="dlg">
+  <h4 id="dlgTitle"></h4>
+  <p id="dlgText"></p>
+  <div class="row">
+    <button class="btn ghost" id="dlgNo">Anuluj</button>
+    <button class="btn" id="dlgYes" style="background:var(--danger)">Usuń</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+  // Jeśli po 10 s aplikacja nadal się ładuje, najczęściej winny jest źle wklejony plik config.js
+  setTimeout(function(){ var b=document.getElementById("scrBoot");
+    if (b && !b.classList.contains("hidden")) b.innerHTML='<div style="max-width:320px;color:#6B7080">'+
+      '<b style="color:#14161F;font-size:18px">Nie udało się uruchomić</b><br><br>Sprawdź internet i odśwież stronę. '+
+      'Jeśli to nie pomoże, sprawdź plik <b>config.js</b> — czy blok z Firebase jest wklejony w całości, a ostatnia linia '+
+      '<code>export default firebaseConfig;</code> jest na miejscu.<br><br><button onclick="location.reload()" '+
+      'style="padding:14px 22px;border-radius:14px;background:#14161F;color:#fff;font-weight:600">Odśwież</button></div>';
+  }, 10000);
+</script>
+
+<script type="module">
+// Klucze do bazy są w osobnym pliku config.js — przy aktualizacjach podmieniasz tylko index.html
+import firebaseConfig from "./config.js";
+
+// Ustawienia logowania (nie zmieniaj, chyba że zmienisz też konto w Firebase)
+const SHARED_EMAIL = "dom@naszdom.pl";
+const PIN_LENGTH   = 4;
+const PIN_PREFIX   = "naszdom-";   // Firebase wymaga min. 6 znaków, więc do kodu doklejany jest ten przedrostek
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, collection, onSnapshot,
+         addDoc, updateDoc, deleteDoc, doc, setDoc, getDoc, getDocs, writeBatch, serverTimestamp, Timestamp
+       } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const $ = s => document.querySelector(s);
+const TABS = {
+  diego:      { name:"Diego",      cats:["Zdrowie","Zakupy","Pielęgnacja","Inne"] },
+  natalka:    { name:"Natalka",    cats:["Zadanie","Info","Zakupy","Inne"] },
+  maciek:     { name:"Maciek",     cats:["Zadanie","Info","Zakupy","Inne"] },
+  wspolne:    { name:"N+M",        cats:["Wspólne","Dom","Zakupy","Plany","Inne"] },
+  ustawienia: { name:"Ustawienia" }
+};
+const ICON = {
+  check:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  star:'<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3.2l2.7 5.5 6 .9-4.35 4.25 1 6L12 17l-5.4 2.85 1-6L3.3 9.6l6-.9z"/></svg>',
+  starOn:'<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3.2l2.7 5.5 6 .9-4.35 4.25 1 6L12 17l-5.4 2.85 1-6L3.3 9.6l6-.9z"/></svg>',
+  play:'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>',
+  stop:'<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2.5"/></svg>',
+  load:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9"/></svg>'
+};
+
+let items = [], profiles = {}, unsub = null, unsubProf = null;
+let tab = localStorage.getItem("tab") || "diego"; if (!TABS[tab]) tab = "diego";
+let showDone = false, editing = null, form = { cat:null, prio:false, rep:"" };
+const REPEAT = { "":"Nie", week:"Co tydzień", "2week":"Co 2 tyg.", month:"Co miesiąc", "3month":"Co 3 mies.", year:"Co rok" };
+function nextDate(str, rep){
+  const b = str ? new Date(str + "T12:00:00") : new Date();
+  if (rep === "week") b.setDate(b.getDate()+7);
+  else if (rep === "2week") b.setDate(b.getDate()+14);
+  else if (rep === "month") b.setMonth(b.getMonth()+1);
+  else if (rep === "3month") b.setMonth(b.getMonth()+3);
+  else if (rep === "year") b.setFullYear(b.getFullYear()+1);
+  return `${b.getFullYear()}-${String(b.getMonth()+1).padStart(2,"0")}-${String(b.getDate()).padStart(2,"0")}`;
+}
+/* „Nowe” = dodane przez drugą osobę od Twojej ostatniej wizyty w zakładce */
+const seenKey = t => "seen:" + t;
+function markSeen(t){ if (TABS[t]?.cats) localStorage.setItem(seenKey(t), String(Date.now())); }
+let seenAtEnter = 0;
+let me = localStorage.getItem("who");
+let backupChecked = false, welcomeTried = false;
+
+function show(id){ ["scrBoot","scrLogin","scrWho","scrApp"].forEach(s => $("#"+s).classList.toggle("hidden", s!==id)); }
+
+if (firebaseConfig.apiKey === "WKLEJ_TUTAJ") {
+  show("scrLogin");
+  $("#loginErr").textContent = "Brak konfiguracji Firebase — uzupełnij firebaseConfig w index.html.";
+  $("#keypad").classList.add("busy");
+  throw new Error("Brak konfiguracji");
+}
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = initializeFirestore(app, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }) });
+const col  = collection(db, "items");
+
+onAuthStateChanged(auth, user => {
+  if (!user) { stopSync(); pin = ""; drawPin(); show("scrLogin"); primeWelcome(); return; }
+  startProfiles();
+  if (!me) { show("scrWho"); return; }
+  startApp();
+});
+
+/* =================== LOGOWANIE KODEM =================== */
+let pin = "";
+function drawPin(){ $("#pinDots").innerHTML = Array.from({ length:PIN_LENGTH }, (_,i) => `<i class="${i < pin.length ? "on" : ""}"></i>`).join(""); }
+drawPin();
+async function tryPin(){
+  const kp = $("#keypad"), dots = $("#pinDots");
+  kp.classList.add("busy"); $("#loginErr").textContent = "";
+  try { await signInWithEmailAndPassword(auth, SHARED_EMAIL, PIN_PREFIX + pin); dots.classList.add("ok"); }
+  catch(err){
+    if (playing?.kind === "song") stopAudio();
+    $("#loginErr").textContent = err.code === "auth/too-many-requests" ? "Zbyt wiele prób. Odczekaj chwilę." :
+                                 err.code === "auth/network-request-failed" ? "Brak internetu." : "Nieprawidłowy kod";
+    if (navigator.vibrate) navigator.vibrate([60,40,60]);
+    dots.classList.remove("shake"); void dots.offsetWidth; dots.classList.add("shake");
+    setTimeout(() => { pin = ""; drawPin(); }, 350);
+  }
+  kp.classList.remove("busy");
+}
+$("#keypad").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (navigator.vibrate) navigator.vibrate(8);
+  if (b.dataset.k === "del") pin = pin.slice(0,-1);
+  else if (pin.length < PIN_LENGTH) pin += b.dataset.k;
+  $("#loginErr").textContent = ""; drawPin();
+  if (pin.length === PIN_LENGTH) {
+    // Piosenkę startujemy już w momencie dotknięcia (telefony wymagają dotyku, by zagrać dźwięk)
+    if (primed && !playing) { playSource("song", "Piosenka powitalna", primed); welcomeTried = true; }
+    setTimeout(tryPin, 120);
+  }
+});
+
+document.querySelectorAll(".who-btn").forEach(b => b.addEventListener("click", () => {
+  me = b.dataset.who; localStorage.setItem("who", me); welcomeTried = false; startApp();
+}));
+
+/* =================== SYNCHRONIZACJA =================== */
+function startProfiles(){
+  if (unsubProf) return;
+  unsubProf = onSnapshot(collection(db,"profiles"), s => {
+    profiles = {}; s.forEach(d => profiles[d.id] = d.data());
+    paintAvatars(); render();
+  }, () => {});
+}
+function startApp(){
+  show("scrApp");
+  setTab(tab);
+  paintAvatars();
+  if (!welcomeTried) { welcomeTried = true; welcomeSong(); }
+  if (unsub) return;
+  $("#tasksView").innerHTML = '<div class="loader"></div>';
+  unsub = onSnapshot(col, { includeMetadataChanges:true }, snap => {
+    items = snap.docs.map(d => ({ id:d.id, ...d.data({ serverTimestamps:"estimate" }) }));
+    $("#syncDot").classList.toggle("off", snap.metadata.fromCache || snap.metadata.hasPendingWrites);
+    render();
+    if (!snap.metadata.fromCache && !backupChecked) { backupChecked = true; autoBackup(); }
+  }, err => { console.error(err); toast("Błąd połączenia z bazą"); });
+}
+function stopSync(){
+  if (unsub){ unsub(); unsub = null; } if (unsubProf){ unsubProf(); unsubProf = null; }
+  items = []; backupChecked = false;
+}
+
+/* =================== ZAKŁADKI =================== */
+document.querySelectorAll("nav button").forEach(b => b.addEventListener("click", () => {
+  setTab(b.dataset.tab); window.scrollTo({ top:0 });
+}));
+function setTab(t){
+  if (tab !== t) markSeen(tab);
+  if (!localStorage.getItem(seenKey(t))) markSeen(t);
+  seenAtEnter = Number(localStorage.getItem(seenKey(t)) || 0);
+  tab = t; localStorage.setItem("tab", t); document.body.dataset.tab = t;
+  document.querySelectorAll("nav button").forEach(b => b.classList.toggle("active", b.dataset.tab === t));
+  $("#hTitle").textContent = TABS[t].name;
+  const isSet = t === "ustawienia";
+  $("#tasksView").classList.toggle("hidden", isSet);
+  $("#settingsView").classList.toggle("hidden", !isSet);
+  $("#fab").classList.toggle("hidden", isSet);
+  showDone = false;
+  if (isSet) renderSettings();
+  render();
+}
+
+/* =================== POMOCNICZE =================== */
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const toDate = ts => ts?.toDate ? ts.toDate() : (typeof ts === "number" ? new Date(ts) : null);
+const pad = n => String(n).padStart(2,"0");
+const today = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
+function fmtWhen(d){
+  if (!d) return "";
+  const now = new Date(), y = new Date(now); y.setDate(now.getDate()-1);
+  const time = d.toLocaleTimeString("pl-PL",{ hour:"2-digit", minute:"2-digit" });
+  if (d.toDateString() === now.toDateString()) return "dziś " + time;
+  if (d.toDateString() === y.toDateString())   return "wczoraj " + time;
+  return d.toLocaleDateString("pl-PL",{ day:"numeric", month:"short", year: d.getFullYear()!==now.getFullYear() ? "numeric" : undefined }) + ", " + time;
+}
+function dueInfo(str, done){
+  if (!str) return null;
+  const [Y,M,D] = str.split("-").map(Number); const due = new Date(Y, M-1, D);
+  const t0 = new Date(); t0.setHours(0,0,0,0);
+  const diff = Math.round((due - t0) / 864e5);
+  const label = due.toLocaleDateString("pl-PL",{ day:"numeric", month:"short", year: due.getFullYear()!==t0.getFullYear() ? "numeric" : undefined });
+  if (done) return { cls:"", text:label };
+  if (diff < 0)  return { cls:"overdue", text:`${label} · po terminie` };
+  if (diff === 0) return { cls:"soon", text:"Dziś" };
+  if (diff === 1) return { cls:"soon", text:"Jutro" };
+  if (diff <= 7)  return { cls:"soon", text:`${label} · za ${diff} dni` };
+  return { cls:"", text:label };
+}
+function pluralWpis(n){ if (n===1) return "wpis"; const m10=n%10, m100=n%100; return (m10>=2&&m10<=4&&(m100<12||m100>14)) ? "wpisy" : "wpisów"; }
+function avatarHTML(name, size){
+  const p = profiles[name], img = p?.avatar;
+  if (img && img.startsWith("data:image/")) return `<span class="av ${size}"><img src="${img}" alt=""></span>`;
+  const cls = name === "Natalka" ? "av-natalka" : name === "Maciek" ? "av-maciek" : "";
+  return `<span class="av ${size} ${cls}">${esc((name||"?")[0])}</span>`;
+}
+function paintAvatars(){
+  document.querySelectorAll("[data-av]").forEach(el => el.innerHTML = avatarHTML(el.dataset.av, el.dataset.size));
+  if (me) { $("#meBtn").innerHTML = avatarHTML(me, "av-md"); $("#setAvatar").innerHTML = avatarHTML(me, "av-xl"); }
+}
+
+/* =================== LISTA =================== */
+function render(){
+  if ($("#scrApp").classList.contains("hidden") || !unsub) return;
+  document.querySelectorAll("nav button").forEach(b => {
+    const badge = b.querySelector(".badge"); if (!badge) return;
+    const bt = b.dataset.tab, n = items.filter(i => i.tab === bt && !i.done).length;
+    const seen = Number(localStorage.getItem(seenKey(bt)) || 0);
+    const fresh = bt !== tab && items.some(i => i.tab === bt && !i.done && i.createdBy && i.createdBy !== me && (toDate(i.createdAt)?.getTime()||0) > seen);
+    badge.textContent = n; badge.classList.toggle("hidden", !n); badge.classList.toggle("newdot", fresh);
+  });
+  if (tab === "ustawienia") { $("#hSub").textContent = "Profil, muzyka, kopie zapasowe"; return; }
+
+  const mine = items.filter(i => i.tab === tab);
+  const byDate = (a,b) => (a.date||"9999").localeCompare(b.date||"9999") || (toDate(b.createdAt)||0) - (toDate(a.createdAt)||0);
+  const open   = mine.filter(i => !i.done);
+  const pinned = open.filter(i => i.priority === "high").sort(byDate);
+  const rest   = open.filter(i => i.priority !== "high").sort(byDate);
+  const done   = mine.filter(i => i.done).sort((a,b) => (toDate(b.doneAt)||0) - (toDate(a.doneAt)||0));
+
+  $("#hSub").textContent = open.length ? `${open.length} ${pluralWpis(open.length)} do zrobienia` : "Wszystko zrobione";
+
+  let h = `<section class="pinned">
+      <div class="pinned-h"><span>${ICON.starOn.replace('width="24" height="24"','width="18" height="18"')} NAJWAŻNIEJSZE</span>${pinned.length ? `<b>${pinned.length}</b>` : ""}</div>
+      ${pinned.length ? `<div class="list">${pinned.map(card).join("")}</div>`
+        : `<div class="pinned-empty">Dotknij ☆ przy dowolnej liczbie wpisów, aby przypiąć je tutaj</div>`}
+    </section>`;
+  if (rest.length) h += `<div class="section-h">Pozostałe · ${rest.length}</div><div class="list">${rest.map(card).join("")}</div>`;
+  else if (!pinned.length) h += `<div class="empty"><div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <b>${done.length ? "Wszystko zrobione!" : "Pusto tutaj"}</b>Dotknij <b style="display:inline">+</b>, aby dodać wpis</div>`;
+  if (done.length) h += `<button class="done-toggle ${showDone?"open":""}" data-act="donetoggle"><span>Wykonane (${done.length})</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+      ${showDone ? `<div class="list">${done.map(card).join("")}</div>` : ""}`;
+  $("#tasksView").innerHTML = h;
+}
+function isNew(i){
+  if (i.done || !i.createdBy || i.createdBy === me || !seenAtEnter) return false;
+  const c = toDate(i.createdAt); return c && c.getTime() > seenAtEnter;
+}
+function card(i){
+  const due = dueInfo(i.date, i.done), hi = i.priority === "high";
+  const created = toDate(i.createdAt), updated = toDate(i.updatedAt);
+  let meta;
+  if (i.done && i.doneBy) meta = `${avatarHTML(i.doneBy,"av-xs")} Wykonane: ${esc(i.doneBy)} · ${fmtWhen(toDate(i.doneAt))}`;
+  else {
+    meta = `${avatarHTML(i.createdBy,"av-xs")} ${esc(i.createdBy||"?")} · ${fmtWhen(created)}`;
+    if (updated && created && updated - created > 60000 && i.updatedBy) meta += ` · edyt. ${esc(i.updatedBy)}`;
+  }
+  return `<div class="item ${i.done?"done":""}" data-id="${i.id}">
+    <button class="check" data-act="toggle" aria-label="Oznacz jako wykonane"><span>${ICON.check}</span></button>
+    <div class="body" data-act="edit">
+      <div class="title">${esc(i.title)}</div>
+      ${i.note ? `<div class="note">${esc(i.note)}</div>` : ""}
+      ${(i.category || due || i.repeat || isNew(i)) ? `<div class="chips">
+        ${isNew(i) ? `<span class="chip new">Nowe</span>` : ""}
+        ${i.category ? `<span class="chip cat">${esc(i.category)}</span>` : ""}
+        ${i.repeat && REPEAT[i.repeat] ? `<span class="chip">↻ ${REPEAT[i.repeat].toLowerCase()}</span>` : ""}
+        ${due ? `<span class="chip ${due.cls}">${esc(due.text)}</span>` : ""}</div>` : ""}
+      <div class="meta">${meta}</div>
+    </div>
+    ${i.done ? "" : `<button class="star ${hi?"on":""}" data-act="star" aria-label="Najważniejsze">${hi ? ICON.starOn : ICON.star}</button>`}
+  </div>`;
+}
+$("#tasksView").addEventListener("click", e => {
+  const t = e.target.closest("[data-act]"); if (!t) return;
+  if (t.dataset.act === "donetoggle") { showDone = !showDone; render(); return; }
+  const id = t.closest(".item").dataset.id; const it = items.find(x => x.id === id); if (!it) return;
+  const ref = doc(db,"items",id);
+  if (t.dataset.act === "toggle"){
+    if (navigator.vibrate) navigator.vibrate(12);
+    const nowDone = !it.done;
+    updateDoc(ref, { done:nowDone, doneAt: nowDone ? serverTimestamp() : null, doneBy: nowDone ? me : null }).catch(() => toast("Nie udało się zapisać"));
+    if (nowDone && it.repeat && REPEAT[it.repeat]) {
+      const nd = nextDate(it.date, it.repeat);
+      addDoc(col, { tab:it.tab, title:it.title, note:it.note||"", date:nd, category:it.category||"", priority:it.priority||"normal",
+                    repeat:it.repeat, done:false, doneAt:null, doneBy:null, createdAt:serverTimestamp(), createdBy:me,
+                    updatedAt:serverTimestamp(), updatedBy:null }).catch(() => {});
+      toast(`Wykonane ✓ Następny termin: ${dueInfo(nd).text.split(" · ")[0]}`);
+    } else if (nowDone) toast("Wykonane ✓");
+  } else if (t.dataset.act === "star"){
+    if (navigator.vibrate) navigator.vibrate(10);
+    const hi = it.priority !== "high";
+    updateDoc(ref, { priority: hi ? "high" : "normal", updatedAt: serverTimestamp(), updatedBy: me }).catch(() => toast("Nie udało się zapisać"));
+    toast(hi ? "Przypięto do Najważniejszych ★" : "Odpięto z Najważniejszych");
+  } else openSheet(it);
+});
+
+/* =================== DODAWANIE / EDYCJA =================== */
+function openSheet(it){
+  editing = it || null;
+  const t = TABS[it?.tab] ? it.tab : tab;
+  $("#sheetTitle").textContent = it ? "Edytuj wpis" : `Nowy wpis · ${TABS[t].name}`;
+  $("#fTitle").value = it?.title || ""; $("#fNote").value = it?.note || ""; $("#fDate").value = it?.date || "";
+  form.cat  = it ? (it.category || null) : TABS[t].cats[0];
+  form.prio = it?.priority === "high";
+  form.rep  = it?.repeat || "";
+  $("#fRep").innerHTML = Object.entries(REPEAT).map(([k,v]) => `<button type="button" class="${k===form.rep?"on":""}" data-r="${k}">${v}</button>`).join("");
+  $("#fCat").innerHTML = TABS[t].cats.map(c => `<button type="button" class="${c===form.cat?"on":""}" data-c="${c}">${c}</button>`).join("");
+  $("#fPrio").classList.toggle("on", form.prio);
+  $("#fDelete").classList.toggle("hidden", !it);
+  $("#fMeta").textContent = it ? `Dodane: ${it.createdBy||"?"}, ${fmtWhen(toDate(it.createdAt))}` +
+        (it.updatedBy ? ` · Ostatnia zmiana: ${it.updatedBy}, ${fmtWhen(toDate(it.updatedAt))}` : "") : "";
+  openLayer("#sheet");
+  if (!it) setTimeout(() => $("#fTitle").focus(), 280);
+}
+function openLayer(sel){ $("#overlay").classList.add("show"); $(sel).classList.add("show"); }
+function closeSheets(){ ["#overlay","#sheet","#radioSheet"].forEach(s => $(s).classList.remove("show")); document.activeElement?.blur(); }
+$("#fab").addEventListener("click", () => openSheet(null));
+$("#overlay").addEventListener("click", closeSheets);
+$("#fCat").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  form.cat = form.cat === b.dataset.c ? null : b.dataset.c;
+  [...$("#fCat").children].forEach(x => x.classList.toggle("on", x.dataset.c === form.cat));
+});
+$("#fRep").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  form.rep = b.dataset.r; [...$("#fRep").children].forEach(x => x.classList.toggle("on", x.dataset.r === form.rep));
+});
+$("#fPrioRow").addEventListener("click", () => { form.prio = !form.prio; $("#fPrio").classList.toggle("on", form.prio); });
+$("#fDateClear").addEventListener("click", () => $("#fDate").value = "");
+$("#itemForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const title = $("#fTitle").value.trim(); if (!title) return;
+  const data = { title, note: $("#fNote").value.trim(), date: $("#fDate").value || "",
+                 category: form.cat || "", priority: form.prio ? "high" : "normal", repeat: form.rep, updatedAt: serverTimestamp(), updatedBy: me };
+  closeSheets();
+  if (editing) updateDoc(doc(db,"items",editing.id), data).then(() => toast("Zapisano zmiany")).catch(() => toast("Nie udało się zapisać"));
+  else {
+    addDoc(col, { ...data, tab, done:false, doneAt:null, doneBy:null, createdAt: serverTimestamp(), createdBy: me, updatedBy: null })
+      .catch(() => toast("Nie udało się zapisać"));
+    toast(form.prio ? "Dodano do Najważniejszych ★" : "Dodano");
+  }
+});
+$("#fDelete").addEventListener("click", async () => {
+  if (!editing) return;
+  const ok = await confirmDlg("Usunąć wpis?", `„${editing.title}” zostanie trwale usunięty u was obojga.`);
+  if (!ok) return;
+  const id = editing.id, copy = plain(editing); closeSheets();
+  deleteDoc(doc(db,"items",id))
+    .then(() => toast("Usunięto", { label:"Cofnij", fn: () => setDoc(doc(db,"items",id), revive(copy)).then(() => toast("Przywrócono")) }))
+    .catch(() => toast("Nie udało się usunąć"));
+});
+
+/* =================== ODTWARZACZ (radio + piosenka) =================== */
+const player = new Audio(); player.preload = "none";
+let playing = null;                                   // { kind:"radio"|"song", title }
+let station = JSON.parse(localStorage.getItem("station") || "null");
+
+function playSource(kind, title, url){
+  playing = { kind, title };
+  player.src = url;
+  $("#radioPill").classList.add("loading");
+  updatePill();
+  const p = player.play();
+  if ("mediaSession" in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title, artist:"Nasz Dom" });
+  return p.catch(err => {
+    if (err?.name !== "AbortError" && playing?.title === title) { playing = null; updatePill(); }
+    throw err;
+  });
+}
+function stopAudio(){
+  player.pause(); player.removeAttribute("src"); player.load();
+  playing = null; updatePill();
+}
+function updatePill(){
+  const pill = $("#radioPill");
+  pill.classList.toggle("on", !!playing);
+  if (!playing) pill.classList.remove("loading");
+  $("#radioToggle").innerHTML = playing ? (pill.classList.contains("loading") ? ICON.load : ICON.stop) : ICON.play;
+  $("#radioName").textContent = playing ? playing.title : (station?.name || "Radio");
+  document.querySelectorAll(".st").forEach(el => el.classList.toggle("cur", playing?.kind==="radio" && el.dataset.url === station?.url));
+}
+player.addEventListener("playing", () => { $("#radioPill").classList.remove("loading"); updatePill(); });
+player.addEventListener("waiting", () => { if (playing) { $("#radioPill").classList.add("loading"); updatePill(); } });
+player.addEventListener("ended", () => { playing = null; updatePill(); });
+player.addEventListener("error", () => {
+  if (!playing) return;
+  const wasRadio = playing.kind === "radio"; playing = null; updatePill();
+  toast(wasRadio ? "Ta stacja teraz nie odpowiada — wybierz inną" : "Nie udało się odtworzyć pliku");
+});
+updatePill();
+
+$("#radioToggle").addEventListener("click", () => {
+  if (playing) { stopAudio(); return; }
+  if (station) playSource("radio", station.name, station.url).catch(() => {});
+  else openRadio();
+});
+$("#radioPick").addEventListener("click", openRadio);
+
+/* ---- katalog stacji: darmowe, otwarte API radio-browser.info ---- */
+const RB = ["https://de1.api.radio-browser.info","https://de2.api.radio-browser.info","https://fi1.api.radio-browser.info"];
+async function rb(path){
+  for (const h of RB) {
+    try {
+      const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 7000);
+      const r = await fetch(h + path, { signal: ctrl.signal }); clearTimeout(t);
+      if (r.ok) return await r.json();
+    } catch {}
+  }
+  throw new Error("radio-browser niedostępne");
+}
+function cleanStations(list){
+  const seen = new Set();
+  return list.filter(s => {
+    const url = s.url_resolved || s.url || "", key = s.name.trim().toLowerCase();
+    const okCodec = s.hls == 1 || /^(MP3|AAC|AAC\+)$/i.test(s.codec || "MP3");
+    if (!url.startsWith("https://") || !okCodec || seen.has(key)) return false;
+    seen.add(key); return true;
+  }).map(s => ({ name: s.name.trim(), url: s.url_resolved || s.url, fav: s.favicon || "",
+                 sub: [ (s.tags||"").split(",").filter(Boolean).slice(0,2).join(", "), s.bitrate ? s.bitrate+" kbps" : "" ].filter(Boolean).join(" · ") }));
+}
+let topCache = null, searchT;
+async function openRadio(){
+  openLayer("#radioSheet");
+  $("#stSearch").value = "";
+  if (topCache) { drawStations(topCache, "Popularne w Polsce"); return; }
+  $("#stList").innerHTML = '<div class="loader"></div>';
+  try {
+    topCache = cleanStations(await rb("/json/stations/search?countrycode=PL&hidebroken=true&order=clickcount&reverse=true&limit=120")).slice(0,60);
+    drawStations(topCache, "Popularne w Polsce");
+  } catch { $("#stList").innerHTML = '<p class="desc" style="padding:20px;text-align:center">Nie udało się pobrać listy stacji. Sprawdź internet.</p>'; }
+}
+function drawStations(list, head){
+  $("#stList").innerHTML = `<div class="section-h" style="margin:4px 6px 6px">${esc(head)}</div>` + (list.length ? list.map(s => `
+    <button class="st ${playing?.kind==="radio" && station?.url===s.url ? "cur":""}" data-url="${esc(s.url)}" data-name="${esc(s.name)}">
+      <span class="fav">${s.fav.startsWith("https://") ? `<img src="${esc(s.fav)}" alt="" loading="lazy" onerror="this.remove()">` : ""}${esc(s.name[0]||"?")}</span>
+      <span class="txt"><b>${esc(s.name)}</b><small>${esc(s.sub || "Radio internetowe")}</small></span>
+    </button>`).join("") : '<p class="desc" style="padding:16px 6px">Brak wyników.</p>');
+}
+$("#stSearch").addEventListener("input", e => {
+  clearTimeout(searchT);
+  const q = e.target.value.trim();
+  if (q.length < 2) { if (topCache) drawStations(topCache, "Popularne w Polsce"); return; }
+  searchT = setTimeout(async () => {
+    $("#stList").innerHTML = '<div class="loader"></div>';
+    try { drawStations(cleanStations(await rb(`/json/stations/search?name=${encodeURIComponent(q)}&hidebroken=true&order=clickcount&reverse=true&limit=60`)).slice(0,40), `Wyniki: „${q}”`); }
+    catch { $("#stList").innerHTML = '<p class="desc" style="padding:16px 6px">Błąd wyszukiwania.</p>'; }
+  }, 400);
+});
+$("#stList").addEventListener("click", e => {
+  const b = e.target.closest(".st"); if (!b) return;
+  station = { name: b.dataset.name, url: b.dataset.url };
+  localStorage.setItem("station", JSON.stringify(station));
+  playSource("radio", station.name, station.url).catch(() => toast("Nie udało się włączyć tej stacji"));
+  closeSheets();
+});
+
+/* =================== PIOSENKA POWITALNA (pamięć telefonu) =================== */
+function idb(){
+  return new Promise((res, rej) => {
+    const r = indexedDB.open("naszdom", 1);
+    r.onupgradeneeded = () => r.result.createObjectStore("songs");
+    r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+  });
+}
+async function songGet(name){ try { const h = await idb(); return await new Promise(res => { const q = h.transaction("songs").objectStore("songs").get(name); q.onsuccess = () => res(q.result || null); q.onerror = () => res(null); }); } catch { return null; } }
+async function songPut(name, val){ const h = await idb(); return new Promise((res, rej) => { const t = h.transaction("songs","readwrite"); val ? t.objectStore("songs").put(val, name) : t.objectStore("songs").delete(name); t.oncomplete = res; t.onerror = () => rej(t.error); }); }
+const songOn = who => localStorage.getItem("songOn:" + who) !== "0";
+let primed = null;
+async function songURL(who){ const s = await songGet(who); return s?.blob ? URL.createObjectURL(s.blob) : null; }
+async function primeWelcome(){ primed = (me && songOn(me)) ? await songURL(me) : null; }
+async function welcomeSong(){
+  if (playing || !me || !songOn(me)) return;
+  const url = await songURL(me); if (!url) return;
+  playSource("song", "Piosenka powitalna", url).catch(() => {
+    // Telefon zablokował automatyczne granie — zagra przy pierwszym dotknięciu ekranu
+    const once = ev => {
+      document.removeEventListener("pointerdown", once, true);
+      if (!playing && !ev.target.closest("#radioPill")) playSource("song", "Piosenka powitalna", url).catch(() => {});
+    };
+    document.addEventListener("pointerdown", once, true);
+  });
+}
+
+/* =================== USTAWIENIA =================== */
+async function renderSettings(){
+  if (!me) return;
+  $("#setName").textContent = me; $("#setWho").textContent = me;
+  paintAvatars();
+  const s = await songGet(me);
+  $("#songName").textContent = s ? s.name : "Nie wybrano piosenki";
+  $("#songOn").classList.toggle("on", songOn(me));
+  $("#songTest").disabled = $("#songDel").disabled = !s;
+  loadBackups();
+}
+/* --- awatar: zdjęcie zmniejszane na telefonie do 256×256 i zapisywane w bazie --- */
+$("#avPick").addEventListener("click", () => $("#avFile").click());
+$("#avFile").addEventListener("change", async e => {
+  const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  try {
+    const url = URL.createObjectURL(f);
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+    const S = 256, c = document.createElement("canvas"); c.width = c.height = S;
+    const m = Math.min(img.naturalWidth, img.naturalHeight);
+    c.getContext("2d").drawImage(img, (img.naturalWidth-m)/2, (img.naturalHeight-m)/2, m, m, 0, 0, S, S);
+    URL.revokeObjectURL(url);
+    await setDoc(doc(db,"profiles",me), { avatar: c.toDataURL("image/jpeg", .85), updatedAt: serverTimestamp() }, { merge:true });
+    toast("Zdjęcie zmienione");
+  } catch { toast("Nie udało się wczytać zdjęcia"); }
+});
+$("#avDel").addEventListener("click", async () => {
+  await setDoc(doc(db,"profiles",me), { avatar:"" }, { merge:true }).catch(() => {}); toast("Usunięto zdjęcie");
+});
+/* --- piosenka --- */
+$("#songPick").addEventListener("click", () => $("#songFile").click());
+$("#songFile").addEventListener("change", async e => {
+  const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  if (f.size > 40e6) { toast("Plik jest za duży (max 40 MB)"); return; }
+  try { await songPut(me, { blob:f, name:f.name }); localStorage.setItem("songOn:"+me, "1"); toast("Piosenka zapisana ♪"); renderSettings(); }
+  catch { toast("Nie udało się zapisać pliku"); }
+});
+$("#songOnRow").addEventListener("click", () => {
+  const v = !songOn(me); localStorage.setItem("songOn:"+me, v ? "1" : "0"); $("#songOn").classList.toggle("on", v);
+  if (!v && playing?.kind === "song") stopAudio();
+});
+$("#songTest").addEventListener("click", async () => {
+  if (playing?.kind === "song") { stopAudio(); return; }
+  const url = await songURL(me); if (url) playSource("song", "Piosenka powitalna", url).catch(() => {});
+});
+$("#songDel").addEventListener("click", async () => {
+  if (!await confirmDlg("Usunąć piosenkę?", "Plik zostanie usunięty z tego telefonu.")) return;
+  if (playing?.kind === "song") stopAudio();
+  await songPut(me, null).catch(() => {}); renderSettings(); toast("Usunięto piosenkę");
+});
+
+/* --- kopie zapasowe --- */
+const plain = it => ({ ...it,
+  createdAt: toDate(it.createdAt)?.getTime() ?? null, updatedAt: toDate(it.updatedAt)?.getTime() ?? null, doneAt: toDate(it.doneAt)?.getTime() ?? null });
+const revive = it => { const { id, ...r } = it;
+  ["createdAt","updatedAt","doneAt"].forEach(k => r[k] = typeof r[k] === "number" ? Timestamp.fromMillis(r[k]) : null); return r; };
+
+async function writeBackup(id){
+  const data = items.map(plain);
+  await setDoc(doc(db,"backups",id), { createdAt: serverTimestamp(), by: me, count: data.length, data: JSON.stringify(data) });
+}
+async function autoBackup(){
+  try {
+    const id = today();
+    if (!(await getDoc(doc(db,"backups",id))).exists() && items.length) await writeBackup(id);
+    const all = (await getDocs(collection(db,"backups"))).docs.map(d => d.id).sort().reverse();
+    for (const old of all.slice(30)) await deleteDoc(doc(db,"backups",old));
+  } catch (e) { console.warn("Kopia:", e); }
+}
+function bkLabel(id){
+  const [d, rest] = id.split("_"); let s = d.split("-").reverse().join(".");
+  if (!rest) return s + " · automatyczna";
+  s += ` · ${rest.slice(0,2)}:${rest.slice(2,4)}`;
+  return rest.includes("przed") ? s + " · przed przywróceniem" : s + " · ręczna";
+}
+async function loadBackups(){
+  try {
+    const list = (await getDocs(collection(db,"backups"))).docs.map(d => ({ id:d.id, ...d.data() })).sort((a,b) => b.id.localeCompare(a.id));
+    $("#bkList").innerHTML = list.length ? list.slice(0,10).map(b => `
+      <div class="bk-row"><div><b>${esc(bkLabel(b.id))}</b><small>${b.count} wpisów · ${esc(b.by||"")}</small></div>
+      <button data-bk="${esc(b.id)}">Przywróć</button></div>`).join("") + (list.length > 10 ? `<p class="desc" style="margin:8px 0 0">…i ${list.length-10} starszych</p>` : "")
+      : '<p class="desc">Pierwsza kopia utworzy się automatycznie dziś.</p>';
+  } catch { $("#bkList").innerHTML = '<p class="desc">Nie udało się wczytać listy kopii.</p>'; }
+}
+async function restore(list, label){
+  if (!await confirmDlg("Przywrócić kopię?", `Obecne wpisy zostaną zastąpione kopią „${label}” (${list.length} wpisów). Przed tym zrobimy kopię bezpieczeństwa.`, "Przywróć")) return;
+  toast("Przywracanie…");
+  try {
+    const d = new Date(); await writeBackup(`${today()}_${pad(d.getHours())}${pad(d.getMinutes())}-przed-przywroceniem`);
+    const ops = [];
+    (await getDocs(col)).forEach(s => ops.push(b => b.delete(s.ref)));
+    list.forEach(it => { if (it.id && it.tab) ops.push(b => b.set(doc(db,"items",it.id), revive(it))); });
+    for (let i = 0; i < ops.length; i += 400) { const b = writeBatch(db); ops.slice(i, i+400).forEach(f => f(b)); await b.commit(); }
+    toast("Przywrócono kopię ✓"); loadBackups();
+  } catch (e) { console.error(e); toast("Nie udało się przywrócić"); }
+}
+$("#bkList").addEventListener("click", async e => {
+  const b = e.target.closest("[data-bk]"); if (!b) return;
+  const s = await getDoc(doc(db,"backups",b.dataset.bk));
+  if (s.exists()) restore(JSON.parse(s.data().data), bkLabel(b.dataset.bk));
+});
+$("#bkNow").addEventListener("click", async () => {
+  const d = new Date();
+  try { await writeBackup(`${today()}_${pad(d.getHours())}${pad(d.getMinutes())}`); toast("Kopia zrobiona ✓"); loadBackups(); }
+  catch { toast("Nie udało się zrobić kopii"); }
+});
+$("#bkExport").addEventListener("click", async () => {
+  const name = `nasz-dom-kopia-${today()}.json`;
+  const file = new File([JSON.stringify({ app:"nasz-dom", date:new Date().toISOString(), items: items.map(plain) }, null, 1)], name, { type:"application/json" });
+  if (navigator.canShare?.({ files:[file] })) { try { await navigator.share({ files:[file], title:name }); return; } catch (e) { if (e.name === "AbortError") return; } }
+  const a = document.createElement("a"); a.href = URL.createObjectURL(file); a.download = name; a.click();
+});
+$("#bkImport").addEventListener("click", () => $("#bkFile").click());
+$("#bkFile").addEventListener("change", async e => {
+  const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  try { const j = JSON.parse(await f.text()); if (!Array.isArray(j.items)) throw 0; restore(j.items, f.name); }
+  catch { toast("To nie jest plik kopii Nasz Dom"); }
+});
+
+/* --- konto i odświeżanie --- */
+$("#meBtn").addEventListener("click", () => { setTab("ustawienia"); window.scrollTo({ top:0 }); });
+$("#switchWho").addEventListener("click", () => { localStorage.removeItem("who"); me = null; stopAudio(); show("scrWho"); });
+$("#logoutBtn").addEventListener("click", async () => {
+  if (await confirmDlg("Wylogować?", "Na tym telefonie trzeba będzie ponownie wpisać kod.", "Wyloguj")) {
+    stopAudio(); localStorage.removeItem("who"); me = null; welcomeTried = false; signOut(auth);
+  }
+});
+async function hardRefresh(){
+  $("#refreshBtn").classList.add("spin");
+  try { const r = await navigator.serviceWorker?.getRegistration(); await r?.update(); } catch {}
+  location.reload();
+}
+$("#refreshBtn").addEventListener("click", hardRefresh);
+$("#setRefresh").addEventListener("click", hardRefresh);
+
+/* =================== DIALOG I TOAST =================== */
+function confirmDlg(title, text, yes="Usuń"){
+  $("#dlgTitle").textContent = title; $("#dlgText").textContent = text; $("#dlgYes").textContent = yes;
+  $("#dlgOverlay").classList.add("show"); $("#dlg").classList.add("show");
+  return new Promise(res => {
+    const done = v => { $("#dlgOverlay").classList.remove("show"); $("#dlg").classList.remove("show"); res(v); };
+    $("#dlgYes").onclick = () => done(true); $("#dlgNo").onclick = () => done(false); $("#dlgOverlay").onclick = () => done(false);
+  });
+}
+let tt; function toast(msg, action){
+  const t = $("#toast"); t.innerHTML = ""; t.append(msg);
+  t.classList.toggle("has-action", !!action);
+  if (action) { const b = document.createElement("button"); b.textContent = action.label;
+    b.onclick = () => { t.classList.remove("show"); action.fn(); }; t.append(b); }
+  t.classList.add("show"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), action ? 6000 : 2200);
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) { if (me) markSeen(tab); }
+  else { seenAtEnter = Number(localStorage.getItem(seenKey(tab)) || 0); render(); }
+});
+setInterval(render, 60000);
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
