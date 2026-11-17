@@ -90,13 +90,13 @@
   /* Pasek ONLINE */
   .pbar{display:flex;gap:6px;margin-top:10px;transition:margin .2s}
   .pchip{flex:1;min-width:0;display:flex;align-items:center;gap:8px;background:var(--card);border-radius:999px;padding:4px 12px 4px 4px;
-         box-shadow:var(--shadow);text-align:left;height:38px;padding-right:10px}
+         box-shadow:var(--shadow);text-align:left;height:40px}
   .pchip .avw{position:relative;flex-shrink:0}
   .pchip .dot{position:absolute;right:-2px;bottom:-2px;width:11px;height:11px;border-radius:50%;background:#C7C9D3;border:2px solid #fff}
   .pchip.on .dot{background:#22C55E;animation:pulse 2s infinite}
-  .pchip .txt{min-width:0;display:flex;align-items:baseline;gap:6px;white-space:nowrap;overflow:hidden}
-  .pchip b{font-size:13.5px;flex-shrink:0}
-  .pchip small{font-size:11px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;font-weight:600}
+  .pchip .txt{min-width:0;display:flex;flex-direction:column;line-height:1.15;white-space:nowrap;overflow:hidden}
+  .pchip b{font-size:13px}
+  .pchip small{font-size:11px;color:#6B7080;overflow:hidden;text-overflow:ellipsis;font-weight:600}
   .pchip.on small{color:#16A34A;font-weight:800;font-size:10.5px}
   .pchip.typing small{color:#2563EB;font-weight:700;letter-spacing:0}
   header.compact{padding-top:calc(8px + var(--safe-t));padding-bottom:8px;box-shadow:0 1px 0 var(--line)}
@@ -170,45 +170,51 @@
 
   /* ---------- Lista ---------- */
   main{padding:6px 16px calc(var(--nav-h) + var(--safe-b) + 110px);max-width:640px;margin:0 auto}
-  .list{display:flex;flex-direction:column;gap:10px}
+  .list{display:flex;flex-direction:column;gap:7px}
   .item{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);display:flex;align-items:flex-start;
-        padding:6px 2px 6px 4px;position:relative;overflow:hidden;transition:background .4s,box-shadow .4s}
+        padding:2px 0 2px 2px;position:relative;overflow:hidden;transition:background .4s,box-shadow .4s;border-radius:14px}
   .enter{animation:pop .25s ease}
   .item.fresh{background:linear-gradient(135deg,#ECFDF5,#F0F9FF);box-shadow:0 0 0 1.5px #6EE7B7,0 6px 18px rgba(16,185,129,.14)}
   .item.fresh .title{color:#065F46}
   .chip.new{background:#10B981;color:#fff}
   @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  .check{width:52px;height:52px;flex-shrink:0;display:grid;place-items:center}
-  .check span{width:28px;height:28px;border-radius:50%;border:2.2px solid #C7C9D3;display:grid;place-items:center;transition:all .15s}
-  .check span svg{opacity:0;transform:scale(.5);transition:all .15s}
-  .item.done .check span{background:var(--ok);border-color:var(--ok)}
+  .check{width:44px;align-self:stretch;min-height:44px;flex-shrink:0;display:grid;place-items:center}
+  .check span{width:22px;height:22px;border-radius:7px;border:2px solid #B9BDC9;background:#fff;display:grid;place-items:center;
+              transition:background .15s,border-color .15s,transform .12s}
+  .check:active span{transform:scale(.88)}
+  .check span svg{width:14px;height:14px;opacity:0;transform:scale(.4);transition:all .18s cubic-bezier(.3,1.6,.5,1)}
+  .item.done .check span{background:#16A34A;border-color:#16A34A}
   .item.done .check span svg{opacity:1;transform:scale(1)}
-  .body{flex:1;min-width:0;padding:13px 0 10px;cursor:pointer}
-  .title{font-weight:600;font-size:17px;word-wrap:break-word}
-  .note{color:var(--muted);font-size:15px;margin-top:3px;white-space:pre-wrap;word-wrap:break-word}
-  .item.done .title{text-decoration:line-through;color:var(--muted);font-weight:500}
+  @media (hover:hover){ .check:hover span{border-color:var(--accent)} }
+  .body{flex:1;min-width:0;padding:10px 0 9px;cursor:pointer}
+  .title{font-weight:600;font-size:15.5px;line-height:1.3;word-wrap:break-word}
+  .note{color:var(--muted);font-size:13.5px;line-height:1.35;margin-top:2px;white-space:pre-wrap;word-wrap:break-word;
+        display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .item.done .title{text-decoration:line-through;text-decoration-color:#B9BDC9;color:var(--muted);font-weight:500}
   .item.done{opacity:.72;box-shadow:none;border:1px solid var(--line)}
-  .star{width:48px;height:52px;flex-shrink:0;display:grid;place-items:center;color:#C7C9D3}
+  .star{width:42px;height:42px;flex-shrink:0;display:grid;place-items:center;color:#C7C9D3}
+  .star svg{width:20px;height:20px}
   .star.on{color:var(--star)}
-  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-  .chip{font-size:12.5px;font-weight:600;padding:4px 9px;border-radius:999px;background:#F0F1F5;color:#4B5060}
+  .chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+  .chip{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:#F0F1F5;color:#4B5060;line-height:1.5}
   .chip.cat{background:var(--accent-soft);color:var(--accent)}
   .chip.overdue{background:var(--danger);color:#fff}
   .chip.soon{background:#FEF3C7;color:#B45309}
   nav .badge.newdot{background:#16A34A}
-  .meta{font-size:12px;color:#9A9EAC;margin-top:8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .meta{font-size:11px;color:#A3A7B5;margin-top:5px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .meta .av-xs{width:15px;height:15px;font-size:8.5px}
 
   /* Sekcja NAJWAŻNIEJSZE */
-  .pinned{border-radius:22px;padding:4px 10px 12px;margin:4px 0 18px;
+  .pinned{border-radius:20px;padding:2px 8px 10px;margin:4px 0 16px;
           background:linear-gradient(160deg,#FFF4E5 0%,#FFE9EC 100%);border:1.5px solid #FBCFA8;
           box-shadow:0 6px 20px rgba(245,158,11,.12)}
-  .pinned-h{display:flex;align-items:center;justify-content:space-between;padding:10px 6px 10px}
-  .pinned-h span{display:flex;align-items:center;gap:8px;font-weight:800;font-size:14px;letter-spacing:.09em;color:#B4410E}
-  .pinned-h b{min-width:26px;height:26px;padding:0 8px;border-radius:999px;background:linear-gradient(140deg,#F97316,#DC2626);
+  .pinned-h{display:flex;align-items:center;justify-content:space-between;padding:9px 6px 8px}
+  .pinned-h span{display:flex;align-items:center;gap:8px;font-weight:800;font-size:12.5px;letter-spacing:.09em;color:#B4410E}
+  .pinned-h b{min-width:22px;height:22px;padding:0 8px;border-radius:999px;background:linear-gradient(140deg,#F97316,#DC2626);
               color:#fff;font-size:13px;display:grid;place-items:center}
   .pinned .item{box-shadow:0 1px 2px rgba(180,65,14,.06),0 3px 10px rgba(180,65,14,.08)}
   .pinned-empty{font-size:14px;color:#B4410E;opacity:.8;padding:4px 8px 6px;display:flex;align-items:center;gap:6px}
-  .section-h{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:0 6px 10px}
+  .section-h{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:0 6px 10px}
 
   .done-toggle{display:flex;align-items:center;justify-content:space-between;width:100%;margin:22px 0 10px;padding:12px 6px;
                font-weight:600;color:var(--muted);font-size:15px}
@@ -265,7 +271,8 @@
   .ag-head small{display:block;color:var(--muted);font-size:14px;margin-top:2px}
   .ag-head .add{margin-left:auto;padding:10px 14px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:14px;flex-shrink:0}
   .holiday{display:flex;align-items:center;gap:8px;background:#FEF2F2;color:#B91C1C;border-radius:14px;padding:10px 14px;font-weight:600;font-size:14px;margin-bottom:10px}
-  .ev{display:flex;gap:12px;background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:12px 14px 12px 0;position:relative;overflow:hidden;
+  .ev{display:flex;gap:12px;background:var(--bg,var(--card));border-radius:16px;box-shadow:0 1px 2px rgba(20,22,31,.04);
+      border:1px solid color-mix(in srgb,var(--c) 14%,transparent);padding:12px 14px 12px 0;position:relative;overflow:hidden;
       text-align:left;width:100%;margin-bottom:10px}
   .ev::before{content:"";width:5px;align-self:stretch;background:var(--c);border-radius:0 4px 4px 0;flex-shrink:0}
   .ev .tm{width:54px;flex-shrink:0;font-weight:800;font-size:16px;color:var(--c);padding-top:1px}
@@ -274,9 +281,9 @@
   .ev .bd b{display:block;font-size:16.5px;word-wrap:break-word}
   .ev .bd p{margin:3px 0 0;color:var(--muted);font-size:14px;white-space:pre-wrap}
   .ev .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
-  .ev .tag{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--c) 14%,#fff);color:var(--c)}
-  .ev .tag.g{background:#F0F1F5;color:#4B5060}
-  .ev.fresh{background:linear-gradient(135deg,#ECFDF5,#F0F9FF);box-shadow:0 0 0 1.5px #6EE7B7,0 6px 18px rgba(16,185,129,.14)}
+  .ev .tag{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:#fff;color:var(--c)}
+  .ev .tag.g{background:rgba(255,255,255,.75);color:#4B5060}
+  .ev.fresh{box-shadow:0 0 0 2px #34D399,0 6px 18px rgba(16,185,129,.16)}
   .ev-new{position:absolute;top:10px;right:12px;font-size:10px;font-weight:800;letter-spacing:.06em;color:#fff;background:#10B981;border-radius:999px;padding:2px 8px}
   .ev.task{border:1.5px dashed #D5D7DF;box-shadow:none;background:#FCFCFD}
   .ag-empty{text-align:center;color:var(--muted);padding:22px 10px;background:var(--card);border-radius:16px;border:1.5px dashed var(--line);font-size:15px}
@@ -380,23 +387,6 @@
   .v-zoom{display:flex;align-items:center;justify-content:center;gap:18px;padding:10px 0 calc(12px + var(--safe-b))}
   .v-zoom span{font-weight:700;min-width:54px;text-align:center}
 
-  /* Karta Diego */
-  .dg-card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);margin:2px 0 14px;overflow:hidden}
-  .dg-head{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px}
-  .dg-ico{width:42px;height:42px;border-radius:12px;background:#FEF3E2;color:#D97706;display:grid;place-items:center;flex-shrink:0}
-  .dg-head .gf-txt b{color:#B45309}
-  .dg-head .gf-txt small{color:var(--muted);opacity:1}
-  .dg-arr{color:var(--muted);transition:transform .2s;flex-shrink:0}
-  .dg-card.open .dg-arr{transform:rotate(180deg)}
-  .dg-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line)}
-  .dg-grid div{background:#fff;padding:10px 14px}
-  .dg-grid span{display:block;font-size:11.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-  .dg-grid b{display:block;font-size:15px;margin-top:2px;word-wrap:break-word}
-  .dg-grid a{color:#2563EB;text-decoration:none}
-  .dg-notes{padding:12px 14px;font-size:14.5px;color:#4B5060;border-top:1px solid var(--line);white-space:pre-wrap}
-  .dg-foot{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-top:1px solid var(--line)}
-  .dg-foot small{color:var(--muted);font-size:12px}
-  .dg-foot button{padding:8px 16px;border-radius:999px;background:#FEF3E2;color:#B45309;font-weight:700;font-size:14px}
   /* Kopie: podgląd */
   .bk-acts{display:flex;gap:6px;flex-shrink:0}
   .bk-sum{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
@@ -770,13 +760,6 @@
 </div>
 <div id="ptr"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></div>
 
-<!-- ========== ARKUSZ: KARTA DIEGO ========== -->
-<div class="sheet" id="dgSheet" role="dialog" aria-modal="true">
-  <div class="grab"></div>
-  <h3>Karta Diego 🐶</h3>
-  <form id="dgForm"><div class="dg-fields"></div>
-    <div class="sheet-actions"><button class="btn accent" type="submit" style="background:#D97706">Zapisz</button></div></form>
-</div>
 <!-- ========== ARKUSZ: PODGLĄD KOPII ========== -->
 <div class="sheet" id="bkSheet" role="dialog" aria-modal="true">
   <div class="grab"></div>
@@ -956,7 +939,7 @@ function startApp(){
   ["diego","natalka","maciek","wspolne","kalendarz"].forEach(t => { if (!localStorage.getItem(seenKey(t))) markSeen(t); });
   setTab(tab);
   paintAvatars();
-  startPresence(); startEvents(); startFiles(); if (!infoStarted) { infoStarted = true; startInfo(); }
+  startPresence(); startEvents(); startFiles();
   if (!welcomeTried) { welcomeTried = true; welcomeSong(); }
   if (unsub) return;
   $("#tasksView").innerHTML = '<div class="loader"></div>';
@@ -1060,7 +1043,7 @@ function render(){
 
   $("#hSub").textContent = open.length ? `${open.length} ${pluralWpis(open.length)} do zrobienia` : "Wszystko zrobione";
 
-  let h = tab === "maciek" ? grafikBar() : tab === "diego" ? diegoCard() : "";
+  let h = tab === "maciek" ? grafikBar() : "";
   h += `<section class="pinned">
       <div class="pinned-h"><span>${ICON.starOn.replace('width="24" height="24"','width="18" height="18"')} NAJWAŻNIEJSZE</span>${pinned.length ? `<b>${pinned.length}</b>` : ""}</div>
       ${pinned.length ? `<div class="list">${pinned.map(card).join("")}</div>`
@@ -1106,11 +1089,6 @@ function card(i){
   </div>`;
 }
 $("#tasksView").addEventListener("click", e => {
-  if (e.target.closest("[data-dg]")) { const a = e.target.closest("[data-dg]").dataset.dg;
-    if (a === "toggle") { localStorage.setItem("dgOpen", localStorage.getItem("dgOpen") === "1" ? "0" : "1"); render(); }
-    else if (a === "edit") openDiego();
-    return; }
-  if (e.target.closest("a[href^='tel:']")) return;
   if (e.target.closest("[data-grafik]")) { fileMeta ? openViewer() : (setTab("ustawienia"), toast("Wgraj grafik w sekcji „Grafik Maćka”")); return; }
   const t = e.target.closest("[data-act]"); if (!t) return;
   if (t.dataset.act === "donetoggle") { showDone = !showDone; render(); return; }
@@ -1154,7 +1132,7 @@ function openSheet(it){
   if (!it) setTimeout(() => $("#fTitle").focus(), 280);
 }
 function openLayer(sel){ $("#overlay").classList.add("show"); $(sel).classList.add("show"); }
-function closeSheets(){ ["#overlay","#sheet","#radioSheet","#evSheet","#monthSheet","#dgSheet","#bkSheet","#newsSheet"].forEach(s => $(s).classList.remove("show")); document.activeElement?.blur(); }
+function closeSheets(){ ["#overlay","#sheet","#radioSheet","#evSheet","#monthSheet","#bkSheet","#newsSheet"].forEach(s => $(s).classList.remove("show")); document.activeElement?.blur(); }
 $("#fab").addEventListener("click", () => tab === "kalendarz" ? openEvSheet(null, today()) : openSheet(null));
 $("#overlay").addEventListener("click", closeSheets);
 $("#fCat").addEventListener("click", e => {
@@ -1592,11 +1570,13 @@ function isOnline(n){
 }
 function lastSeenText(n){
   const t = toDate(presence[n]?.lastActive); if (!t) return "offline";
-  const m = Math.floor((Date.now() - t) / 60000);
-  if (m < 1) return "offline · przed chwilą";
-  if (m < 60) return `offline · ${m} min`;
-  const h = Math.floor(m / 60); if (h < 24) return `offline · ${h} godz.`;
-  const d = Math.floor(h / 24); return d === 1 ? "offline · wczoraj" : `offline · ${d} dni`;
+  const m = Math.floor((Date.now() - t) / 60000), hm = t.toLocaleTimeString("pl-PL",{ hour:"2-digit", minute:"2-digit" });
+  if (m < 1) return "offline od chwili";
+  if (m < 60) return `offline od ${m} min`;
+  const now = new Date(), y = new Date(); y.setDate(now.getDate()-1);
+  if (t.toDateString() === now.toDateString()) return `offline od ${hm}`;
+  if (t.toDateString() === y.toDateString()) return `offline od wczoraj ${hm}`;
+  const d = Math.floor((now - t) / 864e5); return `offline od ${d} dni`;
 }
 function renderPresence(){
   document.querySelectorAll("[data-pres]").forEach(el => {
@@ -1608,46 +1588,6 @@ function renderPresence(){
 }
 setInterval(() => { if (me) renderPresence(); }, 15000);
 window.addEventListener("pagehide", () => beat(false));
-
-/* =================== KARTA DIEGO =================== */
-let diego = {};
-const DG = [ ["weight","Waga","np. 12 kg"], ["born","Data urodzenia",""], ["chip","Nr chipa",""], ["vet","Weterynarz","nazwa / adres"],
-             ["vetTel","Telefon do weterynarza","np. 600 100 200"], ["food","Karma i porcja","np. Brit 2× dziennie 150 g"], ["notes","Uwagi","alergie, leki, nawyki…"] ];
-function ageOf(b){
-  if (!b) return ""; const d = parseDs(b), n = new Date(); let y = n.getFullYear() - d.getFullYear(), m = n.getMonth() - d.getMonth();
-  if (n.getDate() < d.getDate()) m--; if (m < 0) { y--; m += 12; }
-  return y > 0 ? `${y} ${y===1?"rok":(y%10>=2&&y%10<=4&&(y%100<12||y%100>14))?"lata":"lat"}${m ? ` ${m} mies.` : ""}` : `${m} mies.`;
-}
-function diegoCard(){
-  const open = localStorage.getItem("dgOpen") === "1", d = diego;
-  const sum = [d.weight, ageOf(d.born)].filter(Boolean).join(" · ") || "Uzupełnij podstawowe informacje";
-  let h = `<div class="dg-card ${open ? "open" : ""}"><button class="dg-head" data-dg="toggle">
-      <span class="dg-ico">${DOG_SVG}</span><span class="gf-txt"><b>KARTA DIEGO</b><small>${esc(sum)}</small></span>
-      <svg class="dg-arr" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>`;
-  if (open) {
-    h += `<div class="dg-grid">${DG.filter(([k]) => k !== "notes").map(([k,l]) => `<div><span>${l}</span><b>${
-      k === "vetTel" && d[k] ? `<a href="tel:${esc(d[k].replace(/[^+\d]/g,""))}">📞 ${esc(d[k])}</a>` :
-      k === "born" && d[k] ? `${fmtD(d[k])} (${ageOf(d[k])})` : esc(d[k] || "—")}</b></div>`).join("")}</div>
-      ${d.notes ? `<div class="dg-notes">${esc(d.notes)}</div>` : ""}
-      <div class="dg-foot"><small>${d.updatedBy ? `Zmiana: ${esc(d.updatedBy)}, ${fmtWhen(toDate(d.updatedAt))}` : ""}</small><button data-dg="edit">Edytuj</button></div>`;
-  }
-  return h + `</div>`;
-}
-function startInfo(){
-  onSnapshot(doc(db,"info","diego"), s => { diego = s.exists() ? s.data() : {}; if (tab === "diego") render(); }, () => {});
-}
-function openDiego(){
-  $("#dgForm .dg-fields").innerHTML = DG.map(([k,l,ph]) => `<label class="lbl">${l}</label>${k === "notes"
-    ? `<textarea class="field" data-k="${k}" placeholder="${ph}">${esc(diego[k]||"")}</textarea>`
-    : `<input class="field" data-k="${k}" ${k==="born" ? 'type="date"' : k==="vetTel" ? 'type="tel"' : ""} placeholder="${ph}" value="${esc(diego[k]||"")}">`}`).join("");
-  openLayer("#dgSheet");
-}
-$("#dgForm").addEventListener("submit", e => {
-  e.preventDefault();
-  const v = {}; $("#dgForm").querySelectorAll("[data-k]").forEach(el => v[el.dataset.k] = el.value.trim());
-  setDoc(doc(db,"info","diego"), { ...v, updatedBy: me, updatedAt: serverTimestamp() }).then(() => toast("Karta Diego zapisana 🐶")).catch(() => toast("Nie udało się zapisać"));
-  closeSheets();
-});
 
 /* =================== GRAFIK MAĆKA =================== */
 /* Plik leży w bazie w kawałkach (jak piosenka). Telefon trzyma kopię, żeby otwierał się błyskawicznie. */
@@ -1790,11 +1730,11 @@ window.addEventListener("popstate", () => closeViewer(true));
 
 /* =================== KALENDARZ (wspólny) =================== */
 const EVC = {
-  diego:   { n:"Diego",   c:"#D97706" },
-  natalka: { n:"Natalka", c:"#DB2777" },
-  maciek:  { n:"Maciek",  c:"#2563EB" },
-  wspolne: { n:"N+M",     c:"#7C3AED" },
-  inne:    { n:"Inne",    c:"#0D9488" }
+  diego:   { n:"Diego",   c:"#D97706", bg:"#FFF6EC" },
+  natalka: { n:"Natalka", c:"#DB2777", bg:"#FDEEF4" },   // pudrowy róż
+  maciek:  { n:"Maciek",  c:"#2563EB", bg:"#EAF2FE" },   // pudrowy błękit
+  wspolne: { n:"N+M",     c:"#7C3AED", bg:"#F5F0FE" },   // bardzo jasny pudrowy fiolet
+  inne:    { n:"Inne",    c:"#0D9488", bg:"#EEF9F7" }
 };
 const EVREP = { "":"Nie", day:"Codziennie", week:"Co tydzień", month:"Co miesiąc", year:"Co rok" };
 let events = [], unsubEv = null, calMonth = new Date(), calSel = null, editingEv = null, evForm = { cat:"wspolne", rep:"", all:true };
@@ -1856,7 +1796,7 @@ function evCard(x){
       <span class="bd"><b>${esc(i.title)}</b><span class="tags"><span class="tag">${esc(TABS[i.tab].name)}</span>${i.priority==="high"?'<span class="tag g">★ Najważniejsze</span>':""}</span></span></button>`;
   }
   const e = x.ev, cat = EVC[e.cat] || EVC.inne;
-  return `<button class="ev" style="--c:${cat.c}" data-ev="${e.id}">
+  return `<button class="ev" style="--c:${cat.c};--bg:${cat.bg}" data-ev="${e.id}">
     <span class="tm">${e.time ? esc(e.time) : "<small>cały<br>dzień</small>"}</span>
     <span class="bd"><b>${esc(e.title)}</b>${e.note ? `<p>${esc(e.note)}</p>` : ""}
       <span class="tags"><span class="tag">${cat.n}</span>${repTag(e)}
@@ -1884,7 +1824,7 @@ const passF = e => !calFilter || e.cat === calFilter;
 function listCard(e, day){
   const cat = EVC[e.cat] || EVC.inne;
   const fresh = e.createdBy && e.createdBy !== me && seenAtEnter && (toDate(e.createdAt)?.getTime() || 0) > seenAtEnter;
-  return `<button class="ev ${fresh ? "fresh" : ""}" style="--c:${cat.c}" data-ev="${e.id}">${fresh ? `<span class="ev-new">NOWE</span>` : ""}
+  return `<button class="ev ${fresh ? "fresh" : ""}" style="--c:${cat.c};--bg:${cat.bg}" data-ev="${e.id}">${fresh ? `<span class="ev-new">NOWE</span>` : ""}
     <span class="tm">${e.time ? esc(e.time) : "<small>cały<br>dzień</small>"}</span>
     <span class="bd"><span class="when">${relDay(day)}</span><b>${esc(e.title)}</b>${e.note ? `<p>${esc(e.note)}</p>` : ""}
       <span class="tags"><span class="tag">${cat.n}</span>${repTag(e)}
@@ -2158,15 +2098,20 @@ window.addEventListener("scroll", () => $("header")?.classList.toggle("compact",
 
 /* =================== HISTORIA AKTUALIZACJI =================== */
 /* Przy każdej nowej wersji dopisujemy nowy wpis NA GÓRZE tej listy. */
-const APP_VERSION = "2.7";
+const APP_VERSION = "2.8";
 const CHANGELOG = [
-  { v:"2.7", d:"17.11.2026", t:"Kalendarz pełniejszy, Karta Diego, przypomnienia w telefonie", p:[
+  { v:"2.8", d:"17.11.2026", t:"Bardziej zwarte listy i kolory w kalendarzu", p:[
+    "Mniejsze, zwarte karty zadań — na ekranie mieści się więcej pozycji",
+    "Nowe, mniejsze pole odhaczania (zaokrąglony kwadrat z animowanym ptaszkiem)",
+    "Kalendarz: wydarzenia mają tło w kolorze osoby — Natalka pudrowy róż, Maciek pudrowy błękit, N+M jasny fiolet",
+    "Pasek ONLINE: przy osobie offline od razu widać, od kiedy (np. „offline od 21:40”)",
+    "Usunięto Kartę Diego" ] },
+  { v:"2.7", d:"17.11.2026", t:"Kalendarz pełniejszy, przypomnienia w telefonie", p:[
     "Kalendarz: filtr „N+M” — tylko wspólne wydarzenia",
     "Powtarzające się wydarzenia pokazują się na liście jako każdy termin osobno, aż do daty „do kiedy”",
     "Nowa opcja powtarzania: „Codziennie” (w kalendarzu i w zadaniach)",
     "Licznik na górze kalendarza: ile wydarzeń dziś, jutro i w 7 dni",
     "„Dodaj do kalendarza telefonu” — telefon sam przypomni o wydarzeniu",
-    "Karta Diego w zakładce Diego: waga, wiek, chip, weterynarz z przyciskiem dzwonienia, karma, uwagi",
     "Podgląd zawartości każdej kopii zapasowej przed przywróceniem",
     "Historia aktualizacji i okienko „Co nowego” po aktualizacji" ] },
   { v:"2.6", d:"17.11.2026", t:"Filtrowanie kalendarza i powtarzanie do daty", p:[
