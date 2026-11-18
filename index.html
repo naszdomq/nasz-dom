@@ -292,6 +292,7 @@
   .ev .bd p{margin:3px 0 0;color:var(--muted);font-size:14px;white-space:pre-wrap}
   .ev .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
   .ev .tag{font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:#fff;color:var(--c)}
+  .ev .tag.rng{background:var(--c);color:#fff}
   .ev .tag.g{background:rgba(255,255,255,.75);color:#4B5060}
   .ev.fresh{box-shadow:0 0 0 2px #34D399,0 6px 18px rgba(16,185,129,.16)}
   .ev-new{position:absolute;top:10px;right:12px;font-size:10px;font-weight:800;letter-spacing:.06em;color:#fff;background:#10B981;border-radius:999px;padding:2px 8px}
@@ -507,37 +508,6 @@
   nav button.active .pill{transform:translateY(-1px)}
   @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-  /* Diego: wyjścia */
-  .walk{background:var(--card);border-radius:20px;box-shadow:var(--shadow);margin:2px 0 14px;overflow:hidden}
-  .walk-main{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 12px 12px 12px}
-  .walk-main:active{background:#FFF7ED}
-  .walk-ico{width:48px;height:48px;border-radius:15px;background:linear-gradient(140deg,#FDE68A,#F59E0B);display:grid;place-items:center;font-size:25px;flex-shrink:0;
-            box-shadow:0 4px 12px rgba(245,158,11,.3)}
-  .walk-t{flex:1;min-width:0}
-  .walk-t b{display:block;font-size:16px}
-  .walk-t small{display:block;font-size:12.5px;color:var(--muted);margin-top:1px}
-  .walk-t strong{color:var(--text);font-weight:700}
-  .walk-last{font-size:12px;font-weight:800;padding:5px 9px;border-radius:999px;flex-shrink:0;white-space:nowrap}
-  .walk-plus{width:38px;height:38px;border-radius:50%;background:#D97706;color:#fff;display:grid;place-items:center;flex-shrink:0;box-shadow:0 3px 10px rgba(217,119,6,.35)}
-  .walk-foot{display:flex;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
-  .walk-foot b{color:var(--text)}
-  .walk-foot button{margin-left:auto;font-size:13px;font-weight:700;color:#B45309}
-  .wpill{font-size:12px;font-weight:800;padding:2px 8px;border-radius:999px}
-  .ask-dog{font-size:46px;text-align:center;margin-top:-10px;animation:wag .9s ease-in-out infinite;transform-origin:50% 90%}
-  @keyframes wag{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
-  .ask-q{text-align:center;font-size:24px;font-weight:900;letter-spacing:.03em;margin:8px 0 22px}
-  .ask-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px}
-  .ask-opts button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;height:138px;border-radius:24px;transition:transform .1s}
-  .ask-opts button:active{transform:scale(.95)}
-  .ask-opts span{font-size:40px;line-height:1}
-  .ask-opts b{font-size:17px;font-weight:900;letter-spacing:.06em}
-  .ask-siku{background:#E0F2FE;color:#0369A1;border:2px solid #BAE6FD}
-  .ask-komplet{background:#FEF3C7;color:#92400E;border:2px solid #FDE68A}
-  .wh-day{display:flex;justify-content:space-between;align-items:center;margin:16px 4px 6px;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-  .wh-day em{font-style:normal}
-  .wh-row{align-items:center!important}
-  .wh-tag{font-size:12.5px;font-weight:800;padding:3px 10px;border-radius:999px;flex-shrink:0}
-  .dl-x{margin-left:6px;color:#B9BDC9;font-size:13px;padding:0 4px}
   /* Lista zakupów */
   .shop-card{display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin:0 0 14px;padding:12px 14px;border-radius:18px;color:#fff;
              background:linear-gradient(135deg,#14B8A6,#0D9488);box-shadow:0 8px 20px rgba(13,148,136,.25);position:relative}
@@ -613,10 +583,15 @@
   .overlay{position:fixed;inset:0;background:rgba(15,17,26,.42);z-index:50;opacity:0;pointer-events:none;transition:opacity .22s}
   .overlay.show{opacity:1;pointer-events:auto}
   .sheet{will-change:transform;overscroll-behavior:contain;position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--card);border-radius:24px 24px 0 0;max-width:640px;margin:0 auto;
-         padding:10px 20px calc(20px + var(--safe-b));transform:translateY(105%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
+         padding:10px 20px calc(20px + var(--safe-b));transform:translateY(105%);transition:transform .34s cubic-bezier(.22,.9,.24,1);
          max-height:92vh;overflow-y:auto}
   .sheet.show{transform:none}
-  .grab{width:40px;height:5px;border-radius:3px;background:#DADCE3;margin:2px auto 14px}
+  .grab{width:44px;height:5px;border-radius:3px;background:#D5D8E0;margin:2px auto 14px;position:relative}
+  .grab::after{content:"";position:absolute;left:-40px;right:-40px;top:-14px;bottom:-12px}   /* większe pole do chwycenia */
+  .sheet-x{position:sticky;top:0;float:right;z-index:3;width:38px;height:38px;border-radius:50%;background:#F0F1F5;display:grid;place-items:center;
+           margin:-6px -6px 0 8px;color:#4B5060;transition:background .15s,transform .1s}
+  .sheet-x:active{transform:scale(.9);background:#E4E6EC}
+  .sh-x:active,.ms-x:active{transform:scale(.9)}
   .sheet h3{margin:0 0 16px;font-size:21px;letter-spacing:-.01em}
   .sheet label.lbl{display:block;font-size:13px;font-weight:600;color:var(--muted);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.04em}
   .sheet textarea.field{min-height:84px;resize:vertical}
@@ -877,6 +852,18 @@
       <input class="field" id="eDate" type="date" required>
       <input class="field" id="eTime" type="time" style="max-width:130px">
     </div>
+    <div class="switch-row" id="eRangeRow" style="margin-top:10px"><div><b>Kilka dni</b><small>Zakres dat — np. wyjazd, urlop</small></div><div class="switch" id="eRange"></div></div>
+    <div class="until-box hidden" id="eRangeBox">
+      <label class="lbl">Do (ostatni dzień)</label>
+      <input class="field" id="eEnd" type="date">
+      <div class="until-quick" id="eRangeQuick">
+        <button type="button" data-rq="1">+1 dzień</button>
+        <button type="button" data-rq="2">+2 dni</button>
+        <button type="button" data-rq="wk">Do niedzieli</button>
+        <button type="button" data-rq="6">Tydzień</button>
+      </div>
+      <div class="until-sum" id="eRangeSum"></div>
+    </div>
     <div class="switch-row" id="eAllRow" style="margin-top:10px"><div><b>Cały dzień</b><small>Bez konkretnej godziny</small></div><div class="switch" id="eAll"></div></div>
     <label class="lbl">Dla kogo</label>
     <div class="seg colors" id="eCat"></div>
@@ -948,24 +935,6 @@
   </form>
   <div id="shopList"></div>
 </div>
-<!-- ========== PYTANIE: CO BYŁO GRANE? ========== -->
-<div class="sheet" id="walkAsk" role="dialog" aria-modal="true">
-  <div class="grab"></div>
-  <div class="sh-head"><h3>&nbsp;</h3><button class="sh-x" data-close aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <div class="ask-dog">🐕</div>
-  <div class="ask-q">CO BYŁO GRANE?</div>
-  <div class="ask-opts">
-    <button data-res="siku" class="ask-siku"><span>💧</span><b>SIKU</b></button>
-    <button data-res="komplet" class="ask-komplet"><span>💧💩</span><b>KOMPLECIK</b></button>
-  </div>
-</div>
-<!-- ========== ARKUSZ: HISTORIA DIEGO ========== -->
-<div class="sheet" id="dlogSheet" role="dialog" aria-modal="true">
-  <div class="grab"></div>
-  <div class="sh-head"><h3>🐾 Wyjścia z Diego</h3><button class="sh-x" data-close aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <div id="dlogBody"></div>
-</div>
-
 <!-- ========== ARKUSZ: AKTUALIZACJE ========== -->
 <div class="sheet" id="updSheet" role="dialog" aria-modal="true">
   <div class="grab"></div>
@@ -1157,7 +1126,7 @@ function startApp(){
   ["diego","natalka","maciek","wspolne","kalendarz"].forEach(t => { if (!localStorage.getItem(seenKey(t))) markSeen(t); });
   setTab(tab);
   paintAvatars();
-  startPresence(); startEvents(); startFiles(); startPackages(); startDlog(); startShop(); if (!infoStarted) { infoStarted = true; startWedding(); }
+  startPresence(); startEvents(); startFiles(); startPackages(); startShop(); if (!infoStarted) { infoStarted = true; startWedding(); }
   if (!welcomeTried) { welcomeTried = true; welcomeSong(); }
   if (unsub) return;
   $("#tasksView").innerHTML = '<div class="loader"></div>'; $("#tasksView")._h = null;
@@ -1172,7 +1141,7 @@ function stopSync(){
   if (unsub){ unsub(); unsub = null; } if (unsubProf){ unsubProf(); unsubProf = null; }
   if (unsubPres){ unsubPres(); unsubPres = null; } if (unsubFile){ unsubFile(); unsubFile = null; }
   if (unsubPkg){ unsubPkg(); unsubPkg = null; } packages = []; paintPkgBtn();
-  if (unsubDlog){ unsubDlog(); unsubDlog = null; } if (unsubShop){ unsubShop(); unsubShop = null; }
+  if (unsubShop){ unsubShop(); unsubShop = null; }
   if (unsubEv){ unsubEv(); unsubEv = null; } events = [];
   clearInterval(hbTimer);
   items = []; backupChecked = false;
@@ -1266,7 +1235,7 @@ function render(){
 
   setSub(open.length ? `${open.length} do zrobienia` : "Wszystko zrobione");
 
-  let h = tab === "maciek" ? grafikBar() : tab === "wspolne" ? weddingCard() + shopCard() : tab === "diego" ? diegoLogBar() : "";
+  let h = tab === "maciek" ? grafikBar() : tab === "wspolne" ? weddingCard() + shopCard() : "";
   h += `<section class="pinned">
       <div class="pinned-h"><span>${ICON.starOn.replace('width="24" height="24"','width="18" height="18"')} NAJWAŻNIEJSZE</span>${pinned.length ? `<b>${pinned.length}</b>` : ""}</div>
       ${pinned.length ? `<div class="list">${pinned.map(card).join("")}</div>`
@@ -1312,8 +1281,6 @@ function card(i){
   </div>`;
 }
 $("#tasksView").addEventListener("click", e => {
-  const dl = e.target.closest("[data-dlog]");
-  if (dl) { dl.dataset.dlog === "hist" ? openDlogHist() : addDlog(); return; }
   if (e.target.closest("[data-shop]")) { openShop(); return; }
   if (e.target.closest("[data-grafik]")) { fileMeta ? openViewer() : (setTab("ustawienia"), toast("Wgraj grafik w sekcji „Grafik Maćka”")); return; }
   const t = e.target.closest("[data-act]"); if (!t) return;
@@ -1360,10 +1327,10 @@ function openSheet(it){
   openLayer("#sheet");
   if (!it) setTimeout(() => $("#fTitle").focus(), 280);
 }
-function openLayer(sel){ $("#overlay").classList.add("show"); $(sel).classList.add("show"); }
-function closeSheets(){ ["#overlay","#sheet","#walkAsk","#backupSheet","#trashSheet","#shopSheet","#dlogSheet","#radioSheet","#evSheet","#monthSheet","#updSheet","#pkgSheet","#bkSheet","#newsSheet"].forEach(s => $(s).classList.remove("show")); document.activeElement?.blur(); }
+function openLayer(sel){ const el = $(sel); el.scrollTop = 0; el.style.transform = ""; $("#overlay").style.opacity = ""; $("#overlay").classList.add("show"); el.classList.add("show"); }
+function closeSheets(){ ["#overlay","#sheet","#backupSheet","#trashSheet","#shopSheet","#radioSheet","#evSheet","#monthSheet","#updSheet","#pkgSheet","#bkSheet","#newsSheet"].forEach(s => $(s).classList.remove("show")); document.activeElement?.blur(); }
 $("#fab").addEventListener("click", () => tab === "kalendarz" ? openEvSheet(null, today()) : openSheet(null));
-$("#overlay").addEventListener("click", closeSheets);
+$("#overlay").addEventListener("click", () => { pkgDraft = null; closeSheets(); });
 $("#fCat").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
   form.cat = form.cat === b.dataset.c ? null : b.dataset.c;
@@ -1678,7 +1645,6 @@ async function autoBackup(){
     const tr = await getDocs(collection(db,"trash"));
     tr.forEach(d => { if (Date.now() - (toDate(d.data().deletedAt)?.getTime() || Date.now()) > 30 * 864e5) deleteDoc(d.ref).catch(() => {}); });
     packages.filter(p => p.picked && Date.now() - (toDate(p.pickedAt)?.getTime() || Date.now()) > 30 * 864e5).forEach(removePkg);
-    dlogs.filter(l => Date.now() - (toDate(l.at)?.getTime() || Date.now()) > 60 * 864e5).forEach(l => deleteDoc(doc(db,"diegoLog",l.id)).catch(() => {}));
   } catch (e) { console.warn("Kopia:", e); }
 }
 function bkLabel(id){
@@ -2118,73 +2084,6 @@ function viewPkg(p){
   else toast("Ta paczka nie ma zdjęcia");
 }
 
-/* =================== DIEGO: WYJŚCIA =================== */
-/* Stuknięcie „Wyjście z Diego” → pytanie „Co było grane?” → Siku albo Komplecik. Oboje widzicie, kiedy był ostatnio. */
-const RES = { siku:{ ico:"💧", n:"Siku", c:"#0284C7", bg:"#E0F2FE" }, komplet:{ ico:"💩", n:"Komplecik", c:"#92400E", bg:"#FEF3C7" } };
-let dlogs = [], unsubDlog = null;
-function startDlog(){
-  if (unsubDlog) return;
-  unsubDlog = onSnapshot(collection(db,"diegoLog"), s => {
-    dlogs = s.docs.map(d => ({ id:d.id, ...d.data({ serverTimestamps:"estimate" }) }))
-              .filter(l => l.type === "walk").sort((a,b) => (toDate(b.at)||0) - (toDate(a.at)||0));
-    if (tab === "diego") render();
-    if ($("#dlogSheet").classList.contains("show")) openDlogHist();
-  }, () => {});
-}
-function agoTxt(d){
-  if (!d) return "";
-  const m = Math.floor((Date.now() - d) / 60000);
-  if (m < 1) return "przed chwilą"; if (m < 60) return `${m} min temu`;
-  const h = Math.floor(m / 60); if (h < 12) return `${h} godz.${m % 60 ? " " + (m % 60) + " min" : ""} temu`;
-  return fmtWhen(d);
-}
-function diegoLogBar(){
-  const t0 = new Date(); t0.setHours(0,0,0,0);
-  const last = dlogs[0], d = toDate(last?.at), r = RES[last?.res];
-  const todays = dlogs.filter(l => (toDate(l.at)||0) >= t0);
-  const nS = todays.filter(l => l.res === "siku").length, nK = todays.filter(l => l.res === "komplet").length;
-  return `<div class="walk">
-    <button class="walk-main" data-dlog="walk">
-      <span class="walk-ico">🦮</span>
-      <span class="walk-t"><b>Wyjście z Diego</b>
-        <small>${last ? `Ostatnio <strong>${agoTxt(d)}</strong> · ${esc(last.by||"")}` : "Stuknij, gdy wrócicie ze spaceru"}</small></span>
-      ${r ? `<span class="walk-last" style="background:${r.bg};color:${r.c}">${r.ico} ${r.n}</span>` : ""}
-      <span class="walk-plus"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-    </button>
-    <div class="walk-foot">
-      <span>Dziś: <b>${todays.length}</b> ${todays.length===1?"wyjście":(todays.length%10>=2&&todays.length%10<=4&&(todays.length%100<12||todays.length%100>14))?"wyjścia":"wyjść"}</span>
-      ${nS ? `<span class="wpill" style="background:${RES.siku.bg};color:${RES.siku.c}">💧 ${nS}</span>` : ""}
-      ${nK ? `<span class="wpill" style="background:${RES.komplet.bg};color:${RES.komplet.c}">💩 ${nK}</span>` : ""}
-      <button data-dlog="hist">Historia ›</button>
-    </div></div>`;
-}
-function addDlog(){
-  if (navigator.vibrate) navigator.vibrate(10);
-  openLayer("#walkAsk");
-}
-$("#walkAsk").addEventListener("click", e => {
-  const b = e.target.closest("[data-res]"); if (!b) return;
-  const res = b.dataset.res; closeSheets();
-  if (navigator.vibrate) navigator.vibrate([15,30,15]);
-  const ref = doc(collection(db,"diegoLog"));
-  setDoc(ref, { type:"walk", res, by: me, at: serverTimestamp() }).catch(() => toast("Nie udało się zapisać"));
-  toast(`${RES[res].ico} ZAPISANO ${RES[res].n.toUpperCase()}`, null, 1200);
-});
-function openDlogHist(){
-  const byDay = {};
-  dlogs.slice(0, 80).forEach(l => { const d = toDate(l.at); if (!d) return; (byDay[ds(d)] = byDay[ds(d)] || []).push(l); });
-  $("#dlogBody").innerHTML = Object.keys(byDay).length ? Object.entries(byDay).map(([day, ls]) => {
-    const rd = relDay(day), lbl = rd === "Dziś" || rd === "Wczoraj" ? rd : `${WD[parseDs(day).getDay()]}, ${fmtD(day)}`;
-    return `<div class="wh-day"><span>${lbl}</span><em>${ls.length}×</em></div>
-    <div class="bk-items">${ls.map(l => { const r = RES[l.res] || RES.siku; return `<div class="wh-row">
-      <span class="wh-tag" style="background:${r.bg};color:${r.c}">${r.ico} ${r.n}</span><span>${esc(l.by||"")}</span>
-      <em>${toDate(l.at).toLocaleTimeString("pl-PL",{hour:"2-digit",minute:"2-digit"})}</em>
-      <button class="dl-x" data-dlx="${l.id}" aria-label="Usuń">✕</button></div>`; }).join("")}</div>`; }).join("")
-    : '<p class="desc">Jeszcze nic nie zapisano. Stuknij „Wyjście z Diego” w zakładce Diego.</p>';
-  if (!$("#dlogSheet").classList.contains("show")) openLayer("#dlogSheet");
-}
-$("#dlogBody").addEventListener("click", e => { const x = e.target.closest("[data-dlx]"); if (x) deleteDoc(doc(db,"diegoLog",x.dataset.dlx)).catch(() => {}); });
-
 /* =================== WSPÓLNA LISTA ZAKUPÓW (zakładka N+M) =================== */
 let shop = [], unsubShop = null;
 function startShop(){
@@ -2276,7 +2175,23 @@ function holidays(y){
     [`${y}-12-24`]:"Wigilia", [`${y}-12-25`]:"Boże Narodzenie", [`${y}-12-26`]:"Drugi dzień świąt" };
   return holCache[y] = r;
 }
-function occurs(ev, day){
+/* Zakres dat: ile dni po dniu startu trwa wydarzenie (0 = jednodniowe) */
+function spanDays(ev){ return ev.end && ev.end > ev.date ? Math.min(60, Math.round((parseDs(ev.end) - parseDs(ev.date)) / 864e5)) : 0; }
+function addDays(day, n){ const d = parseDs(day); d.setDate(d.getDate() + n); return ds(d); }
+/* Dzień startu wydarzenia, które obejmuje „day” (albo null) */
+function startOf(ev, day){
+  const n = spanDays(ev);
+  for (let k = 0; k <= n; k++) { const s = addDays(day, -k); if (startsOn(ev, s)) return s; }
+  return null;
+}
+function occurs(ev, day){ return spanDays(ev) ? !!startOf(ev, day) : startsOn(ev, day); }
+function rangeTag(e, day){
+  const n = spanDays(e); if (!n) return "";
+  const s = startOf(e, day) || e.date, end = addDays(s, n), k = Math.round((parseDs(day) - parseDs(s)) / 864e5) + 1;
+  const f = x => { const d = parseDs(x); return `${d.getDate()} ${MON3[d.getMonth()].toLowerCase()}`; };
+  return `<span class="tag rng">📅 ${f(s)} – ${f(end)} · ${n + 1} dni${k > 1 ? ` · dzień ${k}/${n + 1}` : ""}</span>`;
+}
+function startsOn(ev, day){
   if (ev.date === day) return true;
   if (!ev.repeat || day < ev.date) return false;
   if (ev.until && day > ev.until) return false;
@@ -2308,7 +2223,7 @@ function evCard(x){
   return `<button class="ev" style="--c:${cat.c};--bg:${cat.bg}" data-ev="${e.id}">
     <span class="tm">${e.time ? esc(e.time) : "<small>cały<br>dzień</small>"}</span>
     <span class="bd"><b>${esc(e.title)}</b>${e.note ? `<p>${esc(e.note)}</p>` : ""}
-      <span class="tags"><span class="tag">${cat.n}</span>${repTag(e)}
+      <span class="tags">${rangeTag(e, calSel || today())}<span class="tag">${cat.n}</span>${repTag(e)}
       <span class="tag g">${avatarHTML(e.createdBy,"av-xs")} ${esc(e.createdBy||"")}</span></span></span></button>`;
 }
 /* Najbliższe wystąpienie wydarzenia od danego dnia (dla powtarzających się) */
@@ -2321,12 +2236,15 @@ function nextOcc(ev, from){
 }
 let showPast = false, calFilter = "", sortOpen = false, calLimit = 40;
 function occList(e, from){
+  const n = spanDays(e);
+  if (n && !e.repeat) return addDays(e.date, n) >= from ? [e.date >= from ? e.date : from] : [];
   if (!e.repeat) return e.date >= from ? [e.date] : [];
   const H = { day:14, week:91, month:365, year:730 }[e.repeat] || 365;   // bez daty końca: pokazujemy najbliższy okres
   const end = e.until || ds(new Date(parseDs(from).getTime() + H * 864e5));
   const out = [], d = parseDs(e.date > from ? e.date : from);
-  for (let i = 0; i < 3700 && ds(d) <= end && out.length < 400; i++) { const x = ds(d); if (occurs(e, x)) out.push(x); d.setDate(d.getDate()+1); }
-  return out;
+  if (n) { const st = startOf(e, from); if (st && st < from) out.push(from); }   // trwające właśnie wydarzenie
+  for (let i = 0; i < 3700 && ds(d) <= end && out.length < 400; i++) { const x = ds(d); if (startsOn(e, x)) out.push(x); d.setDate(d.getDate()+1); }
+  return [...new Set(out)];
 }
 const FILTERS = { "":"Wszystko", natalka:"Natalka", maciek:"Maciek", wspolne:"N+M" };
 const passF = e => !calFilter || e.cat === calFilter;
@@ -2335,8 +2253,8 @@ function listCard(e, day){
   const fresh = e.createdBy && e.createdBy !== me && seenAtEnter && (toDate(e.createdAt)?.getTime() || 0) > seenAtEnter;
   return `<button class="ev ${fresh ? "fresh" : ""}" style="--c:${cat.c};--bg:${cat.bg}" data-ev="${e.id}">${fresh ? `<span class="ev-new">NOWE</span>` : ""}
     <span class="tm">${e.time ? esc(e.time) : "<small>cały<br>dzień</small>"}</span>
-    <span class="bd"><span class="when">${relDay(day)}</span><b>${esc(e.title)}</b>${e.note ? `<p>${esc(e.note)}</p>` : ""}
-      <span class="tags"><span class="tag">${cat.n}</span>${repTag(e)}
+    <span class="bd"><span class="when">${spanDays(e) && startOf(e, day) && startOf(e, day) < day ? "Trwa teraz" : relDay(day)}</span><b>${esc(e.title)}</b>${e.note ? `<p>${esc(e.note)}</p>` : ""}
+      <span class="tags">${rangeTag(e, day)}<span class="tag">${cat.n}</span>${repTag(e)}
       <span class="tag g">${avatarHTML(e.createdBy,"av-xs")} ${esc(e.createdBy||"")}</span></span></span></button>`;
 }
 const fmtD = s => s ? s.split("-").reverse().join(".") : "";
@@ -2471,6 +2389,7 @@ function openEvSheet(ev, day){
   $("#eDate").value = ev?.date || day || today(); $("#eTime").value = ev?.time || "";
   evForm.cat = ev?.cat || (calFilter || "wspolne"); evForm.rep = ev?.repeat || ""; evForm.all = !ev?.time;
   $("#eUntil").value = ev?.until || ""; untilUI();
+  evForm.range = !!(ev?.end && ev.end > ev.date); $("#eEnd").value = evForm.range ? ev.end : ""; rangeUI();
   $("#eCat").innerHTML = Object.entries(EVC).map(([k,v]) => `<button type="button" style="--c:${v.c}" class="${k===evForm.cat?"on":""}" data-c="${k}"><i style="background:${v.c}"></i>${v.n}</button>`).join("");
   $("#eRep").innerHTML = Object.entries(EVREP).map(([k,v]) => `<button type="button" class="${k===evForm.rep?"on":""}" data-r="${k}">${v}</button>`).join("");
   $("#eAll").classList.toggle("on", evForm.all); $("#eTime").classList.toggle("hidden", evForm.all);
@@ -2499,7 +2418,31 @@ function untilUI(){
     : `${EVREP[evForm.rep]} do ${fmtD(u)} · razem ${countOcc()} ${countOcc()===1?"raz":"razy"}`;
 }
 $("#eUntil").addEventListener("change", untilUI);
-$("#eDate").addEventListener("change", untilUI);
+$("#eDate").addEventListener("change", () => { untilUI(); rangeUI(); });
+function rangeUI(){
+  $("#eRange").classList.toggle("on", !!evForm.range);
+  $("#eRangeBox").classList.toggle("hidden", !evForm.range);
+  if (!evForm.range) return;
+  const st = $("#eDate").value, en = $("#eEnd").value;
+  $("#eEnd").min = st ? addDays(st, 1) : "";
+  if (!en) { $("#eRangeSum").textContent = "Wybierz ostatni dzień"; return; }
+  if (en <= st) { $("#eRangeSum").textContent = "⚠ Ostatni dzień musi być po dniu rozpoczęcia"; return; }
+  const n = Math.round((parseDs(en) - parseDs(st)) / 864e5) + 1;
+  $("#eRangeSum").textContent = `${fmtD(st)} – ${fmtD(en)} · razem ${n} dni`;
+}
+$("#eRangeRow").addEventListener("click", () => {
+  evForm.range = !evForm.range;
+  if (evForm.range && !$("#eEnd").value && $("#eDate").value) $("#eEnd").value = addDays($("#eDate").value, 1);
+  rangeUI();
+});
+$("#eEnd").addEventListener("change", rangeUI);
+$("#eRangeQuick").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const st = $("#eDate").value || today(), k = b.dataset.rq;
+  if (k === "wk") { const d = parseDs(st), add = (7 - d.getDay()) % 7 || 7; $("#eEnd").value = addDays(st, add); }
+  else $("#eEnd").value = addDays(st, Number(k));
+  rangeUI();
+});
 $("#eUntilQuick").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
   const base = parseDs($("#eDate").value || today()), k = b.dataset.u;
@@ -2516,8 +2459,10 @@ $("#evForm").addEventListener("submit", e => {
   e.preventDefault();
   const title = $("#eTitle").value.trim(), date = $("#eDate").value; if (!title || !date) return;
   const until = evForm.rep ? ($("#eUntil").value || "") : "";
+  const end = evForm.range ? ($("#eEnd").value || "") : "";
+  if (evForm.range && (!end || end <= date)) { toast("Ustaw ostatni dzień po dacie rozpoczęcia"); return; }
   if (until && until < date) { toast("Data „do kiedy” musi być po dacie wydarzenia"); return; }
-  const data = { title, date, time: evForm.all ? "" : ($("#eTime").value || ""), cat: evForm.cat, repeat: evForm.rep, until,
+  const data = { title, date, time: evForm.all ? "" : ($("#eTime").value || ""), cat: evForm.cat, repeat: evForm.rep, until, end,
                  note: $("#eNote").value.trim(), updatedAt: serverTimestamp(), updatedBy: me };
   closeSheets();
   calSel = date; const d = parseDs(date); calMonth = new Date(d.getFullYear(), d.getMonth(), 1);
@@ -2534,10 +2479,10 @@ function icsText(e){
   const L = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//NaszDom//PL","CALSCALE:GREGORIAN","BEGIN:VEVENT",
     `UID:${e.id}@nasz-dom`, `DTSTAMP:${now}`, `SUMMARY:${z(e.title)}`];
   if (e.time) {
-    const [hh, mm] = e.time.split(":").map(Number), end = new Date(parseDs(e.date)); end.setHours(hh + 1, mm);
+    const [hh, mm] = e.time.split(":").map(Number), end = new Date(parseDs(addDays(e.date, spanDays(e)))); end.setHours(hh + 1, mm);
     L.push(`DTSTART:${d}T${pad(hh)}${pad(mm)}00`, `DTEND:${ds(end).replace(/-/g,"")}T${pad(end.getHours())}${pad(end.getMinutes())}00`);
   } else {
-    const n = parseDs(e.date); n.setDate(n.getDate()+1);
+    const n = parseDs(e.date); n.setDate(n.getDate() + 1 + spanDays(e));
     L.push(`DTSTART;VALUE=DATE:${d}`, `DTEND;VALUE=DATE:${ds(n).replace(/-/g,"")}`);
   }
   const F = { day:"DAILY", week:"WEEKLY", month:"MONTHLY", year:"YEARLY" }[e.repeat];
@@ -2616,8 +2561,14 @@ window.addEventListener("scroll", () => {
 
 /* =================== HISTORIA AKTUALIZACJI =================== */
 /* Przy każdej nowej wersji dopisujemy nowy wpis NA GÓRZE tej listy. */
-const APP_VERSION = "3.4";
+const APP_VERSION = "3.5";
 const CHANGELOG = [
+  { v:"3.5", d:"18.11.2026", t:"Zakres dat i wygodne zamykanie okienek", p:[
+    "Kalendarz: wydarzenia na kilka dni — przełącznik „Kilka dni”, data końca i szybkie przyciski (+1 dzień, +2 dni, do niedzieli, tydzień)",
+    "Wydarzenie z zakresem widać w każdym jego dniu w kalendarzyku, a na liście z oznaczeniem np. „27 maj – 30 maj · 4 dni” i „Trwa teraz”",
+    "Każde wysuwane okienko ma ✕ w prawym górnym rogu i zamyka się przeciągnięciem w dół",
+    "Usunięto „Wyjście z Diego”",
+    "Płynniejsze otwieranie i zamykanie okienek" ] },
   { v:"3.4", d:"18.11.2026", t:"Płynność", p:[
     "Szybsze przewijanie: lżejsze tła nagłówka i paska, animacje liczone przez kartę graficzną",
     "Lista odświeża się tylko, gdy coś się naprawdę zmieni — bez migania",
@@ -2789,6 +2740,42 @@ document.addEventListener("touchend", e => {
   if (navigator.vibrate) navigator.vibrate(6);
 }, { passive:true });
 let slideDir = "";
+
+/* =================== ARKUSZE: ✕ i zamykanie przeciągnięciem w dół =================== */
+const X_SVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+function sheetClose(){ pkgDraft = null; closeSheets(); }
+document.querySelectorAll(".sheet").forEach(sh => {
+  if (!sh.querySelector(".sh-x,.ms-x")) {
+    const b = document.createElement("button"); b.type = "button"; b.className = "sheet-x"; b.setAttribute("aria-label","Zamknij"); b.innerHTML = X_SVG;
+    b.addEventListener("click", sheetClose); sh.insertBefore(b, sh.firstChild);
+  }
+  let y0 = null, dy = 0, t0 = 0, drag = false;
+  sh.addEventListener("touchstart", e => {
+    const t = e.target, inner = t.closest(".st-list,textarea");
+    const onGrab = !!t.closest(".grab,.sh-head,.ms-head");
+    if (!onGrab && (sh.scrollTop > 0 || (inner && inner.scrollTop > 0) || t.closest("input,select"))) { y0 = null; return; }
+    y0 = e.touches[0].clientY; dy = 0; t0 = Date.now(); drag = false;
+  }, { passive:true });
+  sh.addEventListener("touchmove", e => {
+    if (y0 === null) return;
+    dy = e.touches[0].clientY - y0;
+    if (!drag && dy > 8) { drag = true; sh.style.transition = "none"; }
+    if (drag) {
+      const d = Math.max(0, dy - 8);
+      sh.style.transform = `translateY(${d}px)`;
+      $("#overlay").style.opacity = String(Math.max(.15, 1 - d / 420));
+    }
+  }, { passive:true });
+  sh.addEventListener("touchend", () => {
+    if (y0 === null) return; y0 = null;
+    if (!drag) return;
+    const v = dy / Math.max(1, Date.now() - t0);
+    sh.style.transition = ""; $("#overlay").style.opacity = "";
+    if (dy > 120 || v > .55) { sh.style.transform = ""; sheetClose(); }
+    else { requestAnimationFrame(() => sh.style.transform = ""); }
+    drag = false;
+  });
+});
 
 /* =================== DIALOG I TOAST =================== */
 function confirmDlg(title, text, yes="Usuń", no="Anuluj"){
