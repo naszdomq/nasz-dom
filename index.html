@@ -412,6 +412,57 @@
   .news{font-size:15.5px;color:var(--text)}
   .news li{margin-bottom:8px}
 
+  /* Paczki */
+  .title-row{display:flex;align-items:center;gap:10px}
+  .pkg-btn{position:relative;width:38px;height:38px;border-radius:12px;background:#ECEEF3;color:#8A8FA0;display:grid;place-items:center;flex-shrink:0;
+           transition:background .25s,color .25s,transform .1s}
+  .pkg-btn:active{transform:scale(.92)}
+  .pkg-btn.has{background:linear-gradient(140deg,#FBBF24,#D97706);color:#fff;box-shadow:0 4px 12px rgba(217,119,6,.35)}
+  .pkg-badge{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--danger);color:#fff;
+             font-size:11.5px;font-weight:800;display:grid;place-items:center;border:2px solid var(--bg)}
+  header.compact .pkg-btn{width:32px;height:32px}
+  header.compact .pkg-btn svg{width:18px;height:18px}
+  .sh-head{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+  .sh-head h3{margin:0!important;flex:1}
+  .sh-x,.sh-back{width:38px;height:38px;border-radius:50%;background:#F0F1F5;display:grid;place-items:center;flex-shrink:0}
+  #pkgSheet{min-height:55vh}
+  .pk-empty{text-align:center;padding:26px 10px 10px}
+  .pk-empty .ico{width:84px;height:84px;border-radius:26px;background:#ECFDF5;color:#16A34A;display:grid;place-items:center;margin:0 auto 16px}
+  .pk-empty b{display:block;font-size:19px;margin-bottom:6px}
+  .pk-empty p{color:var(--muted);margin:0 0 24px}
+  .pk-add{background:linear-gradient(140deg,#F59E0B,#D97706)!important;color:#fff;letter-spacing:.03em}
+  .pk{display:flex;gap:12px;align-items:flex-start;background:#FFFBF2;border:1px solid #FDE7C2;border-radius:16px;padding:10px;margin-bottom:10px;animation:pop .2s}
+  .pk.late{background:#FEF2F2;border-color:#FECACA}
+  .pk-th{width:64px;height:64px;border-radius:12px;background:#F0F1F5;flex-shrink:0;overflow:hidden;display:grid;place-items:center;color:var(--muted)}
+  .pk-th img{width:100%;height:100%;object-fit:cover}
+  .pk-b{flex:1;min-width:0}
+  .pk-b b{display:block;font-size:15px;line-height:1.3;white-space:pre-wrap;word-wrap:break-word}
+  .pk-b .due{display:inline-block;margin-top:6px;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;background:#FEF3C7;color:#B45309}
+  .pk-b .due.none{background:#F0F1F5;color:#6B7080}
+  .pk-b .due.late{background:var(--danger);color:#fff}
+  .pk-b small{display:block;font-size:11.5px;color:#9A9EAC;margin-top:6px}
+  .pk-acts{display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+  .pk-acts button{height:34px;padding:0 12px;border-radius:10px;font-weight:700;font-size:13px}
+  .pk-ok{background:#16A34A;color:#fff}
+  .pk-del{background:#F0F1F5;color:#6B7080}
+  .pk-done{opacity:.6}
+  .pk-done .pk{background:#F7F8FB;border-color:var(--line)}
+  .pk-pick{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;min-height:150px;border:2px dashed #D5D7DF;
+           border-radius:18px;background:#FAFAFC;color:var(--muted);font-weight:600;overflow:hidden;padding:0}
+  .pk-pick img{width:100%;max-height:260px;object-fit:contain;background:#F0F1F5}
+  .pk-pick .fname{padding:16px;color:var(--text)}
+  .q-big{font-size:20px;font-weight:800;text-align:center;margin:8px 0 18px;letter-spacing:.01em}
+  .due-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .due-opts button{height:64px;border-radius:16px;border:2px solid var(--line);background:#fff;font-weight:800;font-size:17px}
+  .due-opts button.on{border-color:#D97706;background:#FEF3E2;color:#B45309}
+  /* Ustawienia: link do aktualizacji */
+  .set-link{display:flex;align-items:center;gap:12px;width:100%;text-align:left;color:var(--text)}
+  .sl-ico{width:40px;height:40px;border-radius:12px;background:#F0F1F5;display:grid;place-items:center;font-size:18px;flex-shrink:0}
+  .sl-txt{flex:1;min-width:0}
+  .sl-txt b{display:block;font-size:16px}
+  .sl-txt small{display:block;color:var(--muted);font-size:13px}
+  .set-link > svg{color:var(--muted)}
+
   /* Przeciągnij, aby odświeżyć */
   #ptr{position:fixed;left:50%;top:calc(var(--safe-t) + 6px);z-index:40;width:42px;height:42px;margin-left:-21px;border-radius:50%;background:#fff;
        box-shadow:0 4px 14px rgba(0,0,0,.15);display:grid;place-items:center;color:var(--accent);transform:translateY(-70px);opacity:0;pointer-events:none}
@@ -557,7 +608,8 @@
     </div>
     <div class="hrow">
       <div style="min-width:0">
-        <h2 id="hTitle">Diego</h2>
+        <div class="title-row"><h2 id="hTitle">Diego</h2>
+          <button class="pkg-btn" id="pkgBtn" aria-label="Paczki do odbioru"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/><path d="M7.5 5.5l9 5"/></svg><span class="pkg-badge hidden" id="pkgBadge"></span></button></div>
         <div class="sub"><span class="sync-dot" id="syncDot"></span><span id="hSub"></span></div>
       </div>
       <div class="head-actions">
@@ -645,11 +697,11 @@
         <button class="btn danger" id="logoutBtn">Wyloguj z tego telefonu</button>
       </div>
     </div>
-    <div class="card">
-      <h4>Historia aktualizacji</h4>
-      <p class="desc">Co zmieniało się w aplikacji, od najnowszej wersji.</p>
-      <div id="changelog"></div>
-    </div>
+    <button class="card set-link" id="updOpen">
+      <span class="sl-ico">🔄</span>
+      <span class="sl-txt"><b>Aktualizacje</b><small id="updSub">Historia zmian w aplikacji</small></span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
     <div class="version" id="verLabel"></div>
   </main>
 
@@ -766,6 +818,22 @@
   <h3 id="bkTitle">Kopia</h3>
   <div id="bkBody"></div>
 </div>
+<!-- ========== ARKUSZ: AKTUALIZACJE ========== -->
+<div class="sheet" id="updSheet" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <div class="sh-head"><h3>Aktualizacje</h3><button class="sh-x" data-close aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <p class="desc" style="margin:-6px 0 10px">Stuknij wersję, aby zobaczyć, co się zmieniło.</p>
+  <div id="changelog"></div>
+</div>
+<!-- ========== ARKUSZ: PACZKI ========== -->
+<div class="sheet" id="pkgSheet" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <div class="sh-head"><button class="sh-back hidden" id="pkgBack" aria-label="Wstecz"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <h3 id="pkgTitle">Paczki do odbioru</h3><button class="sh-x" data-close aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div id="pkgBody"></div>
+  <input type="file" id="pkgFile" accept="image/*,application/pdf,.pdf" class="hidden">
+</div>
+
 <!-- ========== ARKUSZ: CO NOWEGO ========== -->
 <div class="sheet" id="newsSheet" role="dialog" aria-modal="true">
   <div class="grab"></div>
@@ -841,6 +909,7 @@ const ICON = {
 
 let items = [], profiles = {}, unsub = null, unsubProf = null, unsubPres = null, unsubFile = null;
 let infoStarted = false;
+const PKG_SVG = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/><path d="M7.5 5.5l9 5"/></svg>';
 const DOG_SVG = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8.3 6.4C6.6 5.3 4.2 5.9 3.7 8.3c-.5 2.3.5 4.6 2.2 5.3l1.7-2.1"/><path d="M15.7 6.4c1.7-1.1 4.1-.5 4.6 1.9.5 2.3-.5 4.6-2.2 5.3l-1.7-2.1"/><path d="M7.6 10.6c0-3 2-5 4.4-5s4.4 2 4.4 5v3.4c0 3.3-2 5.9-4.4 5.9s-4.4-2.6-4.4-5.9z"/><circle cx="10.1" cy="11.2" r=".9" fill="currentColor" stroke="none"/><circle cx="13.9" cy="11.2" r=".9" fill="currentColor" stroke="none"/><path d="M10.9 14.6h2.2L12 15.9z" fill="currentColor"/></svg>';
 let profilesResolve; const profilesReady = new Promise(r => profilesResolve = r);
 const OTHER = () => me === "Maciek" ? "Natalka" : "Maciek";
@@ -939,7 +1008,7 @@ function startApp(){
   ["diego","natalka","maciek","wspolne","kalendarz"].forEach(t => { if (!localStorage.getItem(seenKey(t))) markSeen(t); });
   setTab(tab);
   paintAvatars();
-  startPresence(); startEvents(); startFiles();
+  startPresence(); startEvents(); startFiles(); startPackages();
   if (!welcomeTried) { welcomeTried = true; welcomeSong(); }
   if (unsub) return;
   $("#tasksView").innerHTML = '<div class="loader"></div>';
@@ -953,6 +1022,7 @@ function startApp(){
 function stopSync(){
   if (unsub){ unsub(); unsub = null; } if (unsubProf){ unsubProf(); unsubProf = null; }
   if (unsubPres){ unsubPres(); unsubPres = null; } if (unsubFile){ unsubFile(); unsubFile = null; }
+  if (unsubPkg){ unsubPkg(); unsubPkg = null; } packages = []; paintPkgBtn();
   if (unsubEv){ unsubEv(); unsubEv = null; } events = [];
   clearInterval(hbTimer);
   items = []; backupChecked = false;
@@ -1132,7 +1202,7 @@ function openSheet(it){
   if (!it) setTimeout(() => $("#fTitle").focus(), 280);
 }
 function openLayer(sel){ $("#overlay").classList.add("show"); $(sel).classList.add("show"); }
-function closeSheets(){ ["#overlay","#sheet","#radioSheet","#evSheet","#monthSheet","#bkSheet","#newsSheet"].forEach(s => $(s).classList.remove("show")); document.activeElement?.blur(); }
+function closeSheets(){ ["#overlay","#sheet","#radioSheet","#evSheet","#monthSheet","#updSheet","#pkgSheet","#bkSheet","#newsSheet"].forEach(s => $(s).classList.remove("show")); document.activeElement?.blur(); }
 $("#fab").addEventListener("click", () => tab === "kalendarz" ? openEvSheet(null, today()) : openSheet(null));
 $("#overlay").addEventListener("click", closeSheets);
 $("#fCat").addEventListener("click", e => {
@@ -1447,6 +1517,7 @@ async function autoBackup(){
     for (const old of all.slice(30)) await deleteDoc(doc(db,"backups",old));
     const tr = await getDocs(collection(db,"trash"));
     tr.forEach(d => { if (Date.now() - (toDate(d.data().deletedAt)?.getTime() || Date.now()) > 30 * 864e5) deleteDoc(d.ref).catch(() => {}); });
+    packages.filter(p => p.picked && Date.now() - (toDate(p.pickedAt)?.getTime() || Date.now()) > 30 * 864e5).forEach(removePkg);
   } catch (e) { console.warn("Kopia:", e); }
 }
 function bkLabel(id){
@@ -1671,21 +1742,25 @@ async function getGrafik(){
 }
 /* --- przeglądarka: zdjęcie z powiększaniem, PDF strona po stronie --- */
 let vZoom = 1, vUrl = null;
-async function openViewer(){
-  if (!fileMeta) { toast("Nie ma jeszcze wgranego grafiku"); return; }
+/* Uniwersalny podgląd: name/sub = podpis, load = funkcja zwracająca { blob } */
+async function showFile(name, sub, type, load){
   const v = $("#viewer"), body = $("#vBody");
-  $("#vName").textContent = fileMeta.name; $("#vSub").textContent = `Wgrany ${fmtWhen(toDate(fileMeta.uploadedAt))} · ${fileMeta.uploadedBy || ""}`;
+  $("#vName").textContent = name; $("#vSub").textContent = sub;
   body.innerHTML = '<div class="loader" style="border-top-color:#fff;border-color:rgba(255,255,255,.2)"></div>';
   v.classList.add("show"); history.pushState({ viewer:1 }, "");
   vZoom = 1; setZoom(1);
-  const f = await getGrafik();
+  const f = await load();
   if (!f) { body.innerHTML = '<p class="v-msg">Nie udało się pobrać pliku. Sprawdź internet.</p>'; return; }
   if (vUrl) URL.revokeObjectURL(vUrl); vUrl = URL.createObjectURL(f.blob);
-  const t = fileMeta.type || "";
-  if (t.startsWith("image/")) body.innerHTML = `<img src="${vUrl}" alt="Grafik" class="v-page">`;
-  else if (t === "application/pdf" || /\.pdf$/i.test(fileMeta.name)) renderPdf(f.blob, body);
-  else body.innerHTML = `<div class="v-msg"><b>${esc(fileMeta.name)}</b><br>Tego typu pliku nie da się pokazać w aplikacji.<br><br>
-      <a class="btn" style="background:#fff;color:#14161F;display:inline-flex;width:auto;padding:14px 22px;text-decoration:none" href="${vUrl}" download="${esc(fileMeta.name)}">Otwórz / pobierz plik</a></div>`;
+  const t = type || f.blob.type || "";
+  if (t.startsWith("image/")) body.innerHTML = `<img src="${vUrl}" alt="" class="v-page">`;
+  else if (t === "application/pdf" || /\.pdf$/i.test(name)) renderPdf(f.blob, body);
+  else body.innerHTML = `<div class="v-msg"><b>${esc(name)}</b><br>Tego typu pliku nie da się pokazać w aplikacji.<br><br>
+      <a class="btn" style="background:#fff;color:#14161F;display:inline-flex;width:auto;padding:14px 22px;text-decoration:none" href="${vUrl}" download="${esc(name)}">Otwórz / pobierz plik</a></div>`;
+}
+async function openViewer(){
+  if (!fileMeta) { toast("Nie ma jeszcze wgranego grafiku"); return; }
+  showFile(fileMeta.name, `Wgrany ${fmtWhen(toDate(fileMeta.uploadedAt))} · ${fileMeta.uploadedBy || ""}`, fileMeta.type, getGrafik);
 }
 async function renderPdf(blob, body){
   try {
@@ -1727,6 +1802,155 @@ $("#vBody").addEventListener("click", e => {
   lastTap = Date.now();
 });
 window.addEventListener("popstate", () => closeViewer(true));
+
+/* =================== PACZKI DO ODBIORU =================== */
+let packages = [], unsubPkg = null, showPicked = false, pkgDraft = null;
+function startPackages(){
+  if (unsubPkg) return;
+  unsubPkg = onSnapshot(collection(db,"packages"), s => {
+    packages = s.docs.map(d => ({ id:d.id, ...d.data({ serverTimestamps:"estimate" }) }));
+    paintPkgBtn();
+    if ($("#pkgSheet").classList.contains("show") && !pkgDraft) renderPkgList();
+  }, () => {});
+}
+const openPk = () => packages.filter(p => !p.picked).sort((a,b) => (a.due || "9999").localeCompare(b.due || "9999"));
+function paintPkgBtn(){
+  const n = openPk().length, b = $("#pkgBtn"), badge = $("#pkgBadge");
+  b.classList.toggle("has", n > 0); badge.textContent = n; badge.classList.toggle("hidden", !n);
+  b.setAttribute("aria-label", n ? `Paczki do odbioru: ${n}` : "Paczki — wszystkie odebrane");
+}
+function dueChip(p){
+  if (!p.due) return `<span class="due none">Termin: nie wiem</span>`;
+  const r = relDay(p.due), late = p.due < today();
+  return `<span class="due ${late ? "late" : ""}">Do ${fmtD(p.due)} · ${late ? "termin minął!" : r.toLowerCase()}</span>`;
+}
+function pkgCard(p, done){
+  const th = p.img ? `<img src="${p.img}" alt="">` : p.file ? `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>` : PKG_SVG;
+  return `<div class="pk ${!done && p.due && p.due < today() ? "late" : ""}">
+    <button class="pk-th" data-pkv="${p.id}" aria-label="Pokaż zdjęcie">${th}</button>
+    <div class="pk-b"><b>${esc(p.desc || "Paczka")}</b>${done ? "" : dueChip(p)}
+      <small>${done ? `Odebrał(a): ${esc(p.pickedBy||"")}, ${fmtWhen(toDate(p.pickedAt))}` : `Dodał(a): ${esc(p.createdBy||"")}, ${fmtWhen(toDate(p.createdAt))}`}</small></div>
+    ${done ? "" : `<div class="pk-acts"><button class="pk-ok" data-pko="${p.id}">✓ Odebrana</button><button class="pk-del" data-pkd="${p.id}">Usuń</button></div>`}
+  </div>`;
+}
+function renderPkgList(){
+  pkgDraft = null; $("#pkgBack").classList.add("hidden"); $("#pkgTitle").textContent = "Paczki do odbioru";
+  const open = openPk(), picked = packages.filter(p => p.picked).sort((a,b) => (toDate(b.pickedAt)||0) - (toDate(a.pickedAt)||0)).slice(0, 10);
+  let h = open.length ? open.map(p => pkgCard(p)).join("") :
+    `<div class="pk-empty"><div class="ico"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/><path d="M9.5 15.5l1.8 1.8 3.5-3.5" stroke-width="2.4"/></svg></div>
+      <b>Wszystkie paczki są odebrane</b><p>Gdy coś zamówicie, dodajcie tu paczkę, żeby nie przepadła.</p></div>`;
+  h += `<button class="btn pk-add" data-pk="add" style="margin-top:6px">＋ DODAJ PACZKĘ DO ODBIORU</button>`;
+  if (picked.length) {
+    h += `<button class="past-toggle" data-pk="picked"><span>Ostatnio odebrane (${picked.length})</span><span>${showPicked ? "Ukryj" : "Pokaż"}</span></button>`;
+    if (showPicked) h += `<div class="pk-done">${picked.map(p => pkgCard(p, true)).join("")}</div>`;
+  }
+  $("#pkgBody").innerHTML = h;
+}
+/* --- dodawanie: krok 1 zdjęcie + opis, krok 2 termin --- */
+function pkgStep1(){
+  pkgDraft = pkgDraft || { file:null, preview:null, desc:"", due:"", mode:"" };
+  $("#pkgBack").classList.remove("hidden"); $("#pkgTitle").textContent = "Nowa paczka";
+  const d = pkgDraft;
+  $("#pkgBody").innerHTML = `
+    <button class="pk-pick" data-pk="file">${d.preview ? `<img src="${d.preview}" alt="">` : d.file ? `<span class="fname">📄 ${esc(d.file.name)}</span>` :
+      `<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="15" rx="3"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 5l1.5-2h5L16 5"/></svg>
+       Dodaj zdjęcie lub plik<small style="font-weight:500">np. zrzut ekranu z kodem odbioru</small>`}</button>
+    <label class="lbl" style="font-size:13px;font-weight:600;color:var(--muted);display:block;margin:16px 0 6px;text-transform:uppercase;letter-spacing:.04em">Opis</label>
+    <textarea class="field" id="pkDesc" rows="3" maxlength="400" placeholder="np. InPost, paczkomat WAW123, kod 123456">${esc(d.desc)}</textarea>
+    <div class="sheet-actions"><button class="btn pk-add" data-pk="next">Dalej</button></div>`;
+}
+function pkgStep2(){
+  const d = pkgDraft; $("#pkgTitle").textContent = "Nowa paczka";
+  $("#pkgBody").innerHTML = `
+    <div class="q-big">DO KIEDY PACZKA DO ODBIORU?</div>
+    <div class="due-opts"><button data-pk="nowiem" class="${d.mode==="none"?"on":""}">NIE WIEM</button><button data-pk="do" class="${d.mode==="date"?"on":""}">DO:</button></div>
+    <div id="pkDateBox" class="${d.mode==="date" ? "" : "hidden"}" style="margin-top:14px">
+      <input class="field" type="date" id="pkDate" min="${today()}" value="${d.due || ""}" style="font-size:18px;text-align:center"></div>
+    <div class="sheet-actions"><button class="btn pk-add" data-pk="save" ${d.mode ? "" : "disabled"}>Zapisz paczkę</button></div>`;
+}
+async function compressImg(file){
+  const url = URL.createObjectURL(file);
+  const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+  for (const [max, q] of [[1600,.82],[1280,.75],[1024,.7],[800,.65]]) {
+    const k = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+    const c = document.createElement("canvas"); c.width = Math.round(img.naturalWidth*k); c.height = Math.round(img.naturalHeight*k);
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+    const data = c.toDataURL("image/jpeg", q);
+    if (data.length < 750000) { URL.revokeObjectURL(url); return data; }
+  }
+  URL.revokeObjectURL(url); throw new Error("za duże");
+}
+$("#pkgBtn").addEventListener("click", () => { renderPkgList(); openLayer("#pkgSheet"); });
+$("#pkgBack").addEventListener("click", () => { if ($("#pkDate")) pkgStep1(); else renderPkgList(); });
+$("#pkgFile").addEventListener("change", async e => {
+  const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  if (f.size > 15 * 1048576) { toast("Plik jest za duży (maks. 15 MB)"); return; }
+  pkgDraft.desc = $("#pkDesc")?.value || pkgDraft.desc;
+  pkgDraft.file = f;
+  pkgDraft.preview = f.type.startsWith("image/") ? await compressImg(f).catch(() => null) : null;
+  pkgStep1();
+});
+$("#pkgBody").addEventListener("click", async e => {
+  const v = e.target.closest("[data-pkv]");
+  if (v) { const p = packages.find(x => x.id === v.dataset.pkv); if (p) viewPkg(p); return; }
+  const ok = e.target.closest("[data-pko]");
+  if (ok) { if (navigator.vibrate) navigator.vibrate(12);
+    updateDoc(doc(db,"packages",ok.dataset.pko), { picked:true, pickedBy:me, pickedAt:serverTimestamp() }).catch(() => toast("Nie udało się zapisać"));
+    toast("Paczka odebrana ✓"); return; }
+  const del = e.target.closest("[data-pkd]");
+  if (del) { const p = packages.find(x => x.id === del.dataset.pkd);
+    if (p && await confirmDlg("Usunąć paczkę?", `„${p.desc || "Paczka"}” zniknie z listy.`)) removePkg(p);
+    return; }
+  const b = e.target.closest("[data-pk]"); if (!b) return;
+  const a = b.dataset.pk;
+  if (a === "add") { pkgDraft = null; pkgStep1(); }
+  else if (a === "picked") { showPicked = !showPicked; renderPkgList(); }
+  else if (a === "file") { pkgDraft.desc = $("#pkDesc").value; $("#pkgFile").click(); }
+  else if (a === "next") {
+    pkgDraft.desc = $("#pkDesc").value.trim();
+    if (!pkgDraft.desc && !pkgDraft.file) { toast("Dodaj zdjęcie albo opis paczki"); return; }
+    pkgStep2();
+  }
+  else if (a === "nowiem") { pkgDraft.mode = "none"; pkgDraft.due = ""; pkgStep2(); }
+  else if (a === "do") {
+    pkgDraft.mode = "date"; pkgStep2();
+    const inp = $("#pkDate"); inp.focus(); try { inp.showPicker?.(); } catch {}
+  }
+  else if (a === "save") savePkg();
+});
+$("#pkgBody").addEventListener("change", e => { if (e.target.id === "pkDate") pkgDraft.due = e.target.value; });
+async function savePkg(){
+  const d = pkgDraft;
+  if (d.mode === "date") { d.due = $("#pkDate").value; if (!d.due) { toast("Wybierz datę w kalendarzu"); return; } }
+  const btn = $("#pkgBody [data-pk=save]"); btn.disabled = true; btn.textContent = "Zapisywanie…";
+  try {
+    const ref = doc(collection(db,"packages"));
+    let file = null;
+    if (d.file && !d.preview) {           // PDF lub inny plik — w kawałkach, jak grafik
+      const buf = new Uint8Array(await d.file.arrayBuffer()), id = ref.id, n = Math.ceil(buf.length / CHUNK);
+      for (let i = 0; i < n; i++) await setDoc(doc(db,"pkgChunks",`${id}_${i}`), { id, i, data: Bytes.fromUint8Array(buf.subarray(i*CHUNK, (i+1)*CHUNK)) });
+      file = { name: d.file.name, type: d.file.type || "application/pdf", chunks: n, size: buf.length };
+    }
+    await setDoc(ref, { desc: d.desc, img: d.preview || null, file, due: d.mode === "date" ? d.due : "", picked:false,
+                        createdBy: me, createdAt: serverTimestamp() });
+    toast("Paczka dodana 📦"); pkgDraft = null; renderPkgList();
+  } catch (err) { console.error(err); toast("Nie udało się zapisać paczki"); btn.disabled = false; btn.textContent = "Zapisz paczkę"; }
+}
+async function removePkg(p){
+  await deleteDoc(doc(db,"packages",p.id)).catch(() => {});
+  for (let i = 0; i < (p.file?.chunks || 0); i++) deleteDoc(doc(db,"pkgChunks",`${p.id}_${i}`)).catch(() => {});
+  toast("Usunięto paczkę");
+}
+function viewPkg(p){
+  const sub = (p.due ? `Odbiór do ${fmtD(p.due)}` : "Termin nieznany") + ` · ${p.createdBy || ""}`;
+  if (p.img) showFile(p.desc || "Paczka", sub, "image/jpeg", async () => ({ blob: await (await fetch(p.img)).blob() }));
+  else if (p.file) showFile(p.file.name, sub, p.file.type, async () => {
+    const parts = [];
+    for (let i = 0; i < p.file.chunks; i++) { const d = await getDoc(doc(db,"pkgChunks",`${p.id}_${i}`)); if (!d.exists()) return null; parts.push(d.data().data.toUint8Array()); }
+    return { blob: new Blob(parts, { type: p.file.type }) };
+  });
+  else toast("Ta paczka nie ma zdjęcia");
+}
 
 /* =================== KALENDARZ (wspólny) =================== */
 const EVC = {
@@ -2098,8 +2322,13 @@ window.addEventListener("scroll", () => $("header")?.classList.toggle("compact",
 
 /* =================== HISTORIA AKTUALIZACJI =================== */
 /* Przy każdej nowej wersji dopisujemy nowy wpis NA GÓRZE tej listy. */
-const APP_VERSION = "2.8";
+const APP_VERSION = "2.9";
 const CHANGELOG = [
+  { v:"2.9", d:"18.11.2026", t:"Paczki do odbioru", p:[
+    "Ikonka paczki obok nazwy zakładki — szara, gdy wszystko odebrane; kolorowa z liczbą, gdy czekają paczki",
+    "Dodawanie paczki: zdjęcie lub plik (np. zrzut z kodem), opis i termin odbioru („Nie wiem” albo data z kalendarza)",
+    "Przycisk „Odebrana” przenosi paczkę do „Ostatnio odebranych”; przeterminowane paczki podświetlają się na czerwono",
+    "Historia aktualizacji przeniesiona do osobnej sekcji „Aktualizacje” w Ustawieniach" ] },
   { v:"2.8", d:"17.11.2026", t:"Bardziej zwarte listy i kolory w kalendarzu", p:[
     "Mniejsze, zwarte karty zadań — na ekranie mieści się więcej pozycji",
     "Nowe, mniejsze pole odhaczania (zaokrąglony kwadrat z animowanym ptaszkiem)",
@@ -2144,7 +2373,8 @@ const CHANGELOG = [
 ];
 function renderChangelog(){
   $("#verLabel").textContent = `Nasz Dom · wersja ${APP_VERSION}`;
-  $("#changelog").innerHTML = CHANGELOG.map((c, i) => `<details class="cl-v" ${i === 0 ? "open" : ""}>
+  $("#updSub").textContent = `Aktualna wersja ${APP_VERSION} · ${CHANGELOG.length} aktualizacji`;
+  $("#changelog").innerHTML = CHANGELOG.map((c, i) => `<details class="cl-v">
     <summary><span class="vtag ${i === 0 ? "cur" : ""}">v${c.v}</span><b>${esc(c.t)}</b><small>${c.d}</small></summary>
     <ul>${c.p.map(x => `<li>${esc(x)}</li>`).join("")}</ul></details>`).join("");
 }
@@ -2159,6 +2389,8 @@ function whatsNew(){
   setTimeout(() => openLayer("#newsSheet"), 700);
 }
 $("#newsOk").addEventListener("click", closeSheets);
+document.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click", () => { pkgDraft = null; closeSheets(); }));
+$("#updOpen").addEventListener("click", () => { renderChangelog(); openLayer("#updSheet"); });
 
 /* =================== DIALOG I TOAST =================== */
 function confirmDlg(title, text, yes="Usuń"){
