@@ -86,7 +86,7 @@
   /* ---------- Nagłówek ---------- */
   header{position:sticky;top:0;z-index:20;background:rgba(244,245,249,.9);backdrop-filter:saturate(180%) blur(14px);
          -webkit-backdrop-filter:saturate(180%) blur(14px);padding:calc(14px + var(--safe-t)) 16px 12px}
-  .hrow{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:8px;padding:0 4px}
+  .hrow{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(min-content,1fr);align-items:center;gap:10px;padding:0 4px}
   .hrow .head-actions{justify-self:end}
   header h2{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   header .sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -163,10 +163,14 @@
   .msgbanner small{display:block;color:#C9CCD6;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .msgbanner .mb-open{background:#fff;color:#14161F;font-weight:700;padding:10px 14px;border-radius:12px;flex-shrink:0}
   .msgbanner .mb-x{color:#9CA3AF;width:30px;height:30px;display:grid;place-items:center;flex-shrink:0}
-  header h2{margin:0;font-size:28px;letter-spacing:-.025em;line-height:1.1}
+  header h2{margin:0;font-size:clamp(22px,7vw,28px);letter-spacing:-.025em;line-height:1.1}
   header .sub{color:var(--muted);font-size:14px;margin-top:3px}
-  .head-actions{display:flex;align-items:center;gap:10px}
-  .round-btn{width:42px;height:42px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--muted)}
+  .head-actions{display:flex;align-items:center;gap:8px}
+  .sub-row{padding:0 4px;margin-top:2px}
+  /* W Kalendarzu kalendarzyk zajmuje miejsce przycisku odświeżania (odświeżysz gestem w dół lub w Ustawieniach) */
+  #refreshBtn{transition:width .38s cubic-bezier(.2,.8,.2,1),margin .38s cubic-bezier(.2,.8,.2,1),opacity .25s,transform .38s;overflow:hidden}
+  body[data-tab="kalendarz"] #refreshBtn{width:0;margin-left:-8px;opacity:0;transform:scale(.6);pointer-events:none}
+  .round-btn{width:40px;height:40px;border-radius:50%;background:var(--card);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--muted)}
   .round-btn.spin svg{animation:spin .7s linear infinite}
   .sync-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-right:6px;vertical-align:1px}
   .sync-dot.off{background:#F59E0B}
@@ -300,11 +304,15 @@
   .seg.colors button i{width:10px;height:10px;border-radius:50%}
   .seg.colors button.on{background:#fff;border-color:var(--c);color:var(--c)}
   /* Ikona kalendarzyka w nagłówku */
-  .cal-btn{width:44px;height:44px;border-radius:12px;background:#fff;box-shadow:0 3px 10px rgba(13,148,136,.25);overflow:hidden;
-           display:flex;flex-direction:column;border:1.5px solid #0D9488;animation:pop .3s}
+  .cal-btn{width:0;height:42px;border-radius:12px;background:#fff;overflow:hidden;flex-shrink:0;
+           display:flex;flex-direction:column;border:0 solid #0D9488;opacity:0;margin-right:-8px;transform:scale(.6);pointer-events:none;
+           transition:width .38s cubic-bezier(.2,.8,.2,1),margin .38s cubic-bezier(.2,.8,.2,1),opacity .25s,transform .38s cubic-bezier(.3,1.4,.5,1),box-shadow .3s}
+  .cal-btn.show{width:42px;margin-right:0;opacity:1;transform:none;border-width:1.5px;pointer-events:auto;box-shadow:0 3px 10px rgba(13,148,136,.25)}
   .cal-btn .cb-m{background:#0D9488;color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.06em;line-height:14px;text-align:center}
   .cal-btn .cb-d{flex:1;display:grid;place-items:center;font-size:19px;font-weight:800;color:#14161F;line-height:1}
-  header.compact .cal-btn{width:38px;height:38px}
+  header.compact .cal-btn{height:36px}
+  header.compact .cal-btn.show{width:36px}
+  header.compact .cal-btn .cb-d{font-size:16px}
   /* Lista kalendarza */
   .cl-month{font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;margin:22px 4px 10px;display:flex;align-items:center;gap:10px}
   .cl-month::after{content:"";flex:1;height:1.5px;background:var(--accent-soft)}
@@ -417,7 +425,7 @@
 
   /* Paczki */
   .title-row{display:flex;align-items:center;gap:10px}
-  .pkg-btn{position:relative;width:52px;height:52px;border-radius:16px;background:#E9EBF1;color:#8A8FA0;display:grid;place-items:center;flex-shrink:0;
+  .pkg-btn{position:relative;width:50px;height:50px;border-radius:16px;background:#E9EBF1;color:#8A8FA0;display:grid;place-items:center;flex-shrink:0;
            box-shadow:inset 0 0 0 1px rgba(20,22,31,.04);
            transition:background .25s,color .25s,transform .1s}
   .pkg-btn:active{transform:scale(.92)}
@@ -481,6 +489,15 @@
   .wed-txt small{display:block;color:#8B80A8;font-size:12.5px;margin-top:4px;text-transform:capitalize}
   /* Płynne przejście między zakładkami */
   main.fadein{animation:fadeUp .22s ease}
+  main.slide-l{animation:slideL .26s cubic-bezier(.2,.8,.2,1)}
+  main.slide-r{animation:slideR .26s cubic-bezier(.2,.8,.2,1)}
+  @keyframes slideL{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+  @keyframes slideR{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+  #hSub.greet{color:var(--accent);font-weight:700;animation:fadeUp .35s ease}
+  #hSub.subfade{animation:fadeUp .35s ease}
+  /* przesunięcie wskaźnika aktywnej zakładki */
+  nav button .pill{transition:background .25s,transform .25s}
+  nav button.active .pill{transform:translateY(-1px)}
   @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
   /* Przeciągnij, aby odświeżyć */
@@ -630,15 +647,15 @@
       <div style="min-width:0">
         <div class="title-row"><h2 id="hTitle">Diego</h2>
           </div>
-        <div class="sub"><span class="sync-dot" id="syncDot"></span><span id="hSub"></span></div>
       </div>
       <button class="pkg-btn" id="pkgBtn" aria-label="Paczki do odbioru"><svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/><path d="M7.5 5.5l9 5"/></svg><span class="pkg-badge hidden" id="pkgBadge"></span></button>
       <div class="head-actions">
-        <button class="cal-btn hidden" id="calBtn" aria-label="Otwórz kalendarz miesięczny"><span class="cb-m" id="cbM"></span><span class="cb-d" id="cbD"></span></button>
+        <button class="cal-btn" id="calBtn" aria-label="Otwórz kalendarz miesięczny"><span class="cb-m" id="cbM"></span><span class="cb-d" id="cbD"></span></button>
         <button class="round-btn" id="refreshBtn" aria-label="Odśwież"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
         <button id="meBtn" aria-label="Ustawienia profilu"></button>
       </div>
     </div>
+    <div class="sub sub-row"><span class="sync-dot" id="syncDot"></span><span id="hSub"></span></div>
     <div class="pbar">
       <div class="pchip" data-pres="Natalka"></div>
       <div class="pchip" data-pres="Maciek"></div>
@@ -1034,6 +1051,7 @@ function startApp(){
   show("scrApp");
   localStorage.setItem("lastWho", me);
   whatsNew();
+  if (!sessionStorage.getItem("greeted")) { sessionStorage.setItem("greeted", "1"); setTimeout(greet, 250); }
   ["diego","natalka","maciek","wspolne","kalendarz"].forEach(t => { if (!localStorage.getItem(seenKey(t))) markSeen(t); });
   setTab(tab);
   paintAvatars();
@@ -1073,12 +1091,13 @@ function setTab(t){
   $("#settingsView").classList.toggle("hidden", !isSet);
   $("#calView").classList.toggle("hidden", !isCal);
   $("#fab").classList.toggle("hidden", isSet);
-  $("#calBtn").classList.toggle("hidden", !isCal);
+  $("#calBtn").classList.toggle("show", isCal);
   if (isCal) { calFilter = ""; sortOpen = false; calLimit = 40; }
   if (isCal) { const d = new Date(); $("#cbM").textContent = ["STY","LUT","MAR","KWI","MAJ","CZE","LIP","SIE","WRZ","PAŹ","LIS","GRU"][d.getMonth()]; $("#cbD").textContent = d.getDate(); }
   showDone = false;
   const view = isSet ? $("#settingsView") : isCal ? $("#calView") : $("#tasksView");
-  view.classList.remove("fadein"); void view.offsetWidth; view.classList.add("fadein");
+  view.classList.remove("fadein","slide-l","slide-r"); void view.offsetWidth;
+  view.classList.add(slideDir ? "slide-" + slideDir : "fadein"); slideDir = "";
   if (isSet) renderSettings();
   render();
 }
@@ -1132,7 +1151,7 @@ function render(){
     const n = bt === tab ? 0 : src.filter(i => i.createdBy && i.createdBy !== me && (toDate(i.createdAt)?.getTime() || 0) > seen).length;
     badge.textContent = n > 99 ? "99+" : n; badge.classList.toggle("hidden", !n);
   });
-  if (tab === "ustawienia") { $("#hSub").textContent = "Profil, muzyka, kopie zapasowe"; return; }
+  if (tab === "ustawienia") { setSub("Profil, muzyka, kopie zapasowe"); return; }
   if (tab === "kalendarz") { renderCalendar(); return; }
 
   const mine = items.filter(i => i.tab === tab);
@@ -1142,7 +1161,7 @@ function render(){
   const rest   = open.filter(i => i.priority !== "high").sort(byDate);
   const done   = mine.filter(i => i.done).sort((a,b) => (toDate(b.doneAt)||0) - (toDate(a.doneAt)||0));
 
-  $("#hSub").textContent = open.length ? `${open.length} do zrobienia` : "Wszystko zrobione";
+  setSub(open.length ? `${open.length} do zrobienia` : "Wszystko zrobione");
 
   let h = tab === "maciek" ? grafikBar() : tab === "wspolne" ? weddingCard() : "";
   h += `<section class="pinned">
@@ -2110,7 +2129,7 @@ function renderCalendar(){
   const stat = { d: up.filter(x => x.d === t).length, j: up.filter(x => x.d === tm).length, w: up.filter(x => x.d <= wk).length };
   const past = evs.filter(e => !e.repeat && e.date < t).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 30);
   const nEv = new Set(up.map(x => x.e.id)).size;
-  $("#hSub").textContent = up.length ? `${nEv} ${nEv===1?"wydarzenie":"wydarzeń"} w planie${calFilter ? " · " + FILTERS[calFilter] : " · wszystkie"}` : "Wspólny kalendarz";
+  setSub(up.length ? `${nEv} ${nEv===1?"wydarzenie":(nEv%10>=2&&nEv%10<=4&&(nEv%100<12||nEv%100>14))?"wydarzenia":"wydarzeń"}${calFilter ? " · " + FILTERS[calFilter] : ""}` : "Wspólny kalendarz");
   const fc = calFilter ? EVC[calFilter].c : "#14161F";
   let h = `<div class="cl-tools" style="--fc:${fc}">
       <button class="sort-btn ${calFilter ? "active" : ""}" data-cal="sort">
@@ -2360,8 +2379,13 @@ window.addEventListener("scroll", () => $("header")?.classList.toggle("compact",
 
 /* =================== HISTORIA AKTUALIZACJI =================== */
 /* Przy każdej nowej wersji dopisujemy nowy wpis NA GÓRZE tej listy. */
-const APP_VERSION = "3.0";
+const APP_VERSION = "3.1";
 const CHANGELOG = [
+  { v:"3.1", d:"18.11.2026", t:"Płynniej i wygodniej", p:[
+    "Nagłówek: w Kalendarzu ikonka paczki płynnie przesuwa się w lewo i robi miejsce kalendarzykowi — nic już na siebie nie nachodzi",
+    "Przesuwanie palcem w lewo/prawo przełącza zakładki (jak w aplikacjach na telefonie)",
+    "Krótkie powitanie po otwarciu aplikacji, zależne od pory dnia",
+    "Podpis pod tytułem w osobnej linii — nic się nie ucina; w Kalendarzu przycisk odświeżania ustępuje miejsca kalendarzykowi (odświeżasz gestem w dół)" ] },
   { v:"3.0", d:"18.11.2026", t:"Paczki dopracowane, odliczanie do ślubu", p:[
     "Ikonka paczki większa i na środku nagłówka; delikatnie pulsuje, gdy czekają paczki",
     "Przycisk „Odebrana” w jasnym, pastelowym zielonym",
@@ -2482,6 +2506,35 @@ function weddingSettings(){
 }
 $("#wedDate").addEventListener("change", e => setDoc(doc(db,"info","wedding"), { ...wedding, date: e.target.value }).then(() => toast("Zapisano datę ślubu 💍")));
 $("#wedRow").addEventListener("click", () => setDoc(doc(db,"info","wedding"), { ...wedding, show: !(wedding.show !== false) }));
+
+/* =================== POWITANIE (na chwilę w podtytule) =================== */
+let greetUntil = 0, subLast = "";
+function setSub(t){ subLast = t; if (Date.now() < greetUntil) return; const el = $("#hSub"); if (el.textContent !== t) el.textContent = t; }
+function greet(){
+  const h = new Date().getHours();
+  const [w, e] = h >= 5 && h < 11 ? ["Dzień dobry", "☀️"] : h < 18 && h >= 11 ? ["Cześć", "👋"] : h >= 18 && h < 23 ? ["Dobry wieczór", "🌙"] : ["Dobranoc", "✨"];
+  const el = $("#hSub"); greetUntil = Date.now() + 3800;
+  el.textContent = `${w}, ${me} ${e}`; el.classList.add("greet");
+  setTimeout(() => { greetUntil = 0; el.classList.remove("greet"); el.classList.add("subfade"); el.textContent = subLast; setTimeout(() => el.classList.remove("subfade"), 400); }, 3800);
+}
+
+/* =================== PRZESUWANIE PALCEM MIĘDZY ZAKŁADKAMI =================== */
+const ORDER = ["diego","natalka","maciek","wspolne","ustawienia","kalendarz"];
+let swS = null;
+document.addEventListener("touchstart", e => {
+  const t = e.target;
+  swS = ($("#scrApp").classList.contains("hidden") || t.closest(".sheet,.viewer,.dialog,nav,header,input,textarea,#calCard,.sort-menu")) ? null
+        : { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now() };
+}, { passive:true });
+document.addEventListener("touchend", e => {
+  if (!swS || busy()) { swS = null; return; }
+  const dx = e.changedTouches[0].clientX - swS.x, dy = e.changedTouches[0].clientY - swS.y, dt = Date.now() - swS.t; swS = null;
+  if (Math.abs(dx) < 70 || Math.abs(dy) > Math.abs(dx) * .6 || dt > 600) return;
+  const i = ORDER.indexOf(tab), n = ORDER[i + (dx < 0 ? 1 : -1)]; if (!n) return;
+  slideDir = dx < 0 ? "l" : "r"; setTab(n); window.scrollTo({ top:0 });
+  if (navigator.vibrate) navigator.vibrate(6);
+}, { passive:true });
+let slideDir = "";
 
 /* =================== DIALOG I TOAST =================== */
 function confirmDlg(title, text, yes="Usuń", no="Anuluj"){
