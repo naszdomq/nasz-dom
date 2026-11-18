@@ -366,6 +366,7 @@
   #monthSheet .cd{height:58px}
   #monthSheet .cd .n{width:36px;height:36px;font-size:17px}
   #evSheet{z-index:61}
+  #bkSheet{z-index:62}
   /* Mały dymek wiadomości */
   .msgpop{position:fixed;left:50%;top:calc(var(--safe-t) + 10px);z-index:95;transform:translate(-50%,-90px);max-width:calc(100% - 40px);
           background:rgba(20,22,31,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;border-radius:999px;
@@ -400,6 +401,8 @@
 
   /* Kopie: podgląd */
   .bk-acts{display:flex;gap:6px;flex-shrink:0}
+  #bkList{max-height:none}
+  #backupSheet .file-pill{margin-top:0;display:block;line-height:1.45}
   .bk-sum{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
   .bk-sum div{background:#F4F5F9;border-radius:12px;text-align:center;padding:8px 2px}
   .bk-sum b{display:block;font-size:19px}
@@ -499,6 +502,56 @@
   nav button .pill{transition:background .25s,transform .25s}
   nav button.active .pill{transform:translateY(-1px)}
   @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* Diego: wyjścia */
+  .walk{background:var(--card);border-radius:20px;box-shadow:var(--shadow);margin:2px 0 14px;overflow:hidden}
+  .walk-main{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 12px 12px 12px}
+  .walk-main:active{background:#FFF7ED}
+  .walk-ico{width:48px;height:48px;border-radius:15px;background:linear-gradient(140deg,#FDE68A,#F59E0B);display:grid;place-items:center;font-size:25px;flex-shrink:0;
+            box-shadow:0 4px 12px rgba(245,158,11,.3)}
+  .walk-t{flex:1;min-width:0}
+  .walk-t b{display:block;font-size:16px}
+  .walk-t small{display:block;font-size:12.5px;color:var(--muted);margin-top:1px}
+  .walk-t strong{color:var(--text);font-weight:700}
+  .walk-last{font-size:12px;font-weight:800;padding:5px 9px;border-radius:999px;flex-shrink:0;white-space:nowrap}
+  .walk-plus{width:38px;height:38px;border-radius:50%;background:#D97706;color:#fff;display:grid;place-items:center;flex-shrink:0;box-shadow:0 3px 10px rgba(217,119,6,.35)}
+  .walk-foot{display:flex;align-items:center;gap:8px;padding:8px 14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+  .walk-foot b{color:var(--text)}
+  .walk-foot button{margin-left:auto;font-size:13px;font-weight:700;color:#B45309}
+  .wpill{font-size:12px;font-weight:800;padding:2px 8px;border-radius:999px}
+  .ask-dog{font-size:46px;text-align:center;margin-top:-10px;animation:wag .9s ease-in-out infinite;transform-origin:50% 90%}
+  @keyframes wag{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+  .ask-q{text-align:center;font-size:24px;font-weight:900;letter-spacing:.03em;margin:8px 0 22px}
+  .ask-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px}
+  .ask-opts button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;height:138px;border-radius:24px;transition:transform .1s}
+  .ask-opts button:active{transform:scale(.95)}
+  .ask-opts span{font-size:40px;line-height:1}
+  .ask-opts b{font-size:17px;font-weight:900;letter-spacing:.06em}
+  .ask-siku{background:#E0F2FE;color:#0369A1;border:2px solid #BAE6FD}
+  .ask-komplet{background:#FEF3C7;color:#92400E;border:2px solid #FDE68A}
+  .wh-day{display:flex;justify-content:space-between;align-items:center;margin:16px 4px 6px;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+  .wh-day em{font-style:normal}
+  .wh-row{align-items:center!important}
+  .wh-tag{font-size:12.5px;font-weight:800;padding:3px 10px;border-radius:999px;flex-shrink:0}
+  .dl-x{margin-left:6px;color:#B9BDC9;font-size:13px;padding:0 4px}
+  /* Lista zakupów */
+  .shop-card{display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin:0 0 14px;padding:12px 14px;border-radius:18px;color:#fff;
+             background:linear-gradient(135deg,#14B8A6,#0D9488);box-shadow:0 8px 20px rgba(13,148,136,.25);position:relative}
+  .shop-card:active{transform:scale(.985)}
+  .shop-ico{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.2);display:grid;place-items:center;font-size:21px;flex-shrink:0}
+  .shop-card .gf-txt b{letter-spacing:.1em}
+  .shop-n{position:absolute;top:-6px;left:44px;min-width:22px;height:22px;border-radius:999px;background:var(--danger);color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center;border:2px solid var(--bg);padding:0 5px}
+  .sh-row{display:flex;align-items:center;gap:4px;border-bottom:1px solid var(--line);min-height:48px}
+  .sh-row .check{width:40px;min-height:40px}
+  .sh-n{flex:1;font-size:16px;font-weight:500}
+  .sh-row small{font-size:11px;color:#A3A7B5}
+  .sh-del{width:34px;height:34px;color:#B9BDC9}
+  .sh-row.done .sh-n{text-decoration:line-through;color:var(--muted)}
+  .sh-row.done .check span{background:#16A34A;border-color:#16A34A}
+  .sh-row.done .check span svg{opacity:1;transform:scale(1)}
+  .sug{display:flex;flex-wrap:wrap;gap:8px}
+  .sug button{padding:8px 12px;border-radius:999px;background:#E0F5F2;color:#0F766E;font-weight:600;font-size:14px}
+  .shop-clear{font-size:12px;font-weight:700;color:#0F766E;text-transform:none;letter-spacing:0}
 
   /* Przeciągnij, aby odświeżyć */
   #ptr{position:fixed;left:50%;top:calc(var(--safe-t) + 6px);z-index:40;width:42px;height:42px;margin-left:-21px;border-radius:50%;background:#fff;
@@ -713,26 +766,16 @@
       <input type="file" id="gfFile" accept="image/*,application/pdf,.pdf,.doc,.docx,.xls,.xlsx" class="hidden">
     </div>
 
-    <div class="card">
-      <h4>Kosz — ostatnio usunięte</h4>
-      <p class="desc">Usunięte wpisy i wydarzenia czekają tu 30 dni. Jednym stuknięciem przywrócisz je na miejsce.</p>
-      <div id="trashList"><div class="loader"></div></div>
-    </div>
-
-    <div class="card">
-      <h4>Kopie zapasowe</h4>
-      <p class="desc">Kopia całej bazy robi się <b>sama</b> co najmniej raz dziennie i dodatkowo przed każdym przywracaniem. Trzymamy 30 ostatnich. W każdej chwili możesz zrobić własną kopię lub zapisać ją jako plik na telefonie.</p>
-      <div class="file-pill" id="bkLast" style="margin-bottom:12px">Ostatnia kopia: sprawdzam…</div>
-      <div id="bkList"><div class="loader"></div></div>
-      <div class="stack" style="margin-top:12px">
-        <button class="btn soft" id="bkNow">Zrób kopię teraz</button>
-        <div class="two">
-          <button class="btn soft" id="bkExport">Zapisz plik</button>
-          <button class="btn soft" id="bkImport">Wczytaj plik</button>
-        </div>
-      </div>
-      <input type="file" id="bkFile" accept=".json,application/json" class="hidden">
-    </div>
+    <button class="card set-link" id="bkOpen">
+      <span class="sl-ico">💾</span>
+      <span class="sl-txt"><b>Kopie zapasowe</b><small id="bkLinkSub">Automatyczne i ręczne kopie całej bazy</small></span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+    <button class="card set-link" id="trOpen">
+      <span class="sl-ico">🗑️</span>
+      <span class="sl-txt"><b>Kosz</b><small id="trLinkSub">Usunięte wpisy — do przywrócenia przez 30 dni</small></span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
 
     <div class="card">
       <h4>Aplikacja</h4>
@@ -864,6 +907,60 @@
   <h3 id="bkTitle">Kopia</h3>
   <div id="bkBody"></div>
 </div>
+<!-- ========== ARKUSZ: KOPIE ZAPASOWE ========== -->
+<div class="sheet" id="backupSheet" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <div class="sh-head"><h3>Kopie zapasowe</h3><button class="sh-x" data-close aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <p class="desc">Kopia całej bazy robi się <b>sama</b> co najmniej raz dziennie i dodatkowo przed każdym przywracaniem. Trzymamy 30 ostatnich. W każdej chwili możesz zrobić własną kopię lub zapisać ją jako plik na telefonie.</p>
+      <div class="file-pill" id="bkLast" style="margin-bottom:12px">Ostatnia kopia: sprawdzam…</div>
+      <div id="bkList"><div class="loader"></div></div>
+      <div class="stack" style="margin-top:12px">
+        <button class="btn soft" id="bkNow">Zrób kopię teraz</button>
+        <div class="two">
+          <button class="btn soft" id="bkExport">Zapisz plik</button>
+          <button class="btn soft" id="bkImport">Wczytaj plik</button>
+        </div>
+      </div>
+      <input type="file" id="bkFile" accept=".json,application/json" class="hidden">
+
+</div>
+<!-- ========== ARKUSZ: KOSZ ========== -->
+<div class="sheet" id="trashSheet" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <div class="sh-head"><h3>Kosz</h3><button class="sh-x" data-close aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <p class="desc">Usunięte wpisy i wydarzenia czekają tu 30 dni. Jednym stuknięciem przywrócisz je na miejsce.</p>
+      <div id="trashList"><div class="loader"></div></div>
+
+</div>
+
+<!-- ========== ARKUSZ: LISTA ZAKUPÓW ========== -->
+<div class="sheet" id="shopSheet" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <div class="sh-head"><h3>🛒 Lista zakupów</h3><button class="sh-x" data-close aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <form id="shopForm" class="row" style="margin-bottom:12px">
+    <input class="field" id="shopIn" placeholder="Dopisz, np. mleko" autocomplete="off" enterkeyhint="done" maxlength="80">
+    <button class="icon-btn" type="submit" style="background:#0D9488;color:#fff" aria-label="Dodaj"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+  </form>
+  <div id="shopList"></div>
+</div>
+<!-- ========== PYTANIE: CO BYŁO GRANE? ========== -->
+<div class="sheet" id="walkAsk" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <div class="sh-head"><h3>&nbsp;</h3><button class="sh-x" data-close aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="ask-dog">🐕</div>
+  <div class="ask-q">CO BYŁO GRANE?</div>
+  <div class="ask-opts">
+    <button data-res="siku" class="ask-siku"><span>💧</span><b>SIKU</b></button>
+    <button data-res="komplet" class="ask-komplet"><span>💧💩</span><b>KOMPLECIK</b></button>
+  </div>
+</div>
+<!-- ========== ARKUSZ: HISTORIA DIEGO ========== -->
+<div class="sheet" id="dlogSheet" role="dialog" aria-modal="true">
+  <div class="grab"></div>
+  <div class="sh-head"><h3>🐾 Wyjścia z Diego</h3><button class="sh-x" data-close aria-label="Zamknij"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div id="dlogBody"></div>
+</div>
+
 <!-- ========== ARKUSZ: AKTUALIZACJE ========== -->
 <div class="sheet" id="updSheet" role="dialog" aria-modal="true">
   <div class="grab"></div>
@@ -1055,7 +1152,7 @@ function startApp(){
   ["diego","natalka","maciek","wspolne","kalendarz"].forEach(t => { if (!localStorage.getItem(seenKey(t))) markSeen(t); });
   setTab(tab);
   paintAvatars();
-  startPresence(); startEvents(); startFiles(); startPackages(); if (!infoStarted) { infoStarted = true; startWedding(); }
+  startPresence(); startEvents(); startFiles(); startPackages(); startDlog(); startShop(); if (!infoStarted) { infoStarted = true; startWedding(); }
   if (!welcomeTried) { welcomeTried = true; welcomeSong(); }
   if (unsub) return;
   $("#tasksView").innerHTML = '<div class="loader"></div>';
@@ -1070,6 +1167,7 @@ function stopSync(){
   if (unsub){ unsub(); unsub = null; } if (unsubProf){ unsubProf(); unsubProf = null; }
   if (unsubPres){ unsubPres(); unsubPres = null; } if (unsubFile){ unsubFile(); unsubFile = null; }
   if (unsubPkg){ unsubPkg(); unsubPkg = null; } packages = []; paintPkgBtn();
+  if (unsubDlog){ unsubDlog(); unsubDlog = null; } if (unsubShop){ unsubShop(); unsubShop = null; }
   if (unsubEv){ unsubEv(); unsubEv = null; } events = [];
   clearInterval(hbTimer);
   items = []; backupChecked = false;
@@ -1163,7 +1261,7 @@ function render(){
 
   setSub(open.length ? `${open.length} do zrobienia` : "Wszystko zrobione");
 
-  let h = tab === "maciek" ? grafikBar() : tab === "wspolne" ? weddingCard() : "";
+  let h = tab === "maciek" ? grafikBar() : tab === "wspolne" ? weddingCard() + shopCard() : tab === "diego" ? diegoLogBar() : "";
   h += `<section class="pinned">
       <div class="pinned-h"><span>${ICON.starOn.replace('width="24" height="24"','width="18" height="18"')} NAJWAŻNIEJSZE</span>${pinned.length ? `<b>${pinned.length}</b>` : ""}</div>
       ${pinned.length ? `<div class="list">${pinned.map(card).join("")}</div>`
@@ -1209,6 +1307,9 @@ function card(i){
   </div>`;
 }
 $("#tasksView").addEventListener("click", e => {
+  const dl = e.target.closest("[data-dlog]");
+  if (dl) { dl.dataset.dlog === "hist" ? openDlogHist() : addDlog(); return; }
+  if (e.target.closest("[data-shop]")) { openShop(); return; }
   if (e.target.closest("[data-grafik]")) { fileMeta ? openViewer() : (setTab("ustawienia"), toast("Wgraj grafik w sekcji „Grafik Maćka”")); return; }
   const t = e.target.closest("[data-act]"); if (!t) return;
   if (t.dataset.act === "donetoggle") { showDone = !showDone; render(); return; }
@@ -1255,7 +1356,7 @@ function openSheet(it){
   if (!it) setTimeout(() => $("#fTitle").focus(), 280);
 }
 function openLayer(sel){ $("#overlay").classList.add("show"); $(sel).classList.add("show"); }
-function closeSheets(){ ["#overlay","#sheet","#radioSheet","#evSheet","#monthSheet","#updSheet","#pkgSheet","#bkSheet","#newsSheet"].forEach(s => $(s).classList.remove("show")); document.activeElement?.blur(); }
+function closeSheets(){ ["#overlay","#sheet","#walkAsk","#backupSheet","#trashSheet","#shopSheet","#dlogSheet","#radioSheet","#evSheet","#monthSheet","#updSheet","#pkgSheet","#bkSheet","#newsSheet"].forEach(s => $(s).classList.remove("show")); document.activeElement?.blur(); }
 $("#fab").addEventListener("click", () => tab === "kalendarz" ? openEvSheet(null, today()) : openSheet(null));
 $("#overlay").addEventListener("click", closeSheets);
 $("#fCat").addEventListener("click", e => {
@@ -1542,7 +1643,8 @@ async function loadTrash(){
   try {
     const list = (await getDocs(collection(db,"trash"))).docs.map(d => ({ id:d.id, ...d.data() }))
       .sort((a,b) => (toDate(b.deletedAt)||0) - (toDate(a.deletedAt)||0));
-    $("#trashList").innerHTML = list.length ? list.slice(0,15).map(t => `
+    $("#trLinkSub").textContent = list.length ? `${list.length} ${list.length===1?"pozycja":"pozycji"} do przywrócenia` : "Kosz jest pusty";
+    $("#trashList").innerHTML = list.length ? list.map(t => `
       <div class="bk-row"><div style="min-width:0"><b style="display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(t.title)}</b>
       <small>${t.col === "events" ? "Kalendarz" : (TABS[JSON.parse(t.data).tab]?.name || "Wpis")} · usunął(a) ${esc(t.deletedBy||"?")}, ${fmtWhen(toDate(t.deletedAt))}</small></div>
       <button data-tr="${esc(t.id)}">Przywróć</button></div>`).join("") : '<p class="desc" style="margin:0">Kosz jest pusty.</p>';
@@ -1571,6 +1673,7 @@ async function autoBackup(){
     const tr = await getDocs(collection(db,"trash"));
     tr.forEach(d => { if (Date.now() - (toDate(d.data().deletedAt)?.getTime() || Date.now()) > 30 * 864e5) deleteDoc(d.ref).catch(() => {}); });
     packages.filter(p => p.picked && Date.now() - (toDate(p.pickedAt)?.getTime() || Date.now()) > 30 * 864e5).forEach(removePkg);
+    dlogs.filter(l => Date.now() - (toDate(l.at)?.getTime() || Date.now()) > 60 * 864e5).forEach(l => deleteDoc(doc(db,"diegoLog",l.id)).catch(() => {}));
   } catch (e) { console.warn("Kopia:", e); }
 }
 function bkLabel(id){
@@ -1584,9 +1687,10 @@ async function loadBackups(){
     const list = (await getDocs(collection(db,"backups"))).docs.map(d => ({ id:d.id, ...d.data() })).sort((a,b) => b.id.localeCompare(a.id));
     const last = list.map(b => toDate(b.createdAt)).filter(Boolean).sort((a,b) => b - a)[0];
     $("#bkLast").innerHTML = last ? `✅ Ostatnia kopia: <b>${fmtWhen(last)}</b> · zapisanych kopii: ${list.length}` : "Pierwsza kopia utworzy się automatycznie dziś.";
-    $("#bkList").innerHTML = list.length ? list.slice(0,10).map(b => `
+    $("#bkLinkSub").textContent = last ? `Ostatnia: ${fmtWhen(last)} · ${list.length} ${list.length===1?"kopia":(list.length%10>=2&&list.length%10<=4&&(list.length%100<12||list.length%100>14))?"kopie":"kopii"}` : "Pierwsza kopia utworzy się dziś";
+    $("#bkList").innerHTML = list.length ? list.map(b => `
       <div class="bk-row"><div><b>${esc(bkLabel(b.id))}</b><small>${b.count} wpisów · ${esc(b.by||"")}</small></div>
-      <span class="bk-acts"><button data-bkv="${esc(b.id)}">Podgląd</button><button data-bk="${esc(b.id)}">Przywróć</button></span></div>`).join("") + (list.length > 10 ? `<p class="desc" style="margin:8px 0 0">…i ${list.length-10} starszych</p>` : "")
+      <span class="bk-acts"><button data-bkv="${esc(b.id)}">Podgląd</button><button data-bk="${esc(b.id)}">Przywróć</button></span></div>`).join("")
       : '<p class="desc">Pierwsza kopia utworzy się automatycznie dziś.</p>';
   } catch { $("#bkList").innerHTML = '<p class="desc">Nie udało się wczytać listy kopii.</p>'; }
 }
@@ -2009,6 +2113,125 @@ function viewPkg(p){
   else toast("Ta paczka nie ma zdjęcia");
 }
 
+/* =================== DIEGO: WYJŚCIA =================== */
+/* Stuknięcie „Wyjście z Diego” → pytanie „Co było grane?” → Siku albo Komplecik. Oboje widzicie, kiedy był ostatnio. */
+const RES = { siku:{ ico:"💧", n:"Siku", c:"#0284C7", bg:"#E0F2FE" }, komplet:{ ico:"💩", n:"Komplecik", c:"#92400E", bg:"#FEF3C7" } };
+let dlogs = [], unsubDlog = null;
+function startDlog(){
+  if (unsubDlog) return;
+  unsubDlog = onSnapshot(collection(db,"diegoLog"), s => {
+    dlogs = s.docs.map(d => ({ id:d.id, ...d.data({ serverTimestamps:"estimate" }) }))
+              .filter(l => l.type === "walk").sort((a,b) => (toDate(b.at)||0) - (toDate(a.at)||0));
+    if (tab === "diego") render();
+    if ($("#dlogSheet").classList.contains("show")) openDlogHist();
+  }, () => {});
+}
+function agoTxt(d){
+  if (!d) return "";
+  const m = Math.floor((Date.now() - d) / 60000);
+  if (m < 1) return "przed chwilą"; if (m < 60) return `${m} min temu`;
+  const h = Math.floor(m / 60); if (h < 12) return `${h} godz.${m % 60 ? " " + (m % 60) + " min" : ""} temu`;
+  return fmtWhen(d);
+}
+function diegoLogBar(){
+  const t0 = new Date(); t0.setHours(0,0,0,0);
+  const last = dlogs[0], d = toDate(last?.at), r = RES[last?.res];
+  const todays = dlogs.filter(l => (toDate(l.at)||0) >= t0);
+  const nS = todays.filter(l => l.res === "siku").length, nK = todays.filter(l => l.res === "komplet").length;
+  return `<div class="walk">
+    <button class="walk-main" data-dlog="walk">
+      <span class="walk-ico">🦮</span>
+      <span class="walk-t"><b>Wyjście z Diego</b>
+        <small>${last ? `Ostatnio <strong>${agoTxt(d)}</strong> · ${esc(last.by||"")}` : "Stuknij, gdy wrócicie ze spaceru"}</small></span>
+      ${r ? `<span class="walk-last" style="background:${r.bg};color:${r.c}">${r.ico} ${r.n}</span>` : ""}
+      <span class="walk-plus"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+    </button>
+    <div class="walk-foot">
+      <span>Dziś: <b>${todays.length}</b> ${todays.length===1?"wyjście":(todays.length%10>=2&&todays.length%10<=4&&(todays.length%100<12||todays.length%100>14))?"wyjścia":"wyjść"}</span>
+      ${nS ? `<span class="wpill" style="background:${RES.siku.bg};color:${RES.siku.c}">💧 ${nS}</span>` : ""}
+      ${nK ? `<span class="wpill" style="background:${RES.komplet.bg};color:${RES.komplet.c}">💩 ${nK}</span>` : ""}
+      <button data-dlog="hist">Historia ›</button>
+    </div></div>`;
+}
+function addDlog(){
+  if (navigator.vibrate) navigator.vibrate(10);
+  openLayer("#walkAsk");
+}
+$("#walkAsk").addEventListener("click", e => {
+  const b = e.target.closest("[data-res]"); if (!b) return;
+  const res = b.dataset.res; closeSheets();
+  if (navigator.vibrate) navigator.vibrate([15,30,15]);
+  const ref = doc(collection(db,"diegoLog"));
+  setDoc(ref, { type:"walk", res, by: me, at: serverTimestamp() }).catch(() => toast("Nie udało się zapisać"));
+  toast(`${RES[res].ico} Zapisano: ${RES[res].n.toLowerCase()}`, { label:"Cofnij", fn: () => deleteDoc(ref) });
+});
+function openDlogHist(){
+  const byDay = {};
+  dlogs.slice(0, 80).forEach(l => { const d = toDate(l.at); if (!d) return; (byDay[ds(d)] = byDay[ds(d)] || []).push(l); });
+  $("#dlogBody").innerHTML = Object.keys(byDay).length ? Object.entries(byDay).map(([day, ls]) => {
+    const rd = relDay(day), lbl = rd === "Dziś" || rd === "Wczoraj" ? rd : `${WD[parseDs(day).getDay()]}, ${fmtD(day)}`;
+    return `<div class="wh-day"><span>${lbl}</span><em>${ls.length}×</em></div>
+    <div class="bk-items">${ls.map(l => { const r = RES[l.res] || RES.siku; return `<div class="wh-row">
+      <span class="wh-tag" style="background:${r.bg};color:${r.c}">${r.ico} ${r.n}</span><span>${esc(l.by||"")}</span>
+      <em>${toDate(l.at).toLocaleTimeString("pl-PL",{hour:"2-digit",minute:"2-digit"})}</em>
+      <button class="dl-x" data-dlx="${l.id}" aria-label="Usuń">✕</button></div>`; }).join("")}</div>`; }).join("")
+    : '<p class="desc">Jeszcze nic nie zapisano. Stuknij „Wyjście z Diego” w zakładce Diego.</p>';
+  if (!$("#dlogSheet").classList.contains("show")) openLayer("#dlogSheet");
+}
+$("#dlogBody").addEventListener("click", e => { const x = e.target.closest("[data-dlx]"); if (x) deleteDoc(doc(db,"diegoLog",x.dataset.dlx)).catch(() => {}); });
+
+/* =================== WSPÓLNA LISTA ZAKUPÓW (zakładka N+M) =================== */
+let shop = [], unsubShop = null;
+function startShop(){
+  if (unsubShop) return;
+  unsubShop = onSnapshot(collection(db,"shopping"), s => {
+    shop = s.docs.map(d => ({ id:d.id, ...d.data({ serverTimestamps:"estimate" }) }));
+    if (tab === "wspolne") render();
+    if ($("#shopSheet").classList.contains("show")) renderShop();
+  }, () => {});
+}
+function shopCard(){
+  const open = shop.filter(i => !i.done);
+  return `<button class="shop-card" data-shop="1"><span class="shop-ico">🛒</span>
+    <span class="gf-txt"><b>LISTA ZAKUPÓW</b><small>${open.length ? open.slice(0,3).map(i => esc(i.name)).join(", ") + (open.length > 3 ? ` i ${open.length-3} więcej` : "") : "Wszystko kupione — dopisz, czego brakuje"}</small></span>
+    ${open.length ? `<span class="shop-n">${open.length}</span>` : ""}<span class="gf-go" style="background:#fff;color:#0F766E">Otwórz ›</span></button>`;
+}
+function renderShop(){
+  const open = shop.filter(i => !i.done).sort((a,b) => (toDate(b.at)||0) - (toDate(a.at)||0));
+  const doneAll = shop.filter(i => i.done).sort((a,b) => (toDate(b.doneAt)||0) - (toDate(a.doneAt)||0));
+  const done = doneAll.filter(i => !i.cleared);
+  // Podpowiedzi: rzeczy kupowane wcześniej, których teraz nie ma na liście
+  const openNames = new Set(open.map(i => i.name.toLowerCase()));
+  const sug = [...new Set(doneAll.map(i => i.name))].filter(n => !openNames.has(n.toLowerCase())).slice(0, 10);
+  $("#shopList").innerHTML =
+    (open.length ? open.map(i => shopRow(i)).join("") : `<p class="desc" style="text-align:center;padding:14px 0">Lista jest pusta 🎉</p>`) +
+    (sug.length ? `<div class="section-h" style="margin:16px 2px 8px">Szybko dodaj ponownie</div><div class="sug">${sug.map(n => `<button data-sug="${esc(n)}">＋ ${esc(n)}</button>`).join("")}</div>` : "") +
+    (done.length ? `<div class="section-h" style="margin:18px 2px 8px;display:flex;justify-content:space-between"><span>Kupione · ${done.length}</span><button class="shop-clear" data-clear="1">Wyczyść kupione</button></div>${done.slice(0, 15).map(i => shopRow(i)).join("")}` : "");
+}
+function shopRow(i){
+  return `<div class="sh-row ${i.done ? "done" : ""}"><button class="check" data-sh="${i.id}"><span>${ICON.check}</span></button>
+    <span class="sh-n">${esc(i.name)}</span><small>${esc(i.by||"")}</small><button class="sh-del" data-shd="${i.id}" aria-label="Usuń">✕</button></div>`;
+}
+function openShop(){ renderShop(); openLayer("#shopSheet"); }
+function addShop(name){
+  name = name.trim(); if (!name) return;
+  const ex = shop.find(i => i.name.toLowerCase() === name.toLowerCase());
+  if (ex && !ex.done) { toast("To już jest na liście"); return; }
+  if (ex) updateDoc(doc(db,"shopping",ex.id), { done:false, by:me, at:serverTimestamp(), doneAt:null });
+  else addDoc(collection(db,"shopping"), { name, done:false, by:me, at:serverTimestamp(), doneAt:null });
+  if (navigator.vibrate) navigator.vibrate(8);
+}
+$("#shopForm").addEventListener("submit", e => { e.preventDefault(); addShop($("#shopIn").value); $("#shopIn").value = ""; $("#shopIn").focus(); });
+$("#shopList").addEventListener("click", e => {
+  const c = e.target.closest("[data-sh]"), d = e.target.closest("[data-shd]"), g = e.target.closest("[data-sug]"), cl = e.target.closest("[data-clear]");
+  if (c) { const i = shop.find(x => x.id === c.dataset.sh); if (navigator.vibrate) navigator.vibrate(10);
+           updateDoc(doc(db,"shopping",i.id), { done: !i.done, doneAt: !i.done ? serverTimestamp() : null, doneBy: me }); }
+  else if (d) deleteDoc(doc(db,"shopping",d.dataset.shd));
+  else if (g) addShop(g.dataset.sug);
+  else if (cl) { const b = writeBatch(db); shop.filter(i => i.done).forEach(i => b.update(doc(db,"shopping",i.id), { cleared:true }));
+                 /* zostawiamy nazwy jako podpowiedzi, ale chowamy z listy */ b.commit(); }
+});
+
 /* =================== KALENDARZ (wspólny) =================== */
 const EVC = {
   diego:   { n:"Diego",   c:"#D97706", bg:"#FFF6EC" },
@@ -2379,8 +2602,18 @@ window.addEventListener("scroll", () => $("header")?.classList.toggle("compact",
 
 /* =================== HISTORIA AKTUALIZACJI =================== */
 /* Przy każdej nowej wersji dopisujemy nowy wpis NA GÓRZE tej listy. */
-const APP_VERSION = "3.1";
+const APP_VERSION = "3.3";
 const CHANGELOG = [
+  { v:"3.3", d:"18.11.2026", t:"Wyjścia z Diego", p:[
+    "Zamiast „Spacer” i „Karmienie” jest jeden przycisk „Wyjście z Diego”",
+    "Po stuknięciu pytanie „Co było grane?” — SIKU albo KOMPLECIK",
+    "Na karcie widać, kiedy i z kim było ostatnie wyjście, oraz dzisiejsze liczniki 💧 i 💩",
+    "Historia wyjść z podziałem na dni i kolorowymi oznaczeniami" ] },
+  { v:"3.2", d:"18.11.2026", t:"Lista zakupów i dziennik Diego", p:[
+    "Wspólna lista zakupów w zakładce N+M — dopisujecie i odhaczacie na żywo, z podpowiedziami „kup ponownie”",
+    "Diego: przyciski „Spacer” i „Karmienie” — jedno stuknięcie zapisuje, oboje widzicie, kiedy było ostatnio i kto",
+    "Historia spacerów i karmienia z podziałem na dni",
+    "Kopie zapasowe i Kosz przeniesione do osobnych sekcji w Ustawieniach — mniej chaosu" ] },
   { v:"3.1", d:"18.11.2026", t:"Płynniej i wygodniej", p:[
     "Nagłówek: w Kalendarzu ikonka paczki płynnie przesuwa się w lewo i robi miejsce kalendarzykowi — nic już na siebie nie nachodzi",
     "Przesuwanie palcem w lewo/prawo przełącza zakładki (jak w aplikacjach na telefonie)",
@@ -2461,6 +2694,8 @@ function whatsNew(){
 $("#newsOk").addEventListener("click", closeSheets);
 document.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click", () => { pkgDraft = null; closeSheets(); }));
 $("#updOpen").addEventListener("click", () => { renderChangelog(); openLayer("#updSheet"); });
+$("#bkOpen").addEventListener("click", () => { loadBackups(); openLayer("#backupSheet"); });
+$("#trOpen").addEventListener("click", () => { loadTrash(); openLayer("#trashSheet"); });
 
 /* =================== KONFETTI (gdy w zakładce wszystko zrobione) =================== */
 function confetti(){
